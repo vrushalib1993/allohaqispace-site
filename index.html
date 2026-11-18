@@ -36,7 +36,9 @@ section{padding:110px 0;position:relative}
 
 /* NAV */
 nav.top{position:fixed;inset:0 0 auto;z-index:50;transition:background .35s,box-shadow .35s,padding .35s;padding:22px 0}
-nav.top.solid{background:rgba(247,243,234,.88);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(0,0,0,.06);padding:12px 0}
+nav.top::before{content:"";position:absolute;inset:0;z-index:-1;background:rgba(247,243,234,.88);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(0,0,0,.06);opacity:0;transition:opacity .35s}
+nav.top.solid::before{opacity:1}
+nav.top.solid{padding:12px 0}
 nav .wrap{display:flex;align-items:center;justify-content:space-between}
 .logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;font-family:Fraunces,serif;font-size:1.3rem;color:#fff;transition:color .3s}
 nav.solid .logo{color:var(--ink)}
@@ -169,6 +171,43 @@ body.menu-open .burger span:nth-child(3){top:20px;transform:rotate(-45deg)}
 @keyframes spin{to{transform:rotate(360deg)}}
 .vids{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
 
+/* SOUNDS */
+.sounds{background:linear-gradient(180deg,var(--ink) 0%,#0b1a17 100%);color:#fff;padding-bottom:140px}
+.sounds .eyebrow{color:var(--gold-l)}
+.sounds .sec-head p{color:rgba(255,255,255,.65)}
+.sgroup{font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);margin:2.4rem 0 1rem;display:flex;align-items:center;gap:1rem}
+.sgroup::after{content:"";flex:1;height:1px;background:rgba(255,255,255,.1)}
+.tracks{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+.track{background:var(--ink-2);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:1.4rem;display:flex;gap:1.1rem;align-items:center;cursor:pointer;transition:border-color .3s,background .3s,transform .3s;text-align:left;color:#fff;font:inherit;width:100%;overflow:hidden}
+.track:hover{border-color:rgba(230,201,139,.4);transform:translateY(-3px)}
+.track.playing{border-color:var(--gold);background:linear-gradient(135deg,rgba(200,155,74,.16),var(--ink-2))}
+.tbtn{flex:none;width:58px;height:58px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f3dfb2,var(--gold) 50%,#7c5a1f);display:grid;place-items:center;position:relative;box-shadow:0 0 24px -4px rgba(200,155,74,.6)}
+.tbtn svg{width:20px;fill:#1b1407}
+.tbtn::before,.tbtn::after{content:"";position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--gold-l);opacity:0}
+.track.playing .tbtn::before{animation:radiate 2.4s ease-out infinite}
+.track.playing .tbtn::after{animation:radiate 2.4s ease-out 1.2s infinite}
+.tmeta{min-width:0}
+.tmeta small{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-l)}
+.tmeta h4{font-family:Fraunces,serif;font-weight:400;font-size:1.15rem;line-height:1.25;margin:.15rem 0 .25rem}
+.tmeta p{font-size:.84rem;color:rgba(255,255,255,.55);line-height:1.45}
+.tmeta .dur{font-size:.75rem;color:rgba(255,255,255,.4);margin-top:.35rem;display:block}
+.sempty{border:1.5px dashed rgba(255,255,255,.15);border-radius:var(--r);padding:1.6rem;color:rgba(255,255,255,.55);font-size:.92rem;grid-column:1/-1}
+/* mini player */
+.player{position:fixed;left:50%;bottom:20px;transform:translate(-50%,160%);z-index:70;width:min(720px,calc(100vw - 110px));background:rgba(15,35,33,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(230,201,139,.25);border-radius:22px;padding:.8rem 1rem;display:flex;align-items:center;gap:.9rem;color:#fff;box-shadow:0 20px 50px -20px rgba(0,0,0,.6);transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+.player.on{transform:translate(-50%,0)}
+.wa-float{transition:transform .3s,bottom .45s}
+body.playing-bar .wa-float{bottom:100px}
+.pbtn{flex:none;width:44px;height:44px;border-radius:50%;border:0;background:var(--gold);cursor:pointer;display:grid;place-items:center}
+.pbtn svg{width:16px;fill:#1b1407}
+.pinfo{flex:1;min-width:0}
+.pinfo b{display:block;font-family:Fraunces,serif;font-weight:400;font-size:1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pbar{display:flex;align-items:center;gap:.6rem;font-size:.72rem;color:rgba(255,255,255,.55);margin-top:.25rem}
+.pbar input[type=range]{flex:1;accent-color:var(--gold);height:4px}
+.pctl{display:flex;gap:.35rem;flex:none}
+.picon{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:none;color:#fff;cursor:pointer;font-size:.8rem;display:grid;place-items:center;font-family:inherit}
+.picon.on{background:var(--gold);color:#1b1407;border-color:var(--gold)}
+.ptimer{min-width:52px;width:auto;padding:0 .7rem;border-radius:999px}
+
 /* TESTIMONIAL */
 .testi{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
 .tcard{background:var(--paper);border-radius:28px;padding:3rem;box-shadow:var(--shadow);position:relative}
@@ -260,8 +299,11 @@ footer nav a:hover{color:var(--gold-l)}
   .benefits{grid-template-columns:1fr 1fr}
   .grid-p{grid-template-columns:1fr 1fr}
   .blog-grid{grid-template-columns:1fr 1fr}
+  .tracks{grid-template-columns:1fr 1fr}
   .post:first-child{grid-column:span 2;grid-row:auto}
-  .links{position:fixed;inset:0;background:var(--ink);flex-direction:column;justify-content:center;gap:1.8rem;transform:translateY(-100%);transition:transform .45s cubic-bezier(.7,0,.2,1)}
+  .links{position:fixed;inset:0;height:100vh;height:100dvh;background:var(--ink);flex-direction:column;justify-content:center;gap:1.8rem;transform:translateY(-100%);visibility:hidden;transition:transform .45s cubic-bezier(.7,0,.2,1),visibility 0s .45s}
+  body.menu-open .links{visibility:visible;transition:transform .45s cubic-bezier(.7,0,.2,1)}
+  body.menu-open nav.top::before{opacity:0}
   .links a,nav.solid .links a{color:#fff;font-size:1.4rem;font-family:Fraunces,serif}
   body.menu-open .links{transform:none}
   body.menu-open .logo{color:#fff}
@@ -272,7 +314,11 @@ footer nav a:hover{color:var(--gold-l)}
   .portrait{max-width:420px}
 }
 @media (max-width:620px){
-  .benefits,.grid-p,.blog-grid,.opts,.two{grid-template-columns:1fr}
+  .benefits,.grid-p,.blog-grid,.opts,.two,.tracks{grid-template-columns:1fr}
+  .player{width:calc(100vw - 24px);bottom:12px;flex-wrap:wrap;padding:.7rem .8rem}
+  .player .pinfo{flex-basis:calc(100% - 60px)}
+  .player .pctl{width:100%;justify-content:flex-end}
+  body.playing-bar .wa-float{bottom:150px}
   .post:first-child{grid-column:auto}
   .hero-stats{gap:1.4rem}
   .hero-stats b{font-size:1.2rem;white-space:nowrap}
@@ -295,6 +341,7 @@ footer nav a:hover{color:var(--gold-l)}
     <ul class="links" id="links">
       <li><a href="#programs">Programs</a></li>
       <li><a href="#finder">Find your practice</a></li>
+      <li><a href="#listen">Listen</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#journal">Journal</a></li>
@@ -322,18 +369,18 @@ footer nav a:hover{color:var(--gold-l)}
       </div>
     </div>
     <div class="orb-card reveal">
-      <h3>See how Qi radiates</h3>
-      <small>Breathe along. Watch the Qi field around you respond.</small>
+      <h3>Expand your awareness</h3>
+      <small>A Zhineng Qigong practice. Follow the light with your mind, not your breath.</small>
       <div class="breath" id="breath">
         <div class="ring"></div><div class="ring" style="inset:12%"></div>
         <div class="wave" id="w1"></div><div class="wave" id="w2"></div><div class="wave" id="w3"></div>
         <div class="core" id="core"></div>
         <div class="label" id="blabel">Tap start</div>
       </div>
-      <p class="bcap" id="bcap">Hun Yuan Qi flows between you and the universe: it gathers in, condenses within, and radiates out to every cell.</p>
+      <p class="bcap" id="bcap">Sit comfortably and relax. Your awareness can travel beyond your body, fill the space around you, and return within.</p>
       <div class="breath-ctrl">
-        <button class="chip on" data-p="4,4,6">Gentle flow</button>
-        <button class="chip" data-p="5,5,8">Deep practice</button>
+        <button class="chip on" data-p="6,5,6">Gentle</button>
+        <button class="chip" data-p="10,8,10">Deep</button>
         <button class="chip" id="bstart">▶ Start</button>
       </div>
     </div>
@@ -455,6 +502,19 @@ footer nav a:hover{color:var(--gold-l)}
   </div>
 </section>
 
+<section class="sounds" id="listen">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Listen & practice</div>
+      <h2>Guided practices & healing sounds</h2>
+      <p>Press play, close your eyes and let the sound guide your awareness. Use headphones for the deepest effect.</p>
+    </div>
+    <div id="mytracks"></div>
+    <div class="sgroup reveal">Practice tones</div>
+    <div class="tracks" id="tones"></div>
+  </div>
+</section>
+
 <section id="stories">
   <div class="wrap testi">
     <div class="reveal">
@@ -527,6 +587,16 @@ footer nav a:hover{color:var(--gold-l)}
 </footer>
 
 <a class="wa-float" href="https://wa.me/919881192288?text=Hi%20Rikhil%2C%20I%27d%20like%20to%20know%20more%20about%20Qigong%20sessions." target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.7c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.9 1 3.9.8a3.3 3.3 0 0 0 2.2-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg></a>
+
+<div class="player" id="player" aria-live="polite">
+  <button class="pbtn" id="pplay" aria-label="Play or pause"></button>
+  <div class="pinfo"><b id="ptitle">—</b><div class="pbar"><span id="pcur">0:00</span><input type="range" id="pseek" min="0" max="1000" value="0" aria-label="Seek"><span id="pdur">0:00</span></div></div>
+  <div class="pctl">
+    <button class="picon ptimer" id="ptimer" title="Sleep timer">⏲ Off</button>
+    <button class="picon" id="ploop" title="Repeat">↻</button>
+    <button class="picon" id="pclose" title="Close">✕</button>
+  </div>
+</div>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true"><div class="mbox"><button class="x" id="mx" aria-label="Close">×</button><div id="mc"></div></div></div>
 <div class="toast" id="toast"></div>
@@ -635,17 +705,17 @@ $("#book").onsubmit=e=>{e.preventDefault();
 function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("on");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("on"),4500)}
 
 /* Breathing */
-let pattern=[4,4,6],running=false,bt;
-const capIdle="Hun Yuan Qi flows between you and the universe: it gathers in, condenses within, and radiates out to every cell.";
+let pattern=[6,5,6],running=false,bt;
+const capIdle="Sit comfortably and relax. Your awareness can travel beyond your body, fill the space around you, and return within.";
 $$(".breath-ctrl .chip[data-p]").forEach(c=>c.onclick=()=>{$$(".breath-ctrl .chip[data-p]").forEach(x=>x.classList.remove("on"));c.classList.add("on");pattern=c.dataset.p.split(",").map(Number);if(running){stopB();startB()}});
 const core=$("#core"),bl=$("#blabel"),bw=$("#breath"),bc=$("#bcap");
 function phase(i){if(!running)return;const [inh,hold,exh]=pattern;
-  const steps=[["Gather",inh,1.9,"gather","Inhale. Qi from the universe gathers inward, flowing into your body through every pore."],
-               ["Condense",hold,1.9,"","Hold. Qi condenses and fills the body, nourishing organs, blood and cells."],
-               ["Radiate",exh,1,"radiate","Exhale. Qi radiates outward from the centre, through the body and back into the universe."]];
-  const [l,s,sc,cls,cap]=steps[i];
+  const steps=[["Expand",inh,1.9,"radiate","Move your inner awareness outward. Let it pass beyond your skin and gently fill the whole room.",-1],
+               ["Rest",hold,1.9,"","Rest in the space. Your awareness is everywhere in the room: the walls, the ceiling, the floor.",0],
+               ["Return",exh,1,"gather","Slowly bring your awareness back inside. Let it gather into your body and settle within.",1]];
+  const [l,s,sc,cls,cap,pull]=steps[i];
   bw.classList.remove("gather","radiate");if(cls)bw.classList.add(cls);bc.textContent=cap;
-  core.style.transitionDuration=s+"s";core.style.transform=`scale(${sc})`;let n=s;bl.textContent=`${l} · ${n}`;qiPulse=i===2?-1:1;
+  core.style.transitionDuration=s+"s";core.style.transform=`scale(${sc})`;let n=s;bl.textContent=`${l} · ${n}`;qiPulse=pull;
   const iv=setInterval(()=>{n--;if(n>0&&running)bl.textContent=`${l} · ${n}`},1000);
   bt=setTimeout(()=>{clearInterval(iv);phase((i+1)%3)},s*1000);bt.iv=iv}
 function startB(){running=true;$("#bstart").textContent="■ Stop";phase(0)}
@@ -669,6 +739,71 @@ let qiPulse=0;
    x.beginPath();x.arc(p.x,p.y,p.r,0,6.28);x.fillStyle=`rgba(230,201,139,${.35+.4*Math.sin(t*3+p.a)**2})`;x.fill()}
   requestAnimationFrame(loop)})();
 })();
+
+/* ===== Sounds ===== */
+const ICON_PLAY='<svg viewBox="0 0 24 24"><path d="M7 4.5v15l13-7.5z"/></svg>',ICON_PAUSE='<svg viewBox="0 0 24 24"><path d="M6 4h4.5v16H6zM13.5 4H18v16h-4.5z"/></svg>';
+const fmt=s=>!isFinite(s)?"∞":`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,"0")}`;
+let AC=null;const ac=()=>AC||(AC=new (window.AudioContext||window.webkitAudioContext)());
+/* Built-in generated tones (no files needed) */
+const tones=[
+ {title:"Singing bowl",cat:"Tone · 5 min",desc:"Slow, resonant bowl strikes to settle the mind before practice.",dur:300,make(ctx,out){
+   let stop=false;const strike=()=>{if(stop)return;const t=ctx.currentTime,f=196;[[1,.5,9],[2.76,.22,6],[5.4,.1,3.5],[8.9,.04,2]].forEach(([r,a,d])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=f*r*(1+Math.random()*.002);g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(a,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g).connect(out);o.start(t);o.stop(t+d+.1)});};
+   strike();const iv=setInterval(strike,9000);return()=>{stop=true;clearInterval(iv)}}},
+ {title:"Om drone · 136.1 Hz",cat:"Tone · 10 min",desc:"A warm, grounding hum tuned to the traditional 'Om' frequency.",dur:600,make(ctx,out){
+   const lp=ctx.createBiquadFilter();lp.type="lowpass";lp.frequency.value=900;lp.connect(out);const os=[];
+   [[136.1,.18,"sawtooth"],[136.6,.14,"sawtooth"],[68.05,.22,"sine"],[272.2,.05,"sine"]].forEach(([f,a,t])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type=t;o.frequency.value=f;g.gain.value=a;o.connect(g).connect(lp);o.start();os.push(o)});
+   const l=ctx.createOscillator(),lg=ctx.createGain();l.frequency.value=.07;lg.gain.value=350;l.connect(lg).connect(lp.frequency);l.start();os.push(l);
+   return()=>os.forEach(o=>o.stop())}},
+ {title:"Ocean breath",cat:"Tone · 10 min",desc:"Soft waves rising and falling. Let your awareness ride each wave out and back.",dur:600,make(ctx,out){
+   const n=ctx.sampleRate*4,buf=ctx.createBuffer(2,n,ctx.sampleRate);for(let c=0;c<2;c++){const d=buf.getChannelData(c);let last=0;for(let i=0;i<n;i++){const w=Math.random()*2-1;last=(last+.02*w)/1.02;d[i]=last*3.2}}
+   const src=ctx.createBufferSource();src.buffer=buf;src.loop=true;const lp=ctx.createBiquadFilter();lp.type="lowpass";lp.frequency.value=700;const g=ctx.createGain();g.gain.value=.35;
+   const l=ctx.createOscillator(),lg=ctx.createGain();l.frequency.value=1/9;lg.gain.value=.3;l.connect(lg).connect(g.gain);
+   const lf=ctx.createGain();lf.gain.value=500;l.connect(lf).connect(lp.frequency);
+   src.connect(lp).connect(g).connect(out);src.start();l.start();return()=>{src.stop();l.stop()}}}
+];
+/* Player engine: one track at a time, file or generated */
+const P={cur:null,el:null,stopGen:null,master:null,genStart:0,genPaused:0,playing:false,loop:false,timer:0,timerEnd:0};
+const pl=$("#player"),pp=$("#pplay"),ps=$("#pseek");pp.innerHTML=ICON_PLAY;
+function fadeMaster(to,sec){const t=AC.currentTime;P.master.gain.cancelScheduledValues(t);P.master.gain.setValueAtTime(P.master.gain.value,t);P.master.gain.linearRampToValueAtTime(to,t+sec)}
+function stopAll(){if(P.el){P.el.pause();P.el.src="";P.el=null}if(P.stopGen){const s=P.stopGen,m=P.master;P.stopGen=null;try{fadeMaster(0,.4)}catch(e){}setTimeout(()=>{s();m&&m.disconnect()},450)}P.playing=false;$$(".track").forEach(t=>t.classList.remove("playing"))}
+function playTrack(t,card){
+  if(P.cur===t){togglePlay();return}
+  stopAll();P.cur=t;P.card=card;$("#ptitle").textContent=t.title;pl.classList.add("on");document.body.classList.add("playing-bar");
+  if(t.file){const a=new Audio();a.preload="auto";a.src=t.file;a.loop=P.loop;P.el=a;
+    a.onloadedmetadata=()=>{$("#pdur").textContent=fmt(a.duration)};
+    a.ontimeupdate=()=>{$("#pcur").textContent=fmt(a.currentTime);if(a.duration)ps.value=a.currentTime/a.duration*1000};
+    a.onended=()=>{P.playing=false;sync()};
+    a.onerror=()=>{toast(`Couldn't load "${t.title}". Check the file name in sounds.json.`);stopAll();sync()};
+    a.play().then(()=>{P.playing=true;sync()}).catch(()=>{});
+  }else{const ctx=ac();ctx.resume();P.master=ctx.createGain();P.master.gain.value=0;P.master.connect(ctx.destination);P.stopGen=t.make(ctx,P.master);fadeMaster(.8,2.5);P.genStart=performance.now();P.genPaused=0;P.playing=true;$("#pdur").textContent=fmt(t.dur);sync()}
+}
+function togglePlay(){if(!P.cur)return;
+  if(P.el){P.playing?P.el.pause():P.el.play();P.playing=!P.playing}
+  else if(P.stopGen){if(P.playing){AC.suspend();P.pauseAt=performance.now()}else{AC.resume();P.genStart+=performance.now()-P.pauseAt}P.playing=!P.playing}
+  else{const t=P.cur;P.cur=null;playTrack(t,P.card);return}
+  sync()}
+function sync(){pp.innerHTML=P.playing?ICON_PAUSE:ICON_PLAY;$$(".track").forEach(c=>{const on=P.playing&&c._t===P.cur;c.classList.toggle("playing",on);c.querySelector(".tbtn").innerHTML=on?ICON_PAUSE:ICON_PLAY})}
+setInterval(()=>{if(P.stopGen&&P.playing&&P.cur){const el=(performance.now()-P.genStart)/1000;let e=el;if(e>=P.cur.dur){if(P.loop){P.genStart=performance.now();e=0}else{stopAll();sync();return}}$("#pcur").textContent=fmt(e);ps.value=e/P.cur.dur*1000}
+  if(P.timerEnd&&Date.now()>=P.timerEnd){P.timerEnd=0;P.timer=0;$("#ptimer").textContent="⏲ Off";$("#ptimer").classList.remove("on");if(P.playing)togglePlay();toast("Sleep timer ended. Sound paused.")}
+  else if(P.timerEnd){const m=Math.ceil((P.timerEnd-Date.now())/60000);$("#ptimer").textContent=`⏲ ${m}m`}},500);
+pp.onclick=togglePlay;
+ps.oninput=()=>{const f=ps.value/1000;if(P.el&&P.el.duration)P.el.currentTime=f*P.el.duration;else if(P.stopGen&&P.cur){P.genStart=performance.now()-f*P.cur.dur*1000}};
+$("#ploop").onclick=e=>{P.loop=!P.loop;e.currentTarget.classList.toggle("on",P.loop);if(P.el)P.el.loop=P.loop};
+const timers=[0,10,20,30,60];
+$("#ptimer").onclick=e=>{P.timer=timers[(timers.indexOf(P.timer)+1)%timers.length];P.timerEnd=P.timer?Date.now()+P.timer*60000:0;e.currentTarget.textContent=P.timer?`⏲ ${P.timer}m`:"⏲ Off";e.currentTarget.classList.toggle("on",!!P.timer)};
+$("#pclose").onclick=()=>{stopAll();P.cur=null;sync();pl.classList.remove("on");document.body.classList.remove("playing-bar")};
+function card(t){const b=document.createElement("button");b.className="track reveal";b._t=t;
+  b.innerHTML=`<span class="tbtn">${ICON_PLAY}</span><span class="tmeta"><small>${t.cat||"Practice"}</small><h4>${t.title}</h4>${t.desc?`<p>${t.desc}</p>`:""}<span class="dur">${t.file?"Audio":"Generated live"}${t.dur?" · "+fmt(t.dur):""}</span></span>`;
+  b.onclick=()=>playTrack(t,b);if(t.file){const a=new Audio();a.preload="metadata";a.src=t.file;a.onloadedmetadata=()=>{b.querySelector(".dur").textContent="Audio · "+fmt(a.duration)}}
+  return b}
+const tw=$("#tones");tones.forEach(t=>tw.appendChild(card(t)));
+/* Your own recordings: listed in sounds.json, files in /sounds */
+fetch("sounds.json",{cache:"no-cache"}).then(r=>r.ok?r.json():[]).catch(()=>[]).then(list=>{
+  const box=$("#mytracks");if(!Array.isArray(list)||!list.length)return;
+  const groups={};list.forEach(t=>{if(!t||!t.file)return;const g=t.group||"Guided practices";(groups[g]=groups[g]||[]).push({title:t.title||t.file,cat:t.category||"",desc:t.description||"",file:t.file})});
+  Object.entries(groups).forEach(([g,items])=>{const h=document.createElement("div");h.className="sgroup";h.textContent=g;const w=document.createElement("div");w.className="tracks";items.forEach(t=>w.appendChild(card(t)));box.append(h,w)});
+  $$("#mytracks .reveal").forEach(el=>el.classList.add("in"));
+});
 
 /* Nav + reveal */
 const nav=$("#nav");addEventListener("scroll",()=>nav.classList.toggle("solid",scrollY>40),{passive:true});

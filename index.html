@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alloha Qi Space — Zhineng Qigong in Pune</title>
+<meta name="description" content="Zhineng Qigong and Hun Yuan Qi practice in Kalyani Nagar, Pune and online. Classes, healing sessions and consultations with founder Rikhil Bithar.">
+<meta property="og:title" content="Alloha Qi Space — Zhineng Qigong in Pune">
+<meta property="og:description" content="Boost energy, ease stress and restore balance with Zhineng Qigong. In Pune and online.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0f2321; --ink-2:#163330; --jade:#2f6b5f; --jade-l:#4f9a87; --mist:#e9efe9;
+  --cream:#f7f3ea; --paper:#fffdf8; --gold:#c89b4a; --gold-l:#e6c98b; --text:#22302d; --muted:#5d6b67;
+  --r:22px; --shadow:0 20px 50px -24px rgba(15,35,33,.35);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,sans-serif;color:var(--text);background:var(--cream);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3,.serif{font-family:Fraunces,Georgia,serif;font-weight:400;letter-spacing:-.01em;line-height:1.12}
+a{color:inherit}
+img,svg{display:block}
+.wrap{width:min(1180px,92vw);margin:0 auto}
+.eyebrow{font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--jade);font-weight:600}
+.btn{display:inline-flex;align-items:center;gap:.6em;padding:.95em 1.6em;border-radius:999px;font-weight:600;font-size:.95rem;text-decoration:none;border:0;cursor:pointer;transition:transform .25s,box-shadow .25s,background .25s}
+.btn:hover{transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:#1b1407;box-shadow:0 10px 30px -10px rgba(200,155,74,.7)}
+.btn-gold:hover{background:var(--gold-l)}
+.btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.3);backdrop-filter:blur(6px)}
+.btn-dark{background:var(--ink);color:#fff}
+section{padding:110px 0;position:relative}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease,transform .9s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* NAV */
+nav.top{position:fixed;inset:0 0 auto;z-index:50;transition:background .35s,box-shadow .35s,padding .35s;padding:22px 0}
+nav.top.solid{background:rgba(247,243,234,.88);backdrop-filter:blur(14px);box-shadow:0 1px 0 rgba(0,0,0,.06);padding:12px 0}
+nav .wrap{display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:.6rem;text-decoration:none;font-family:Fraunces,serif;font-size:1.3rem;color:#fff;transition:color .3s}
+nav.solid .logo{color:var(--ink)}
+.logo-mark{width:38px;height:38px}
+.links{display:flex;gap:2rem;list-style:none;align-items:center}
+.links a{text-decoration:none;color:rgba(255,255,255,.85);font-size:.92rem;font-weight:500;transition:color .2s}
+nav.solid .links a{color:var(--text)}
+.links a:hover{color:var(--gold)}
+.links .btn{color:#1b1407!important;padding:.65em 1.2em}
+.burger{display:none;background:none;border:0;cursor:pointer;width:42px;height:42px;position:relative}
+.burger span{position:absolute;left:9px;right:9px;height:2px;background:#fff;transition:.3s}
+nav.solid .burger span{background:var(--ink)}
+.burger span:nth-child(1){top:14px}.burger span:nth-child(2){top:20px}.burger span:nth-child(3){top:26px}
+body.menu-open .burger span:nth-child(1){top:20px;transform:rotate(45deg)}
+body.menu-open .burger span:nth-child(2){opacity:0}
+body.menu-open .burger span:nth-child(3){top:20px;transform:rotate(-45deg)}
+
+/* HERO */
+.hero{min-height:100vh;min-height:100svh;background:radial-gradient(ellipse at 70% 40%,#24504a 0%,var(--ink) 55%,#08130f 100%);color:#fff;display:flex;align-items:center;padding:140px 0 90px;overflow:hidden}
+#qi{position:absolute;inset:0;width:100%;height:100%}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center}
+.hero h1{font-size:clamp(2.6rem,6vw,5.1rem);font-weight:300}
+.hero h1 em{font-style:italic;color:var(--gold-l)}
+.hero p.lead{font-size:1.15rem;color:rgba(255,255,255,.78);max-width:34rem;margin:1.5rem 0 2.2rem}
+.hero .eyebrow{color:var(--gold-l)}
+.cta-row{display:flex;gap:1rem;flex-wrap:wrap}
+.hero-stats{display:flex;gap:2.5rem;margin-top:3rem;color:rgba(255,255,255,.7);font-size:.85rem}
+.hero-stats b{display:block;font-family:Fraunces,serif;font-size:1.6rem;color:#fff;font-weight:400}
+.orb-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:28px;padding:2rem;backdrop-filter:blur(12px);text-align:center}
+.orb-card h3{font-size:1.35rem;margin-bottom:.3rem}
+.orb-card small{color:rgba(255,255,255,.6)}
+.breath{position:relative;width:220px;height:220px;margin:1.6rem auto}
+.breath .ring{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(230,201,139,.35)}
+.breath .core{position:absolute;inset:30%;border-radius:50%;background:radial-gradient(circle at 35% 35%,#f3dfb2,var(--gold) 45%,#7c5a1f);box-shadow:0 0 60px 10px rgba(200,155,74,.45);transition:transform 4s cubic-bezier(.45,0,.55,1)}
+.breath .label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:Fraunces,serif;font-size:1.15rem;color:#1b1407;pointer-events:none;z-index:2}
+.breath-ctrl{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);color:#fff;padding:.45em 1em;border-radius:999px;font-size:.82rem;cursor:pointer;font-family:inherit;transition:.2s}
+.chip.on,.chip:hover{background:var(--gold);color:#1b1407;border-color:var(--gold)}
+.scroll-cue{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);z-index:2;color:rgba(255,255,255,.5);font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.scroll-cue i{width:1px;height:40px;background:linear-gradient(var(--gold-l),transparent);animation:drip 2s infinite}
+@keyframes drip{0%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* MARQUEE */
+.marquee{background:var(--gold);color:#1b1407;overflow:hidden;padding:14px 0;font-family:Fraunces,serif;font-size:1.15rem}
+.marquee div{display:flex;gap:3rem;white-space:nowrap;animation:mq 30s linear infinite;width:max-content}
+.marquee span::after{content:"✦";margin-left:3rem;opacity:.6}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* BENEFITS */
+.sec-head{max-width:640px;margin-bottom:3.5rem}
+.sec-head h2{font-size:clamp(2rem,4vw,3.2rem);margin:.6rem 0 1rem}
+.sec-head p{color:var(--muted);font-size:1.08rem}
+.benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.bcard{background:var(--paper);border-radius:var(--r);padding:2rem 1.6rem;position:relative;overflow:hidden;transition:transform .4s,box-shadow .4s;border:1px solid rgba(15,35,33,.06)}
+.bcard:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+.bcard .ic{width:56px;height:56px;border-radius:16px;background:var(--mist);display:grid;place-items:center;margin-bottom:1.4rem;transition:background .4s}
+.bcard:hover .ic{background:var(--jade)}
+.bcard:hover .ic svg{stroke:#fff}
+.bcard .ic svg{width:28px;height:28px;stroke:var(--jade);fill:none;stroke-width:1.6;transition:stroke .4s}
+.bcard h3{font-size:1.3rem;margin-bottom:.5rem}
+.bcard p{color:var(--muted);font-size:.95rem}
+.bcard .num{position:absolute;right:1.2rem;top:1rem;font-family:Fraunces,serif;font-size:3rem;color:rgba(47,107,95,.08)}
+
+/* FOUNDER */
+.founder{background:var(--paper)}
+.founder .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:5rem;align-items:center}
+.portrait{aspect-ratio:4/5;border-radius:200px 200px 28px 28px;background:linear-gradient(160deg,var(--jade) 0%,var(--ink) 100%);position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.portrait svg{position:absolute;inset:0;width:100%;height:100%}
+.portrait .tag{position:absolute;left:1.4rem;bottom:1.4rem;right:1.4rem;background:rgba(255,255,255,.92);border-radius:16px;padding:1rem 1.2rem;display:flex;justify-content:space-between;align-items:center}
+.portrait .tag b{font-family:Fraunces,serif;font-weight:400;font-size:1.15rem;display:block}
+.portrait .tag small{color:var(--muted)}
+.founder h2{font-size:clamp(2rem,3.6vw,3rem);margin:.6rem 0 1.4rem}
+.founder p{color:var(--muted);margin-bottom:1rem;font-size:1.05rem}
+.lineage{display:flex;gap:.7rem;flex-wrap:wrap;margin:1.8rem 0}
+.lineage span{background:var(--mist);color:var(--jade);padding:.5em 1em;border-radius:999px;font-size:.85rem;font-weight:500}
+
+/* PROGRAMS */
+.programs{background:var(--ink);color:#fff}
+.programs .sec-head p{color:rgba(255,255,255,.65)}
+.programs .eyebrow{color:var(--gold-l)}
+.filters{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2.4rem}
+.grid-p{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
+.pcard{background:var(--ink-2);border:1px solid rgba(255,255,255,.08);border-radius:var(--r);padding:1.8rem;cursor:pointer;transition:transform .4s,border-color .4s,opacity .4s,background .4s;display:flex;flex-direction:column;min-height:240px;position:relative;overflow:hidden;text-align:left;color:#fff;font:inherit}
+.pcard::before{content:"";position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(200,155,74,.28),transparent 70%);left:var(--mx,50%);top:var(--my,50%);transform:translate(-50%,-50%);opacity:0;transition:opacity .3s;pointer-events:none}
+.pcard:hover::before{opacity:1}
+.pcard:hover{border-color:rgba(230,201,139,.45);transform:translateY(-4px)}
+.pcard.hide{display:none}
+.pcard .tags{display:flex;gap:.4rem;margin-bottom:1.2rem;flex-wrap:wrap}
+.pcard .tags i{font-style:normal;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-l);border:1px solid rgba(230,201,139,.3);padding:.25em .7em;border-radius:999px}
+.pcard h3{font-size:1.4rem;margin-bottom:.6rem}
+.pcard p{color:rgba(255,255,255,.62);font-size:.93rem;flex:1}
+.pcard .more{margin-top:1.4rem;font-size:.85rem;color:var(--gold-l);display:flex;align-items:center;gap:.4rem}
+.pcard .more::after{content:"→";transition:transform .3s}
+.pcard:hover .more::after{transform:translateX(5px)}
+
+/* QUIZ */
+.quiz-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:4rem;align-items:start}
+.quiz{background:var(--paper);border-radius:28px;padding:2.6rem;box-shadow:var(--shadow);border:1px solid rgba(15,35,33,.06);min-height:420px;position:relative}
+.qprog{height:4px;background:var(--mist);border-radius:4px;margin-bottom:2rem;overflow:hidden}
+.qprog i{display:block;height:100%;background:var(--jade);width:0;transition:width .5s}
+.qstep{display:none;animation:fade .5s}
+.qstep.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.qstep h3{font-size:1.6rem;margin-bottom:1.4rem}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.opt{background:var(--cream);border:1.5px solid transparent;border-radius:16px;padding:1.1rem 1.2rem;cursor:pointer;text-align:left;font:inherit;font-size:.95rem;color:var(--text);transition:.25s;display:flex;gap:.7rem;align-items:center}
+.opt:hover{border-color:var(--jade);background:#fff}
+.opt .e{font-size:1.4rem}
+.result{text-align:left}
+.result .match{font-size:.8rem;color:var(--jade);font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.result h3{font-size:2rem;margin:.5rem 0 .8rem}
+.result p{color:var(--muted);margin-bottom:1.6rem}
+.result .row{display:flex;gap:.8rem;flex-wrap:wrap}
+.linkbtn{background:none;border:0;color:var(--jade);font:inherit;font-weight:600;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+
+/* PANG */
+.pang{background:linear-gradient(135deg,var(--jade),var(--ink));color:#fff;text-align:center;overflow:hidden}
+.pang blockquote{font-family:Fraunces,serif;font-size:clamp(1.8rem,4vw,3.2rem);font-weight:300;font-style:italic;max-width:900px;margin:1.4rem auto}
+.pang p{color:rgba(255,255,255,.7);max-width:640px;margin:0 auto 2rem}
+.pang .eyebrow{color:var(--gold-l)}
+.yin{position:absolute;width:520px;height:520px;right:-140px;top:-140px;opacity:.07;animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.vids{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+
+/* TESTIMONIAL */
+.testi{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.tcard{background:var(--paper);border-radius:28px;padding:3rem;box-shadow:var(--shadow);position:relative}
+.tcard::before{content:"“";font-family:Fraunces,serif;font-size:8rem;line-height:1;color:var(--gold);position:absolute;top:-.1em;left:1.6rem;opacity:.5}
+.tcard p{font-family:Fraunces,serif;font-size:1.4rem;font-weight:300;margin:1.5rem 0}
+.tcard .who{display:flex;align-items:center;gap:.9rem}
+.tcard .av{width:48px;height:48px;border-radius:50%;background:var(--jade);color:#fff;display:grid;place-items:center;font-family:Fraunces,serif;font-size:1.2rem}
+.journey{display:flex;flex-direction:column;gap:1.4rem}
+.jstep{display:flex;gap:1.2rem;align-items:flex-start}
+.jstep b{flex:none;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--jade);display:grid;place-items:center;font-family:Fraunces,serif;color:var(--jade);font-weight:400}
+.jstep h4{font-size:1.05rem;margin-bottom:.2rem}
+.jstep p{color:var(--muted);font-size:.93rem}
+
+/* FAQ */
+.faq{background:var(--paper)}
+.faq .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:4rem}
+.search{position:relative;margin-top:2rem}
+.search input{width:100%;padding:1rem 1.2rem 1rem 3rem;border-radius:999px;border:1.5px solid rgba(15,35,33,.12);font:inherit;background:var(--cream);outline:none;transition:border .2s}
+.search input:focus{border-color:var(--jade)}
+.search svg{position:absolute;left:1.1rem;top:50%;transform:translateY(-50%);width:18px;stroke:var(--muted);fill:none;stroke-width:2}
+.qa{border-bottom:1px solid rgba(15,35,33,.1)}
+.qa button{width:100%;background:none;border:0;text-align:left;padding:1.4rem 0;font:inherit;font-family:Fraunces,serif;font-size:1.25rem;color:var(--ink);cursor:pointer;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.qa button::after{content:"+";font-family:Inter;font-size:1.5rem;color:var(--jade);transition:transform .3s;flex:none}
+.qa.open button::after{transform:rotate(45deg)}
+.qa .ans{max-height:0;overflow:hidden;transition:max-height .45s ease;color:var(--muted)}
+.qa .ans p{padding-bottom:1.4rem}
+.qa.hide{display:none}
+.nores{color:var(--muted);padding:1rem 0;display:none}
+
+/* BLOG */
+.blog-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:1.2rem}
+.post{background:var(--paper);border-radius:var(--r);overflow:hidden;text-decoration:none;display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s;border:1px solid rgba(15,35,33,.06)}
+.post:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.post .art{aspect-ratio:16/10;position:relative;overflow:hidden}
+.post:first-child{grid-row:span 2}
+.post:first-child .art{aspect-ratio:auto;flex:1;min-height:260px}
+.post .body{padding:1.4rem}
+.post small{color:var(--jade);font-weight:600;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase}
+.post h3{font-size:1.2rem;margin-top:.4rem}
+.post:first-child h3{font-size:1.6rem}
+
+/* CONTACT */
+.contact{background:var(--ink);color:#fff}
+.contact .wrap{display:grid;grid-template-columns:1fr 1fr;gap:4rem}
+.contact h2{font-size:clamp(2.2rem,4vw,3.4rem);margin:.6rem 0 1.2rem}
+.contact .eyebrow{color:var(--gold-l)}
+.contact p{color:rgba(255,255,255,.7)}
+.info{margin-top:2.4rem;display:grid;gap:1.2rem}
+.info a,.info div{display:flex;gap:1rem;align-items:flex-start;text-decoration:none;color:#fff}
+.info svg{width:22px;flex:none;stroke:var(--gold-l);fill:none;stroke-width:1.6;margin-top:3px}
+.info small{display:block;color:rgba(255,255,255,.5);font-size:.78rem;text-transform:uppercase;letter-spacing:.12em}
+form.book{background:var(--ink-2);border:1px solid rgba(255,255,255,.08);border-radius:28px;padding:2.4rem;display:grid;gap:1rem}
+form.book h3{font-size:1.5rem}
+.field label{font-size:.8rem;color:rgba(255,255,255,.6);display:block;margin-bottom:.35rem}
+.field input,.field select,.field textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:.85rem 1rem;color:#fff;font:inherit;outline:none;transition:border .2s}
+.field select option{color:#000}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.seg{display:flex;background:rgba(255,255,255,.05);border-radius:14px;padding:4px;border:1px solid rgba(255,255,255,.14)}
+.seg button{flex:1;background:none;border:0;color:rgba(255,255,255,.7);padding:.6rem;border-radius:10px;font:inherit;font-size:.9rem;cursor:pointer;transition:.2s}
+.seg button.on{background:var(--gold);color:#1b1407;font-weight:600}
+.formnote{font-size:.8rem;color:rgba(255,255,255,.5)}
+footer{background:#08130f;color:rgba(255,255,255,.55);padding:3rem 0;font-size:.88rem}
+footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap;align-items:center}
+footer .disc{flex-basis:100%;font-size:.78rem;color:rgba(255,255,255,.4);border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem}
+footer nav a{margin-left:1.4rem;text-decoration:none}
+footer nav a:hover{color:var(--gold-l)}
+
+/* MODAL */
+.modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:1rem;background:rgba(8,19,15,.65);backdrop-filter:blur(6px)}
+.modal.on{display:flex;animation:fade .3s}
+.mbox{background:var(--paper);border-radius:28px;max-width:560px;width:100%;padding:2.6rem;position:relative;max-height:90vh;overflow:auto}
+.mbox .x{position:absolute;right:1.2rem;top:1.2rem;width:40px;height:40px;border-radius:50%;border:0;background:var(--mist);cursor:pointer;font-size:1.3rem;color:var(--ink)}
+.mbox h3{font-size:2rem;margin:.4rem 0 1rem}
+.mbox p{color:var(--muted);margin-bottom:1rem}
+.mbox ul{margin:0 0 1.6rem 1.2rem;color:var(--text)}
+.mbox li{margin-bottom:.4rem}
+
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:60;width:60px;height:60px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 10px 30px -6px rgba(37,211,102,.6);transition:transform .3s}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:30px;fill:#fff}
+.wa-float::before{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #25d366;animation:ping 2.2s infinite}
+@keyframes ping{to{transform:scale(1.6);opacity:0}}
+.toast{position:fixed;left:50%;bottom:30px;transform:translate(-50%,120px);background:var(--ink);color:#fff;padding:1rem 1.4rem;border-radius:14px;z-index:120;transition:transform .4s;max-width:90vw;font-size:.92rem;box-shadow:var(--shadow)}
+.toast.on{transform:translate(-50%,0)}
+
+@media (max-width:980px){
+  .hero .wrap,.founder .wrap,.quiz-wrap,.testi,.faq .wrap,.contact .wrap{grid-template-columns:1fr;gap:3rem}
+  .benefits{grid-template-columns:1fr 1fr}
+  .grid-p{grid-template-columns:1fr 1fr}
+  .blog-grid{grid-template-columns:1fr 1fr}
+  .post:first-child{grid-column:span 2;grid-row:auto}
+  .links{position:fixed;inset:0;background:var(--ink);flex-direction:column;justify-content:center;gap:1.8rem;transform:translateY(-100%);transition:transform .45s cubic-bezier(.7,0,.2,1)}
+  .links a,nav.solid .links a{color:#fff;font-size:1.4rem;font-family:Fraunces,serif}
+  body.menu-open .links{transform:none}
+  body.menu-open .logo{color:#fff}
+  body.menu-open .burger span{background:#fff}
+  .burger{display:block;z-index:2}
+  .logo{z-index:2;position:relative}
+  section{padding:80px 0}
+  .portrait{max-width:420px}
+}
+@media (max-width:620px){
+  .benefits,.grid-p,.blog-grid,.opts,.two{grid-template-columns:1fr}
+  .post:first-child{grid-column:auto}
+  .hero-stats{gap:1.4rem}
+  .hero-stats b{font-size:1.2rem;white-space:nowrap}
+  .scroll-cue{display:none}
+  .quiz,.tcard,form.book,.mbox{padding:1.8rem}
+  .breath{width:180px;height:180px}
+  footer nav a{margin:0 1.2rem 0 0}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<nav class="top" id="nav">
+  <div class="wrap">
+    <a href="#top" class="logo" aria-label="Alloha Qi Space home">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18.5" stroke="#c89b4a" stroke-width="1.5"/><path d="M20 4a8 8 0 0 1 0 16 8 8 0 0 0 0 16" stroke="#c89b4a" stroke-width="1.5"/><circle cx="20" cy="12" r="2" fill="#c89b4a"/><circle cx="20" cy="28" r="2" stroke="#c89b4a" stroke-width="1.5"/></svg>
+      Alloha Qi Space
+    </a>
+    <ul class="links" id="links">
+      <li><a href="#programs">Programs</a></li>
+      <li><a href="#finder">Find your practice</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#journal">Journal</a></li>
+      <li><a href="#contact" class="btn btn-gold">Book a session</a></li>
+    </ul>
+    <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <canvas id="qi" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <div>
+      <div class="eyebrow">Zhineng Qigong · Pune & Online</div>
+      <h1>Unlock the transformative <em>power of Qi</em></h1>
+      <p class="lead">Ancient Chinese practice to boost your energy, calm the mind and bring body, mind and spirit back into harmony — guided by founder Rikhil Bithar in Kalyani Nagar, Pune.</p>
+      <div class="cta-row">
+        <a href="#finder" class="btn btn-gold">Find your practice →</a>
+        <a href="#programs" class="btn btn-ghost">Explore programs</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>9</b>healing programs</div>
+        <div><b>All levels</b>beginner friendly</div>
+        <div><b>In-person</b>& online</div>
+      </div>
+    </div>
+    <div class="orb-card reveal">
+      <h3>Take one Qi breath with us</h3>
+      <small>Follow the light. Move your cursor to stir the Qi field.</small>
+      <div class="breath" id="breath">
+        <div class="ring"></div><div class="ring" style="inset:12%"></div>
+        <div class="core" id="core"></div>
+        <div class="label" id="blabel">Tap start</div>
+      </div>
+      <div class="breath-ctrl">
+        <button class="chip on" data-p="4,4,4">Calm 4·4·4</button>
+        <button class="chip" data-p="4,7,8">Sleep 4·7·8</button>
+        <button class="chip" id="bstart">▶ Start</button>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll<i></i></div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div>
+  <span>Heal your body</span><span>Boost your energy</span><span>Ease emotional pain</span><span>Flexibility & balance</span><span>Hun Yuan Qi</span><span>Mind–body harmony</span>
+  <span>Heal your body</span><span>Boost your energy</span><span>Ease emotional pain</span><span>Flexibility & balance</span><span>Hun Yuan Qi</span><span>Mind–body harmony</span>
+</div></div>
+
+<section id="benefits">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Why Zhineng Qigong</div>
+      <h2>Life-changing benefits, one gentle movement at a time</h2>
+      <p>Developed by Dr. Pang Ming, Zhineng Qigong combines movement, visualisation, sound, breath and intention to support physical, emotional and mental vitality.</p>
+    </div>
+    <div class="benefits">
+      <div class="bcard reveal"><span class="num">01</span><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg></div><h3>Heal your body</h3><p>Smooth energy flow helps release blockages and reduce the stress your body carries.</p></div>
+      <div class="bcard reveal"><span class="num">02</span><div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div><h3>Boost your energy</h3><p>Wisdom Healing Qigong builds vitality and a brighter, steadier outlook on life.</p></div>
+      <div class="bcard reveal"><span class="num">03</span><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/></svg></div><h3>Ease emotional pain</h3><p>Movement, sound, breathing and intention work together to soften stress and heaviness.</p></div>
+      <div class="bcard reveal"><span class="num">04</span><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="4.5" r="2"/><path d="M12 7v6m0 0-4 7m4-7 4 7M5 10h14"/></svg></div><h3>Flexibility & balance</h3><p>Improve coordination and stability — supporting steadier movement as you age.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="programs" id="programs">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Programs</div>
+      <h2>Support for every step of your journey</h2>
+      <p>Immersive in-person sessions at our Pune centre and online programs — plus a rotating daily practice plan for different body systems. Tap any program to learn more.</p>
+    </div>
+    <div class="filters reveal" id="filters">
+      <button class="chip on" data-f="all">All</button>
+      <button class="chip" data-f="body">Body</button>
+      <button class="chip" data-f="mind">Mind</button>
+      <button class="chip" data-f="recovery">Recovery</button>
+      <button class="chip" data-f="online">Online</button>
+    </div>
+    <div class="grid-p" id="grid"></div>
+  </div>
+</section>
+
+<section id="finder">
+  <div class="wrap quiz-wrap">
+    <div class="reveal">
+      <div class="eyebrow">Practice finder</div>
+      <h2 style="font-size:clamp(2rem,4vw,3.2rem);margin:.6rem 0 1rem">Not sure where to begin?</h2>
+      <p style="color:var(--muted);font-size:1.08rem;margin-bottom:2rem">Answer three quick questions and we'll suggest the program that fits you best — then book it on WhatsApp in one tap.</p>
+      <div class="journey">
+        <div class="jstep"><b>1</b><div><h4>Tell us your goal</h4><p>Energy, calm, recovery or a specific area of the body.</p></div></div>
+        <div class="jstep"><b>2</b><div><h4>Choose how you practise</h4><p>Visit the Pune centre or join online from anywhere.</p></div></div>
+        <div class="jstep"><b>3</b><div><h4>Get your match</h4><p>A recommended program with a ready-to-send booking message.</p></div></div>
+      </div>
+    </div>
+    <div class="quiz reveal" id="quiz">
+      <div class="qprog"><i id="qbar"></i></div>
+      <div class="qstep on" data-q="goal">
+        <h3>What would you most like help with?</h3>
+        <div class="opts">
+          <button class="opt" data-v="energy"><span class="e">⚡</span>More energy</button>
+          <button class="opt" data-v="calm"><span class="e">🌿</span>Stress & calm</button>
+          <button class="opt" data-v="pain"><span class="e">🦴</span>Neck, back or spine</button>
+          <button class="opt" data-v="eyes"><span class="e">👁</span>Eye strain & focus</button>
+          <button class="opt" data-v="recovery"><span class="e">🌱</span>Recovering from illness or surgery</button>
+          <button class="opt" data-v="start"><span class="e">✨</span>Just curious — new to Qigong</button>
+        </div>
+      </div>
+      <div class="qstep" data-q="mode">
+        <h3>How would you like to practise?</h3>
+        <div class="opts">
+          <button class="opt" data-v="pune"><span class="e">📍</span>In person, Pune</button>
+          <button class="opt" data-v="online"><span class="e">💻</span>Online, from home</button>
+        </div>
+      </div>
+      <div class="qstep" data-q="exp">
+        <h3>Your experience so far?</h3>
+        <div class="opts">
+          <button class="opt" data-v="new"><span class="e">🌑</span>Complete beginner</button>
+          <button class="opt" data-v="some"><span class="e">🌓</span>Some yoga or meditation</button>
+          <button class="opt" data-v="exp"><span class="e">🌕</span>I've practised Qigong</button>
+          <button class="opt" data-v="guided"><span class="e">🤝</span>I'd like one-to-one guidance</button>
+        </div>
+      </div>
+      <div class="qstep result" data-q="result" id="result"></div>
+    </div>
+  </div>
+</section>
+
+<section class="founder" id="about">
+  <div class="wrap">
+    <div class="portrait reveal">
+      <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice"><defs><radialGradient id="g1" cx="50%" cy="38%" r="50%"><stop offset="0" stop-color="#e6c98b" stop-opacity=".55"/><stop offset="1" stop-color="#e6c98b" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="190" r="190" fill="url(#g1)"/><g stroke="#e6c98b" stroke-opacity=".35" fill="none"><circle cx="200" cy="190" r="60"/><circle cx="200" cy="190" r="100"/><circle cx="200" cy="190" r="140"/></g><path d="M200 120c-18 0-30 14-30 32s12 32 30 32 30-14 30-32-12-32-30-32zm-70 230c0-45 30-80 70-80s70 35 70 80l40 30c-5-12-20-22-35-25M130 350l-40 30c5-12 20-22 35-25" fill="none" stroke="#f7f3ea" stroke-opacity=".85" stroke-width="2"/><path d="M110 300c30-40 60-45 90-45s60 5 90 45" stroke="#e6c98b" stroke-width="2" fill="none" stroke-dasharray="4 6"/></svg>
+      <div class="tag"><div><b>Rikhil Bithar</b><small>Founder, Alloha Qi Space</small></div><span style="color:var(--gold);font-size:1.4rem">☯</span></div>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow">Meet the founder</div>
+      <h2>A personal path from health challenges to healing practice</h2>
+      <p>Rikhil Bithar faced his own health challenges and found answers in Zhineng Qigong, Hun Yuan Qi and Ayurvedic logic.</p>
+      <p>After years of learning directly from teachers and masters, he now shares their methods with every client — whether in a quiet session at the Kalyani Nagar centre or online from anywhere in the world.</p>
+      <div class="lineage"><span>Zhineng Qigong</span><span>Hun Yuan Qi</span><span>Ayurvedic logic</span><span>Qi Core – Master Yuantong Liu</span></div>
+      <a href="#contact" class="btn btn-dark">Talk to Rikhil →</a>
+    </div>
+  </div>
+</section>
+
+<section class="pang">
+  <svg class="yin" viewBox="0 0 100 100"><circle cx="50" cy="50" r="49" fill="none" stroke="#fff"/><path d="M50 1a24.5 24.5 0 0 1 0 49 24.5 24.5 0 0 0 0 49A49 49 0 0 1 50 1z" fill="#fff"/><circle cx="50" cy="25.5" r="6" fill="#2f6b5f"/><circle cx="50" cy="74.5" r="6" fill="#fff"/></svg>
+  <div class="wrap reveal">
+    <div class="eyebrow">The lineage · Dr. Pang Ming</div>
+    <blockquote>“The universe and human life are interconnected.”</blockquote>
+    <p>Dr. Pang Ming founded Zhineng Qigong and Zhineng Qigong Science, bringing together traditional Qigong, Chinese and Western medicine into one open, practical system.</p>
+    <div class="vids">
+      <a class="btn btn-ghost" href="https://www.youtube.com/results?search_query=Dr+Pang+Ming+Zhineng+Qigong" target="_blank" rel="noopener">▶ Watch Dr. Pang on YouTube</a>
+    </div>
+  </div>
+</section>
+
+<section id="stories">
+  <div class="wrap testi">
+    <div class="reveal">
+      <div class="eyebrow">Real stories</div>
+      <h2 style="font-size:clamp(2rem,4vw,3.2rem);margin:.6rem 0 1rem">Real stories, real transformations</h2>
+      <p style="color:var(--muted);font-size:1.08rem">Clients come to us carrying fatigue, stress and pain — and leave with practices they can return to every day.</p>
+    </div>
+    <div class="tcard reveal">
+      <p>After years of chronic fatigue and stress, these practices restored my energy and brought a sense of peace and clarity I hadn't felt in a long time.</p>
+      <div class="who"><div class="av">R</div><div><b>Ria Kapoor</b><br><small style="color:var(--muted)">Author</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">FAQ</div>
+      <h2 style="font-size:clamp(2rem,4vw,3.2rem);margin:.6rem 0 1rem">Questions, answered</h2>
+      <p style="color:var(--muted)">Everything you need to know before your first session.</p>
+      <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="fq" type="search" placeholder="Search questions…" aria-label="Search FAQ"></div>
+    </div>
+    <div class="reveal" id="faqlist"><p class="nores" id="nores">No matches — ask us directly on WhatsApp.</p></div>
+  </div>
+</section>
+
+<section id="journal">
+  <div class="wrap">
+    <div class="sec-head reveal" style="display:flex;justify-content:space-between;align-items:end;max-width:none;gap:2rem;flex-wrap:wrap">
+      <div><div class="eyebrow">Journal</div><h2>Latest from the blog</h2></div>
+      <a href="https://allohaqispace.com/inspiration/" class="linkbtn" target="_blank" rel="noopener">View all articles →</a>
+    </div>
+    <div class="blog-grid" id="blog"></div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Visit or connect</div>
+      <h2>Begin your path to wellness in Pune</h2>
+      <p>Experience Zhineng Qigong and Hun Yuan Qi therapy at our Kalyani Nagar centre, or join a class online. Send us a message and Rikhil will get back to you personally.</p>
+      <div class="info">
+        <a href="https://wa.me/919881192288" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg><span><small>Mobile & WhatsApp</small>+91 98811 92288</span></a>
+        <a href="https://www.google.com/maps/search/?api=1&query=Kalpataru+Regency+2+Lane+10+Kalyani+Nagar+Pune+411006" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 22s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="10" r="2.5"/></svg><span><small>Centre · open in Maps</small>Unit 1, Kalpataru Regency 2, Lane 10, Kalyani Nagar, Pune 411006</span></a>
+        <div><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span><small>Online</small>Classes & Hun Yuan Qi healing worldwide</span></div>
+      </div>
+    </div>
+    <form class="book reveal" id="book">
+      <h3>Request a session</h3>
+      <div class="two">
+        <div class="field"><label for="fn">Your name</label><input id="fn" required></div>
+        <div class="field"><label for="fp">Phone (optional)</label><input id="fp" type="tel"></div>
+      </div>
+      <div class="field"><label for="fs">Program</label><select id="fs"></select></div>
+      <div class="field"><label>Where</label><div class="seg" id="seg"><button type="button" class="on" data-v="at the Pune centre">Pune centre</button><button type="button" data-v="online">Online</button></div></div>
+      <div class="field"><label for="fm">Anything we should know?</label><textarea id="fm" rows="3" placeholder="Your goals, health considerations, preferred times…"></textarea></div>
+      <button class="btn btn-gold" type="submit" style="justify-content:center">Send via WhatsApp →</button>
+      <p class="formnote">Opens WhatsApp with your message ready to send to Rikhil.</p>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="yr"></span> Alloha Qi Space · Kalyani Nagar, Pune</div>
+    <nav><a href="https://allohaqispace.com/terms-of-service/" target="_blank" rel="noopener">Terms</a><a href="https://allohaqispace.com/privacy-policy/" target="_blank" rel="noopener">Privacy</a><a href="https://allohaqispace.com/refund-policy/" target="_blank" rel="noopener">Refunds</a></nav>
+    <p class="disc">Qigong is a complementary wellness practice and is not a substitute for medical diagnosis or treatment. Please continue any treatment prescribed by your doctor and consult them before starting new practices, especially during pregnancy or after surgery.</p>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/919881192288?text=Hi%20Rikhil%2C%20I%27d%20like%20to%20know%20more%20about%20Qigong%20sessions." target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.7c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.9 1 3.9.8a3.3 3.3 0 0 0 2.2-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg></a>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true"><div class="mbox"><button class="x" id="mx" aria-label="Close">×</button><div id="mc"></div></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+const WA = "919881192288";
+const programs = [
+ {id:"foundation",t:"Foundational Qigong Practice",tags:["body","mind"],s:"The “Hold Qi Up, Pour Qi Down” sequence — the heart of Zhineng Qigong for smooth energy flow.",d:"The perfect starting point. Learn the foundational “Lift Qi Up, Pour Qi Down” method that opens the body to the surrounding Qi field.",pts:["Ideal for complete beginners","Daily routine you can continue at home","Builds energy, calm and body awareness"]},
+ {id:"neck",t:"Neck Health Care",tags:["body"],s:"Release tension, restore mobility and improve posture.",d:"Gentle, targeted movements for stiff necks and shoulders — especially helpful for long hours at a desk or on the phone.",pts:["Relieves neck and shoulder tension","Improves range of motion","Supports healthier posture"]},
+ {id:"eyes",t:"Eye Recovery & Brain Cells",tags:["body","mind"],s:"Practices to reduce strain and support circulation and focus.",d:"Specific Qigong practices for the eyes and brain — easing screen strain, supporting circulation and sharpening focus.",pts:["Eases screen-related eye strain","Supports circulation to eyes and brain","Improves concentration"]},
+ {id:"restructure",t:"Restructuring with Zhineng Qi Gong",tags:["body","recovery"],s:"Rebalance the whole system through Qi and movement.",d:"A deeper program to rebalance the body's structure and energy, combining Zhineng movements with focused Qi work.",pts:["Whole-body rebalancing","Movement plus mind-intent","Suited to regular practitioners"]},
+ {id:"core",t:"Qi Core Improvement — Revitalise the Spine",tags:["body"],s:"A six-form system by Master Yuantong Liu, based on Dr. Pang's methods.",d:"Six forms developed by Master Yuantong Liu using Dr. Pang's methods, working on the spine, internal organs and brain.",pts:["Six progressive forms","Focus on spine flexibility and strength","Supports organ and nervous-system vitality"]},
+ {id:"restore",t:"Physical & Mental Restoration",tags:["mind","recovery"],s:"Holistic healing for body and mind, with long-term clarity.",d:"For burnout, stress and low energy — a holistic program combining movement, breath, sound and meditation.",pts:["Reduces stress and mental fatigue","Restores emotional balance","Long-term clarity and resilience"]},
+ {id:"special",t:"Special Care for Delicate Situations",tags:["recovery"],s:"Gentle support after surgery, during pregnancy or extreme fatigue.",d:"Carefully adapted, gentle sessions for delicate stages of life. Always practised alongside — never instead of — your doctor's care.",pts:["Post-surgery recovery support","Pregnancy-safe adaptations","Gentle work for extreme fatigue"]},
+ {id:"consult",t:"Comprehensive Consultations",tags:["mind","online"],s:"A personalised wellness blueprint, tailored to you.",d:"A one-to-one consultation to understand your health, lifestyle and goals, ending with a clear personal practice plan.",pts:["One-to-one with Rikhil","Personal daily practice plan","Available in person or online"]},
+ {id:"online",t:"Online Healing & Classes",tags:["online","mind"],s:"Hun Yuan Qi therapy, consultations and classes — wherever you are.",d:"Join live classes, healing sessions and consultations from anywhere. Group practice strengthens the shared Qi field.",pts:["Live online group classes","Remote Hun Yuan Qi healing","Practise from home, worldwide"]}
+];
+const faqs = [
+ ["What is Zhineng Qigong?","A modern Qigong system founded by Dr. Pang Ming that connects people with nature to restore balance. It combines traditional Qigong with insights from Chinese and Western medicine."],
+ ["Is it suitable for beginners?","Yes — it's designed for all levels. Movements are gentle and can be adapted to your age, fitness and health."],
+ ["Can it help with chronic conditions?","Many people use Qigong to support long-term wellbeing alongside medical care. It works on overall energy, stress and body awareness. Please keep following your doctor's advice."],
+ ["Is it a form of meditation?","It includes meditation, but combines it with movement, breathing, sound and visualisation — so it's moving meditation as much as stillness."],
+ ["How does it work?","Practice brings mind-intent, breath and movement together to support the flow of Qi and blood. Practising in a group is said to strengthen the effect."],
+ ["How long until I notice results?","It varies. Many people feel calmer and more energised after a few sessions; deeper changes come with regular practice."],
+ ["Do I need special equipment?","No. Wear comfortable clothing and find a quiet space — that's all."],
+ ["How often should I practise?","Regular practice works best. Daily is ideal, even if it's just 15–20 minutes."],
+ ["Can I combine it with yoga or physiotherapy?","Absolutely. Qigong complements yoga, physical therapy and other wellness practices well."]
+];
+const posts = [
+ ["The Transformative Power of Qigong: Ancient Chinese Healing Secrets for Modern Wellness","Aug 30, 2026","General"],
+ ["Zhineng Qi Gong: Harnessing the Energy of Life Through an Open System","Jan 26, 2025","Practice"],
+ ["Adjusting the Mind: Returning to Wholeness and Living with Clarity","Jan 26, 2025","Mind"],
+ ["Efficient Digestion: The Gateway to Health, Stability, and Safety","Jan 26, 2025","Body"],
+ ["Carpe Diem Optimization: A New Way to Maximize Life and Resources","Jan 23, 2025","Life"]
+];
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const wa=t=>`https://wa.me/${WA}?text=${encodeURIComponent(t)}`;
+$("#yr").textContent=new Date().getFullYear();
+
+/* Programs */
+const grid=$("#grid");
+programs.forEach(p=>{
+  const b=document.createElement("button");b.className="pcard reveal";b.dataset.tags=p.tags.join(" ");
+  b.innerHTML=`<div class="tags">${p.tags.map(t=>`<i>${t}</i>`).join("")}</div><h3>${p.t}</h3><p>${p.s}</p><span class="more">Learn more</span>`;
+  b.onclick=()=>openProgram(p);
+  b.onmousemove=e=>{const r=b.getBoundingClientRect();b.style.setProperty("--mx",e.clientX-r.left+"px");b.style.setProperty("--my",e.clientY-r.top+"px")};
+  grid.appendChild(b);
+});
+$$("#filters .chip").forEach(c=>c.onclick=()=>{
+  $$("#filters .chip").forEach(x=>x.classList.remove("on"));c.classList.add("on");
+  $$(".pcard").forEach(p=>p.classList.toggle("hide",c.dataset.f!=="all"&&!p.dataset.tags.includes(c.dataset.f)));
+});
+function openProgram(p){
+  $("#mc").innerHTML=`<div class="eyebrow">${p.tags.join(" · ")}</div><h3>${p.t}</h3><p>${p.d}</p><ul>${p.pts.map(x=>`<li>${x}</li>`).join("")}</ul>
+  <div style="display:flex;gap:.8rem;flex-wrap:wrap"><a class="btn btn-gold" target="_blank" rel="noopener" href="${wa(`Hi Rikhil, I'm interested in the "${p.t}" program. Could you share details?`)}">Book on WhatsApp</a><button class="btn btn-dark" onclick="pick('${p.id}')">Use booking form</button></div>`;
+  $("#modal").classList.add("on");
+}
+window.pick=id=>{closeM();$("#fs").value=id;location.hash="";$("#contact").scrollIntoView({behavior:"smooth"});setTimeout(()=>$("#fn").focus(),700)};
+const closeM=()=>$("#modal").classList.remove("on");
+$("#mx").onclick=closeM;$("#modal").onclick=e=>{if(e.target.id==="modal")closeM()};
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeM()});
+$("#fs").innerHTML=programs.map(p=>`<option value="${p.id}">${p.t}</option>`).join("")+`<option value="unsure">Not sure yet — please advise</option>`;
+
+/* Quiz */
+const ans={};const order=["goal","mode","exp","result"];let qi=0;
+const goalMap={energy:"foundation",calm:"restore",pain:"core",eyes:"eyes",recovery:"special",start:"foundation"};
+$$(".qstep .opt").forEach(o=>o.onclick=()=>{
+  ans[o.closest(".qstep").dataset.q]=o.dataset.v;qi++;
+  if(order[qi]==="result")showResult();
+  $$(".qstep").forEach(s=>s.classList.toggle("on",s.dataset.q===order[qi]));
+  $("#qbar").style.width=(qi/3*100)+"%";
+});
+function showResult(){
+  let id=goalMap[ans.goal];
+  if(ans.exp==="guided")id="consult";
+  if(ans.mode==="online"&&id!=="consult")id=ans.goal==="calm"||ans.goal==="start"?"online":id;
+  const p=programs.find(x=>x.id===id);
+  const where=ans.mode==="online"?"online":"at the Pune centre";
+  const msg=`Hi Rikhil, the practice finder on your site matched me with "${p.t}". I'd like to start ${where}. Could you share the next available slots?`;
+  $("#result").innerHTML=`<span class="match">Your match · ${where==="online"?"Online":"Pune centre"}</span><h3>${p.t}</h3><p>${p.d}</p><ul style="margin:0 0 1.6rem 1.2rem;color:var(--muted)">${p.pts.map(x=>`<li>${x}</li>`).join("")}</ul>
+  <div class="row"><a class="btn btn-gold" target="_blank" rel="noopener" href="${wa(msg)}">Book on WhatsApp →</a><button class="btn btn-dark" onclick="pick('${p.id}')">Use form</button></div>
+  <p style="margin:1.2rem 0 0"><button class="linkbtn" id="redo">↺ Start again</button></p>`;
+  $("#redo").onclick=()=>{qi=0;$$(".qstep").forEach(s=>s.classList.toggle("on",s.dataset.q==="goal"));$("#qbar").style.width="0"};
+}
+
+/* FAQ */
+const fl=$("#faqlist");
+faqs.forEach(([q,a])=>{const d=document.createElement("div");d.className="qa";d.innerHTML=`<button aria-expanded="false">${q}</button><div class="ans"><p>${a}</p></div>`;
+  d.querySelector("button").onclick=()=>{const o=d.classList.toggle("open");d.querySelector(".ans").style.maxHeight=o?d.querySelector(".ans").scrollHeight+"px":0;d.querySelector("button").setAttribute("aria-expanded",o)};
+  fl.insertBefore(d,$("#nores"))});
+$("#fq").oninput=e=>{const v=e.target.value.toLowerCase();let n=0;$$(".qa").forEach(d=>{const m=d.textContent.toLowerCase().includes(v);d.classList.toggle("hide",!m);n+=m});$("#nores").style.display=n?"none":"block"};
+
+/* Blog */
+const hues=[["#2f6b5f","#0f2321"],["#c89b4a","#7c5a1f"],["#4f9a87","#163330"],["#8a6a3a","#2f2414"],["#3a5e6b","#0f2321"]];
+$("#blog").innerHTML=posts.map(([t,d,c],i)=>`<a class="post reveal" target="_blank" rel="noopener" href="https://allohaqispace.com/?s=${encodeURIComponent(t.split(":")[0])}"><div class="art" style="background:linear-gradient(135deg,${hues[i][0]},${hues[i][1]})"><svg viewBox="0 0 200 120" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;position:absolute;inset:0;opacity:.35"><g fill="none" stroke="#f7f3ea">${[...Array(6)].map((_,k)=>`<path d="M-10 ${30+k*14} Q 50 ${10+k*14+i*4} 100 ${30+k*14} T 210 ${30+k*14}"/>`).join("")}</g><circle cx="${150-i*20}" cy="40" r="18" fill="#e6c98b" opacity=".8"/></svg></div><div class="body"><small>${c} · ${d}</small><h3>${t}</h3></div></a>`).join("");
+
+/* Booking form */
+let where="at the Pune centre";
+$$("#seg button").forEach(b=>b.onclick=()=>{$$("#seg button").forEach(x=>x.classList.remove("on"));b.classList.add("on");where=b.dataset.v});
+$("#book").onsubmit=e=>{e.preventDefault();
+  const sel=$("#fs");const prog=sel.options[sel.selectedIndex].text;
+  const msg=`Hi Rikhil, I'm ${$("#fn").value}. I'd like to book: ${prog} (${where}).${$("#fp").value?` My phone: ${$("#fp").value}.`:""}${$("#fm").value?`\n\n${$("#fm").value}`:""}`;
+  const a=document.createElement("a");a.href=wa(msg);a.target="_blank";a.rel="noopener";document.body.appendChild(a);a.click();a.remove();
+  toast("Opening WhatsApp — just tap send. Or message +91 98811 92288 directly.");
+};
+function toast(t){const el=$("#toast");el.textContent=t;el.classList.add("on");clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove("on"),4500)}
+
+/* Breathing */
+let pattern=[4,4,4],running=false,bt;
+$$(".breath-ctrl .chip[data-p]").forEach(c=>c.onclick=()=>{$$(".breath-ctrl .chip[data-p]").forEach(x=>x.classList.remove("on"));c.classList.add("on");pattern=c.dataset.p.split(",").map(Number);if(running){stopB();startB()}});
+const core=$("#core"),bl=$("#blabel");
+function phase(i){if(!running)return;const [inh,hold,exh]=pattern;const steps=[["Inhale",inh,1.9],["Hold",hold,1.9],["Exhale",exh,1]];const [l,s,sc]=steps[i];
+  core.style.transitionDuration=s+"s";core.style.transform=`scale(${sc})`;let n=s;bl.textContent=`${l} · ${n}`;qiPulse=sc>1?1:0;
+  const iv=setInterval(()=>{n--;if(n>0&&running)bl.textContent=`${l} · ${n}`},1000);
+  bt=setTimeout(()=>{clearInterval(iv);phase((i+1)%3)},s*1000);bt.iv=iv}
+function startB(){running=true;$("#bstart").textContent="■ Stop";phase(0)}
+function stopB(){running=false;clearTimeout(bt);bt&&clearInterval(bt.iv);core.style.transitionDuration="1s";core.style.transform="scale(1)";bl.textContent="Tap start";$("#bstart").textContent="▶ Start"}
+$("#bstart").onclick=()=>running?stopB():startB();
+
+/* Qi particle field */
+let qiPulse=0;
+(()=>{const c=$("#qi"),x=c.getContext("2d");let W,H,P=[],m={x:-999,y:-999},dpr=Math.min(devicePixelRatio||1,2);
+ function rs(){W=c.width=c.offsetWidth*dpr;H=c.height=c.offsetHeight*dpr;const n=Math.min(160,Math.floor(c.offsetWidth*c.offsetHeight/9000));P=[...Array(n)].map(()=>({x:Math.random()*W,y:Math.random()*H,a:Math.random()*6.28,r:(Math.random()*1.6+.4)*dpr,s:Math.random()*.5+.2}))}
+ rs();addEventListener("resize",rs);
+ c.parentElement.addEventListener("mousemove",e=>{const r=c.getBoundingClientRect();m.x=(e.clientX-r.left)*dpr;m.y=(e.clientY-r.top)*dpr});
+ c.parentElement.addEventListener("mouseleave",()=>m.x=-999);
+ let t=0,pul=0;
+ (function loop(){t+=.003;pul+=(qiPulse-pul)*.02;x.fillStyle="rgba(15,35,33,.18)";x.fillRect(0,0,W,H);
+  const cx=W*.72,cy=H*.48;
+  for(const p of P){const ang=Math.sin(p.x*.0015+t)*Math.cos(p.y*.0015-t)*3.14;p.x+=Math.cos(ang)*p.s*dpr;p.y+=Math.sin(ang)*p.s*dpr;
+   const dx=p.x-m.x,dy=p.y-m.y,d=Math.hypot(dx,dy);if(d<140*dpr){p.x+=dx/d*1.6*dpr;p.y+=dy/d*1.6*dpr}
+   const ex=cx-p.x,ey=cy-p.y,ed=Math.hypot(ex,ey)||1;const pull=(pul-.5)*.5*dpr;p.x+=ex/ed*pull;p.y+=ey/ed*pull;
+   if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+   x.beginPath();x.arc(p.x,p.y,p.r,0,6.28);x.fillStyle=`rgba(230,201,139,${.35+.4*Math.sin(t*3+p.a)**2})`;x.fill()}
+  requestAnimationFrame(loop)})();
+})();
+
+/* Nav + reveal */
+const nav=$("#nav");addEventListener("scroll",()=>nav.classList.toggle("solid",scrollY>40),{passive:true});
+$("#burger").onclick=()=>document.body.classList.toggle("menu-open");
+$$("#links a").forEach(a=>a.onclick=()=>document.body.classList.remove("menu-open"));
+const io=new IntersectionObserver(es=>es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add("in"),(i%4)*90);io.unobserve(e.target)}}),{threshold:.12});
+$$(".reveal").forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

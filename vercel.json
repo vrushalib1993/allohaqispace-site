@@ -13,7 +13,7 @@
    "permanent": true
   },
   {
-   "source": "/services/:path*",
+   "source": "/services/(.*)",
    "destination": "/programs/",
    "permanent": true
   },
@@ -33,7 +33,7 @@
    "permanent": true
   },
   {
-   "source": "/tribe_events/:path*",
+   "source": "/tribe_events/(.*)",
    "destination": "/events/",
    "permanent": true
   },
@@ -48,12 +48,12 @@
    "permanent": true
   },
   {
-   "source": "/category/:path*",
+   "source": "/category/(.*)",
    "destination": "/inspiration/",
    "permanent": true
   },
   {
-   "source": "/author/:path*",
+   "source": "/author/(.*)",
    "destination": "/about-us/",
    "permanent": true
   },
@@ -148,12 +148,12 @@
    "permanent": true
   },
   {
-   "source": "/voucher_template/:path*",
+   "source": "/voucher_template/(.*)",
    "destination": "/shop/",
    "permanent": true
   },
   {
-   "source": "/membership-login/:path*",
+   "source": "/membership-login/(.*)",
    "destination": "/contact-us/",
    "permanent": true
   },
@@ -163,7 +163,7 @@
    "permanent": true
   },
   {
-   "source": "/membership-join/:path*",
+   "source": "/membership-join/(.*)",
    "destination": "/contact-us/",
    "permanent": true
   },
@@ -218,12 +218,12 @@
    "permanent": true
   },
   {
-   "source": "/wp-admin/:path*",
+   "source": "/wp-admin/(.*)",
    "destination": "/contact-us/",
    "permanent": true
   },
   {
-   "source": "/forums/:path*",
+   "source": "/forums/(.*)",
    "destination": "/inspiration/",
    "permanent": true
   },
@@ -233,7 +233,7 @@
    "permanent": true
   },
   {
-   "source": "/topics/:path*",
+   "source": "/topics/(.*)",
    "destination": "/inspiration/",
    "permanent": true
   },

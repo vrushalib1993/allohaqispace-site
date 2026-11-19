@@ -74,3 +74,45 @@ $$(".yt").forEach(y=>{y.style.backgroundImage=`url(https://i.ytimg.com/vi/${y.da
 /* share */
 $$("[data-copy]").forEach(b=>b.addEventListener("click",async()=>{try{await navigator.clipboard.writeText(location.href);toast("Link copied")}catch(e){toast(location.href)}}));
 })();
+
+/* ===== Rich interactions ===== */
+(function(){
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+ /* hero photo fade-in (inner pages) */
+ document.querySelectorAll('.phero .hero-photo').forEach(i=>{const on=()=>i.classList.add('loaded');i.complete&&i.naturalWidth?on():i.addEventListener('load',on);setTimeout(on,2500)});
+ /* staggered reveals within grids */
+ const groups=new Map();
+ document.querySelectorAll('.reveal').forEach(el=>{const p=el.parentElement;if(!groups.has(p))groups.set(p,[]);groups.get(p).push(el)});
+ groups.forEach(list=>{if(list.length>1)list.forEach((el,i)=>el.style.transitionDelay=Math.min(i*90,450)+'ms')});
+ /* heading rule: mark sec-heads when visible */
+ const hio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');hio.unobserve(e.target)}}),{threshold:.4});
+ document.querySelectorAll('.sec-head').forEach(h=>hio.observe(h));
+ if(reduce) return;
+ /* card tilt + spotlight */
+ if(fine){
+  document.querySelectorAll('.scard,.pain,.post,.hstep,.creds li,.hbook').forEach(c=>{
+   const max=c.classList.contains('hbook')?3:5;
+   if(!c.classList.contains('hbook'))c.classList.add('tilt');
+   c.addEventListener('pointerenter',()=>{c.style.transitionDelay='0ms'});
+   c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%');
+    c.style.transform=`perspective(900px) rotateX(${(.5-y)*max}deg) rotateY(${(x-.5)*max}deg) translateY(-4px)`});
+   c.addEventListener('pointerleave',()=>{c.style.transform=''});
+  });
+  /* magnetic CTA buttons */
+  document.querySelectorAll('.btn-cta').forEach(b=>{
+   b.addEventListener('pointermove',e=>{const r=b.getBoundingClientRect();const dx=(e.clientX-r.left-r.width/2)/r.width,dy=(e.clientY-r.top-r.height/2)/r.height;b.style.transform=`translate(${dx*8}px,${dy*6-2}px)`});
+   b.addEventListener('pointerleave',()=>{b.style.transform=''});
+  });
+ }
+ /* image parallax */
+ const par=[...document.querySelectorAll('.himg img,.banner img,.cover img')];
+ let tick=false;
+ const upd=()=>{tick=false;const vh=innerHeight;par.forEach(img=>{const r=img.parentElement.getBoundingClientRect();if(r.bottom<0||r.top>vh)return;const p=(r.top+r.height/2-vh/2)/vh;img.style.setProperty('--py',(p*-28).toFixed(1)+'px')})};
+ addEventListener('scroll',()=>{if(!tick){tick=true;requestAnimationFrame(upd)}},{passive:true});upd();
+ /* back to top */
+ const t=document.createElement('button');t.className='totop';t.setAttribute('aria-label','Back to top');t.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>';document.body.appendChild(t);
+ t.onclick=()=>scrollTo({top:0,behavior:'smooth'});
+ addEventListener('scroll',()=>t.classList.toggle('on',scrollY>900),{passive:true});
+})();

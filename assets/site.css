@@ -727,3 +727,5 @@ section{position:relative}
 /* secondary: clean navy outline */
 .btn-outline{background:transparent;backdrop-filter:none;border:1.5px solid var(--ink);color:var(--ink)}
 .btn-outline:hover{background:var(--ink);color:#fff;border-color:var(--ink)}
+/* subtle navbar bottom line, always visible */
+nav.top,nav.top.solid{border-bottom:1px solid rgba(12,31,49,.09)}

@@ -32,10 +32,21 @@ $$("[data-book]").forEach(btn=>btn.addEventListener("click",e=>{
 /* booking form */
 const f=$("#book");
 if(f){f.addEventListener("submit",e=>{e.preventDefault();
-  const sel=$("#fs");const prog=sel.options[sel.selectedIndex].text;const where=f.querySelector(".seg")?.dataset.v||"at the Pune centre";
-  const msg=`Hi Rikhil, I'm ${$("#fn").value}. I'd like to book: ${prog} (${where}).${$("#fp").value?` My phone: ${$("#fp").value}.`:""}${$("#fm").value?`\n\n${$("#fm").value}`:""}`;
+  const sel=$("#fs");const prog=sel.value==="unsure"?"a first session (not sure which practice yet, please advise)":sel.options[sel.selectedIndex].text;const where=f.querySelector(".seg")?.dataset.v||"at the Pune centre";
+  const time=f.querySelector(".pills button.on")?.dataset.v;const fp=$("#fp"),fm=$("#fm");
+  const msg=`Hi Rikhil, I'm ${$("#fn").value}. I'd like to book ${prog}, ${where}.${time?` Preferred time: ${time}.`:""}${fp&&fp.value?` My phone: ${fp.value}.`:""}${fm&&fm.value?`\n\n${fm.value}`:""}`;
   window.open(wa(msg),"_blank","noopener");toast("Opening WhatsApp. Just tap send.");});
   const q=new URLSearchParams(location.search).get("program");if(q&&$("#fs"))$("#fs").value=q;}
+
+/* single-select pills */
+$$(".pills").forEach(g=>g.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{const was=b.classList.contains("on");g.querySelectorAll("button").forEach(x=>x.classList.remove("on"));if(!was)b.classList.add("on")})));
+
+/* mobile sticky booking bar */
+const mb=$("#mbar");if(mb){const t=+(mb.dataset.after||500);let inView=false;
+  const tgt=(mb.querySelector("a")?.getAttribute("href")||"").startsWith("#")?$(mb.querySelector("a").getAttribute("href")):null;
+  const f=()=>mb.classList.toggle("on",scrollY>t&&!inView&&!document.body.classList.contains("menu-open"));
+  if(tgt)new IntersectionObserver(es=>{inView=es[0].isIntersecting;f()},{threshold:.15}).observe(tgt);
+  addEventListener("scroll",f,{passive:true});f()}
 
 /* TOC highlight */
 const tocLinks=$$(".toc a");

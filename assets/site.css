@@ -3,7 +3,7 @@
    Type: Plus Jakarta Sans (headings 500/600/700) · DM Sans (body & interface) */
 :root{
   --blue:#468FE9; --blue-d:#2f78d4; --orange:#F7A253; --cloud:#F6F9FC; --navy:#18334C; --navy-2:#21405d; --soft:#DCEBF6; --white:#fff;
-  --text:#2b4257; --muted:#5f7387; --line:#e3ebf3;
+  --text:#253b50; --muted:#4f6478; --line:#e3ebf3;
   --r:20px; --r-lg:24px; --r-sm:16px;
   --shadow:0 18px 40px -24px rgba(24,51,76,.28);
   --head:"Plus Jakarta Sans",system-ui,sans-serif; --body:"DM Sans",system-ui,sans-serif;
@@ -11,10 +11,10 @@
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;scroll-padding-top:96px}
-body{font-family:var(--body);font-size:17px;color:var(--text);background:var(--cloud);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{font-family:var(--body);font-size:18px;color:var(--text);background:var(--cloud);line-height:1.7;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 h1,h2,h3,h4{font-family:var(--head);color:var(--navy);font-weight:600;letter-spacing:-.02em;line-height:1.15}
-h1{font-size:clamp(2.4rem,5.2vw,4.5rem);font-weight:700}
-h2{font-size:clamp(1.9rem,3.5vw,3rem)}
+h1{font-size:clamp(2.5rem,5.4vw,4.6rem);font-weight:700;letter-spacing:-.035em;line-height:1.06}
+h2{font-size:clamp(1.9rem,3.6vw,3.1rem);font-weight:700;letter-spacing:-.03em}
 h3{font-size:1.3rem}
 a{color:inherit}
 img,svg{display:block}
@@ -433,3 +433,94 @@ body.playing-bar .wa-float{bottom:100px}
 .player{visibility:hidden;transition:transform .45s var(--ease),visibility 0s .45s}
 .player.on{visibility:visible;transition:transform .45s var(--ease)}
 .toast{visibility:hidden}.toast.on{visibility:visible}
+
+/* ===== Conversion layer ===== */
+.btn-cta{background:var(--orange);color:var(--navy);box-shadow:0 10px 24px -12px rgba(247,162,83,.9)}
+.btn-cta:hover{background:#f39539}
+.btn-lg{min-height:58px;padding:.9em 2em;font-size:1.05rem}
+.links .btn-cta{color:var(--navy)!important}
+.reassure{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem 1.4rem;margin-top:1.4rem;color:var(--text);font-size:.95rem;font-weight:500}
+.reassure li{display:flex;align-items:center;gap:.45rem}
+.reassure li::before{content:"";width:18px;height:18px;border-radius:50%;background:var(--soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23468FE9' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center/11px no-repeat;flex:none}
+.hero .alt{margin-top:1rem;font-size:.95rem;color:var(--muted)}
+.hero .alt a{color:var(--blue-d);font-weight:600}
+/* hero booking card */
+.hbook{background:#fff;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:0 30px 60px -30px rgba(24,51,76,.35);overflow:hidden}
+.hbook .top{background:var(--navy);color:#fff;padding:1.4rem 1.8rem;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.hbook .top b{font-family:var(--head);font-size:1.2rem;display:block}
+.hbook .top small{color:rgba(255,255,255,.7);font-size:.88rem}
+.hbook .top .dot{display:flex;align-items:center;gap:.45rem;font-size:.82rem;color:#bfe7c9;white-space:nowrap}
+.hbook .top .dot::before{content:"";width:8px;height:8px;border-radius:50%;background:#3ccf6e;box-shadow:0 0 0 4px rgba(60,207,110,.2)}
+.hbook form{padding:1.6rem 1.8rem 1.8rem;display:grid;gap:1rem;border:0;box-shadow:none;border-radius:0}
+.hbook .field label{font-size:.85rem}
+.pills{display:flex;flex-wrap:wrap;gap:.45rem}
+.pills button{min-height:42px;padding:.45em 1em;border-radius:999px;border:1.5px solid var(--line);background:var(--cloud);color:var(--navy);font:inherit;font-size:.9rem;font-weight:500;cursor:pointer;transition:.2s}
+.pills button.on{background:var(--soft);border-color:var(--blue);color:var(--blue-d)}
+.hbook .formnote{text-align:center}
+/* trust bar */
+.trustbar{background:var(--white);border-bottom:1px solid var(--line);padding:1.6rem 0}
+.trustbar .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.tb{display:flex;gap:.8rem;align-items:center}
+.tb .ic{flex:none;width:42px;height:42px;border-radius:12px;background:var(--soft);display:grid;place-items:center}
+.tb svg{width:20px;stroke:var(--blue);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.tb b{font-family:var(--head);font-size:.95rem;color:var(--navy);line-height:1.3;display:block}
+.tb span{font-size:.82rem;color:var(--muted)}
+/* pain → practice */
+.pains{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem}
+.pain{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1.6rem;display:flex;flex-direction:column;gap:.5rem;text-decoration:none;transition:transform .3s var(--ease),box-shadow .3s,border-color .3s}
+.pain:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#cfe0f1}
+.pain .ic{width:48px;height:48px;border-radius:14px;background:var(--soft);display:grid;place-items:center;margin-bottom:.4rem}
+.pain svg{width:24px;stroke:var(--blue);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.pain h3{font-size:1.12rem}
+.pain p{color:var(--muted);font-size:.95rem;flex:1}
+.pain .textlink{margin-top:.4rem}
+.center-cta{text-align:center;margin-top:2.6rem}
+.center-cta p{color:var(--muted);font-size:.95rem;margin-top:.8rem}
+/* how it works */
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;counter-reset:h}
+.hstep{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:2rem;position:relative}
+.hstep .num{width:52px;height:52px;border-radius:50%;background:var(--blue);color:#fff;display:grid;place-items:center;font-family:var(--head);font-weight:700;font-size:1.2rem;margin-bottom:1.2rem}
+.hstep:nth-child(3) .num{background:var(--orange);color:var(--navy)}
+.hstep h3{margin-bottom:.5rem}
+.hstep p{color:var(--muted)}
+.hstep:not(:last-child)::after{content:"";position:absolute;top:58px;right:-1.4rem;width:1.4rem;height:2px;background:var(--line)}
+/* why choose */
+.whys{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:1.6rem}
+.wy{display:flex;gap:.8rem}
+.wy .ic{flex:none;width:40px;height:40px;border-radius:12px;background:var(--soft);display:grid;place-items:center}
+.wy svg{width:20px;stroke:var(--blue);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.wy h4{font-size:1rem;margin-bottom:.1rem}
+.wy p{font-size:.92rem;color:var(--muted);line-height:1.5}
+/* final CTA */
+.final{background:var(--navy);color:#fff;border-radius:var(--r-lg);padding:clamp(2.4rem,6vw,4.4rem);display:grid;grid-template-columns:1.2fr .8fr;gap:3rem;align-items:center;position:relative;overflow:hidden}
+.final::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:var(--blue);opacity:.16;right:-140px;top:-180px}
+.final h2{color:#fff;font-size:clamp(2rem,4vw,3.2rem)}
+.final p{color:rgba(255,255,255,.78);margin-top:1rem;font-size:1.08rem}
+.final .reassure{color:#fff}
+.final .reassure li::before{background-color:rgba(255,255,255,.14)}
+.final .acts{display:grid;gap:.8rem;position:relative;z-index:1}
+.final .acts .btn{width:100%}
+.final small{color:rgba(255,255,255,.6);text-align:center;display:block}
+/* mobile sticky booking bar */
+.mbar{display:none}
+@media (max-width:980px){
+  .mbar{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:65;background:#fff;border-top:1px solid var(--line);padding:.7rem max(.9rem,env(safe-area-inset-right)) calc(.7rem + env(safe-area-inset-bottom)) max(.9rem,env(safe-area-inset-left));gap:.6rem;box-shadow:0 -10px 30px -18px rgba(24,51,76,.4);transform:translateY(110%);transition:transform .35s var(--ease)}
+  .mbar.on{transform:none}
+  .mbar .btn{flex:1;min-height:50px}
+  .mbar .btn-icon{flex:none;width:50px;padding:0}
+  .mbar .btn-icon svg{width:22px;stroke:var(--navy);fill:none;stroke-width:2}
+  .wa-float{display:none}
+  body{padding-bottom:0}
+  footer.site{padding-bottom:110px}
+  .trustbar .wrap,.pains{grid-template-columns:1fr 1fr}
+  .how{grid-template-columns:1fr}
+  .hstep:not(:last-child)::after{display:none}
+  .final{grid-template-columns:1fr}
+  .player{bottom:84px}
+}
+@media (max-width:640px){
+  body{font-size:16.5px}
+  .trustbar .wrap,.pains,.whys{grid-template-columns:1fr}
+  .tb{padding:.2rem 0}
+  .hbook form,.hbook .top{padding-left:1.3rem;padding-right:1.3rem}
+}

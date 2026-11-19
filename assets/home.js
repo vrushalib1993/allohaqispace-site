@@ -29,7 +29,7 @@ function showResult(){
   const where=ans.mode==="online"?"online":"at the Pune centre";
   const msg=`Hi Rikhil, the practice finder on your website suggested "${p.t}". I'd like to start ${where}. Could you share the next available slots?`;
   $("#result").innerHTML=`<span class="match">Suggested for you · ${where==="online"?"Online":"Pune centre"}</span><h3>${p.t}</h3><p>${p.d}</p><ul class="ticks">${p.pts.map(x=>`<li>${x}</li>`).join("")}</ul>
-  <div class="row"><a class="btn btn-primary" target="_blank" rel="noopener" href="${wa(msg)}">Book on WhatsApp →</a><a class="btn btn-outline" href="/${p.slug}/">About this practice</a></div>
+  <div class="row"><a class="btn btn-cta" target="_blank" rel="noopener" href="${wa(msg)}">Book this practice →</a><a class="btn btn-outline" href="/${p.slug}/">About this practice</a></div>
   <p style="margin:1.2rem 0 0"><button class="textlink" id="redo">↺ Start again</button></p>`;
   $("#redo").onclick=()=>{qi=0;show()};
 }

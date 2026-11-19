@@ -698,3 +698,5 @@ section{position:relative}
 .cta-band>*{position:relative}
 
 @media (prefers-reduced-motion:reduce){.mq-track{animation:none}.btn-cta::before{display:none}.himg img,.banner img,.cover img{transform:scale(1.05)}}
+.scard .ico{width:56px;height:56px;padding:0;justify-content:center;border-radius:16px;margin-bottom:.4rem}
+.scard .ico svg{width:26px;height:26px}

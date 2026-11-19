@@ -134,14 +134,14 @@ fetch("sounds.json",{cache:"no-cache"}).then(r=>r.ok?r.json():[]).catch(()=>[]).
    const base=h*(.22+i*.1), amp=18+i*6, f=.0022+i*.00025, sp=t*(.25+i*.04);
    x.beginPath();
    for(let px=-20;px<=w+20;px+=14){const py=base+Math.sin(px*f+sp+i)*amp+Math.sin(px*f*.5-sp*.6)*amp*.6; px<0?x.moveTo(px,py):x.lineTo(px,py)}
-   x.strokeStyle=`rgba(70,143,233,${.10+i*.025})`; x.lineWidth=1.5; x.stroke();
+   x.strokeStyle=`rgba(255,255,255,${.35+i*.06})`; x.lineWidth=1.6; x.stroke();
   }
   for(const m of motes){
    m.y-=m.s; m.x+=Math.sin(t*.6+m.p)*.25;
    if(m.y<-10){m.y=h+10;m.x=Math.random()*w}
    const a=.4+.3*Math.sin(t*1.2+m.p);
    x.beginPath(); x.arc(m.x,m.y,m.r,0,6.283);
-   x.fillStyle=m.o?`rgba(247,162,83,${a})`:`rgba(70,143,233,${a})`; x.fill();
+   x.fillStyle=m.o?`rgba(247,162,83,${a})`:`rgba(255,255,255,${Math.min(1,a+.3)})`; x.fill();
   }
  }
  function loop(){t+=.012;draw();if(run)raf=requestAnimationFrame(loop)}

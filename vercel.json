@@ -1,0 +1,455 @@
+{
+ "cleanUrls": true,
+ "trailingSlash": true,
+ "redirects": [
+  {
+   "source": "/services-2",
+   "destination": "/programs/",
+   "permanent": true
+  },
+  {
+   "source": "/services",
+   "destination": "/programs/",
+   "permanent": true
+  },
+  {
+   "source": "/services/:path*",
+   "destination": "/programs/",
+   "permanent": true
+  },
+  {
+   "source": "/mental-physical-and-energetic-integration",
+   "destination": "/qi-core-improvement/",
+   "permanent": true
+  },
+  {
+   "source": "/privacy-policy",
+   "destination": "/privacy-policy-2/",
+   "permanent": true
+  },
+  {
+   "source": "/healing-events",
+   "destination": "/events/",
+   "permanent": true
+  },
+  {
+   "source": "/tribe_events/:path*",
+   "destination": "/events/",
+   "permanent": true
+  },
+  {
+   "source": "/book-appointment",
+   "destination": "/contact-us/#book",
+   "permanent": true
+  },
+  {
+   "source": "/newsletter",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/category/:path*",
+   "destination": "/inspiration/",
+   "permanent": true
+  },
+  {
+   "source": "/author/:path*",
+   "destination": "/about-us/",
+   "permanent": true
+  },
+  {
+   "source": "/inspiration-art",
+   "destination": "/inspiration/",
+   "permanent": true
+  },
+  {
+   "source": "/feed",
+   "destination": "/inspiration/",
+   "permanent": true
+  },
+  {
+   "source": "/comments/feed",
+   "destination": "/inspiration/",
+   "permanent": true
+  },
+  {
+   "source": "/cart",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/checkout",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/my-account",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/my-account-2",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/tickets-order",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/tickets-checkout",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/gift-card",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/gift-card-balance",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/balance",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/product/gift-card",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/product/gift-card-expiry-extension",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/product/gift-card-expiry-extension-2",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/product/group-gift-contribution",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/product/group-gift-contribution-2",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/product/online-consultancy",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/voucher_template/:path*",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/membership-login/:path*",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/membership-login",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/membership-join/:path*",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/membership-join",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/membership-pricing",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/register",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/register-2",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/registration",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/login",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/lost-password",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/thank-you",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/thankyou",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/wp-login.php",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/wp-admin/:path*",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/forums/:path*",
+   "destination": "/inspiration/",
+   "permanent": true
+  },
+  {
+   "source": "/forums",
+   "destination": "/inspiration/",
+   "permanent": true
+  },
+  {
+   "source": "/topics/:path*",
+   "destination": "/inspiration/",
+   "permanent": true
+  },
+  {
+   "source": "/topics",
+   "destination": "/inspiration/",
+   "permanent": true
+  },
+  {
+   "source": "/services-2/",
+   "destination": "/programs/",
+   "permanent": true
+  },
+  {
+   "source": "/services/",
+   "destination": "/programs/",
+   "permanent": true
+  },
+  {
+   "source": "/mental-physical-and-energetic-integration/",
+   "destination": "/qi-core-improvement/",
+   "permanent": true
+  },
+  {
+   "source": "/privacy-policy/",
+   "destination": "/privacy-policy-2/",
+   "permanent": true
+  },
+  {
+   "source": "/healing-events/",
+   "destination": "/events/",
+   "permanent": true
+  },
+  {
+   "source": "/book-appointment/",
+   "destination": "/contact-us/#book",
+   "permanent": true
+  },
+  {
+   "source": "/newsletter/",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/inspiration-art/",
+   "destination": "/inspiration/",
+   "permanent": true
+  },
+  {
+   "source": "/feed/",
+   "destination": "/inspiration/",
+   "permanent": true
+  },
+  {
+   "source": "/comments/feed/",
+   "destination": "/inspiration/",
+   "permanent": true
+  },
+  {
+   "source": "/cart/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/checkout/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/my-account/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/my-account-2/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/tickets-order/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/tickets-checkout/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/gift-card/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/gift-card-balance/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/balance/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/product/gift-card/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/product/gift-card-expiry-extension/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/product/gift-card-expiry-extension-2/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/product/group-gift-contribution/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/product/group-gift-contribution-2/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/product/online-consultancy/",
+   "destination": "/shop/",
+   "permanent": true
+  },
+  {
+   "source": "/membership-login/",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/membership-join/",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/membership-pricing/",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/register/",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/register-2/",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/registration/",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/login/",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/lost-password/",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/thank-you/",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/thankyou/",
+   "destination": "/contact-us/",
+   "permanent": true
+  },
+  {
+   "source": "/forums/",
+   "destination": "/inspiration/",
+   "permanent": true
+  },
+  {
+   "source": "/topics/",
+   "destination": "/inspiration/",
+   "permanent": true
+  }
+ ],
+ "headers": [
+  {
+   "source": "/assets/(.*)",
+   "headers": [
+    {
+     "key": "Cache-Control",
+     "value": "public, max-age=86400"
+    }
+   ]
+  },
+  {
+   "source": "/(.*)",
+   "headers": [
+    {
+     "key": "X-Content-Type-Options",
+     "value": "nosniff"
+    },
+    {
+     "key": "Referrer-Policy",
+     "value": "strict-origin-when-cross-origin"
+    }
+   ]
+  }
+ ]
+}

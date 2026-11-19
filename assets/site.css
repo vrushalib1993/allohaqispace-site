@@ -580,3 +580,6 @@ body.playing-bar .wa-float{bottom:100px}
 @media (max-width:560px){.creds{grid-template-columns:1fr}}
 .meet-media .yt span{top:1rem;bottom:auto}
 .final .eyebrow,.footer .eyebrow{color:#8fbaf2}
+.meet-media .yt{background-image:url(https://i.ytimg.com/vi/DCJgmAhAYRA/sddefault.jpg)!important;background-size:auto 136%!important;background-position:center!important}
+.meet .lead{margin-bottom:1rem}
+.meet p .textlink{font-size:inherit;text-transform:none;letter-spacing:0;font-family:inherit;font-weight:600}

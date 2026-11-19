@@ -119,3 +119,34 @@ fetch("sounds.json",{cache:"no-cache"}).then(r=>r.ok?r.json():[]).catch(()=>[]).
 });
 
 })();
+
+/* Hero background: slow flowing lines and drifting motes (qi flow) */
+(function(){
+ const c=document.getElementById('qi'); if(!c) return;
+ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const x=c.getContext('2d'); let w,h,dpr,motes=[],t=0,run=true,raf;
+ function size(){dpr=Math.min(devicePixelRatio||1,2);w=c.clientWidth;h=c.clientHeight;c.width=w*dpr;c.height=h*dpr;x.setTransform(dpr,0,0,dpr,0,0);
+  const n=Math.round(Math.min(60,w/22));motes=Array.from({length:n},()=>({x:Math.random()*w,y:Math.random()*h,r:1+Math.random()*2.2,s:.15+Math.random()*.35,p:Math.random()*6.28,o:Math.random()<.18}))}
+ function draw(){
+  x.clearRect(0,0,w,h);
+  const lines=7;
+  for(let i=0;i<lines;i++){
+   const base=h*(.22+i*.1), amp=18+i*6, f=.0022+i*.00025, sp=t*(.25+i*.04);
+   x.beginPath();
+   for(let px=-20;px<=w+20;px+=14){const py=base+Math.sin(px*f+sp+i)*amp+Math.sin(px*f*.5-sp*.6)*amp*.6; px<0?x.moveTo(px,py):x.lineTo(px,py)}
+   x.strokeStyle=`rgba(70,143,233,${.05+i*.012})`; x.lineWidth=1.2; x.stroke();
+  }
+  for(const m of motes){
+   m.y-=m.s; m.x+=Math.sin(t*.6+m.p)*.25;
+   if(m.y<-10){m.y=h+10;m.x=Math.random()*w}
+   const a=.25+.25*Math.sin(t*1.2+m.p);
+   x.beginPath(); x.arc(m.x,m.y,m.r,0,6.283);
+   x.fillStyle=m.o?`rgba(247,162,83,${a})`:`rgba(70,143,233,${a})`; x.fill();
+  }
+ }
+ function loop(){t+=.012;draw();if(run)raf=requestAnimationFrame(loop)}
+ size(); addEventListener('resize',()=>{size();if(reduce)draw()});
+ if(reduce){draw();return}
+ new IntersectionObserver(e=>{run=e[0].isIntersecting;cancelAnimationFrame(raf);if(run)loop()}).observe(c);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden){run=false;cancelAnimationFrame(raf)}else{run=true;loop()}});
+})();

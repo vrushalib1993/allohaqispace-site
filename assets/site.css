@@ -524,3 +524,35 @@ body.playing-bar .wa-float{bottom:100px}
   .tb{padding:.2rem 0}
   .hbook form,.hbook .top{padding-left:1.3rem;padding-right:1.3rem}
 }
+
+/* ---- Hero background motion + photography ---- */
+.hero{position:relative;overflow:hidden;isolation:isolate}
+.hero>.wrap{position:relative;z-index:1}
+.hero-bg{position:absolute;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,#fff 0%,var(--cloud) 100%)}
+.hero-bg i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55;will-change:transform}
+.hero-bg .b1{width:520px;height:520px;background:var(--soft);left:-140px;top:-120px;animation:drift1 22s ease-in-out infinite alternate}
+.hero-bg .b2{width:440px;height:440px;background:#d5e6fb;right:-120px;top:30%;animation:drift2 26s ease-in-out infinite alternate}
+.hero-bg .b3{width:300px;height:300px;background:#fde3c8;left:38%;bottom:-160px;opacity:.45;animation:drift3 30s ease-in-out infinite alternate}
+.hero-bg canvas{position:absolute;inset:0;width:100%;height:100%}
+@keyframes drift1{to{transform:translate(120px,80px) scale(1.12)}}
+@keyframes drift2{to{transform:translate(-110px,-70px) scale(.92)}}
+@keyframes drift3{to{transform:translate(-140px,-40px) scale(1.15)}}
+.hbook{position:relative;box-shadow:0 30px 60px -30px rgba(24,51,76,.35)}
+
+.pain{padding:0 0 1.6rem;overflow:hidden}
+.pain>*:not(.pimg){margin-left:1.6rem;margin-right:1.6rem}
+.pimg{aspect-ratio:16/10;overflow:hidden;margin-bottom:.6rem;background:var(--soft)}
+.pimg img,.himg img,.banner img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease)}
+.pain:hover .pimg img{transform:scale(1.05)}
+.pain .ic{margin-top:-2.6rem;position:relative;background:#fff;box-shadow:0 6px 18px rgba(24,51,76,.12)}
+.hstep{padding:0 0 2rem;overflow:hidden}
+.hstep>*:not(.himg){margin-left:2rem;margin-right:2rem}
+.himg{aspect-ratio:5/3;overflow:hidden;background:var(--soft)}
+.hstep .num{margin-top:-26px;position:relative;border:4px solid #fff;box-sizing:content-box}
+.hstep:not(:last-child)::after{display:none}
+.banner{aspect-ratio:3.2/1;border-radius:var(--r-lg);overflow:hidden;margin:0 0 2.4rem;background:var(--soft)}
+@media (max-width:640px){.banner{aspect-ratio:2/1}}
+.final .fbg{position:absolute;inset:0;z-index:0}
+.final .fbg img{width:100%;height:100%;object-fit:cover;opacity:.22;mix-blend-mode:luminosity}
+.final>*{position:relative;z-index:1}
+.final::after{z-index:0}

@@ -608,3 +608,6 @@ body.playing-bar .wa-float{bottom:100px}
  .hero-photo{object-position:70% 70%}
  .hero-veil{background:linear-gradient(180deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 70%,rgba(246,249,252,1) 100%)}
 }
+/* keep the flowing lines off the text column */
+.hero-bg canvas{-webkit-mask-image:linear-gradient(90deg,transparent 0%,transparent 46%,#000 66%,#000 100%);mask-image:linear-gradient(90deg,transparent 0%,transparent 46%,#000 66%,#000 100%)}
+@media (max-width:980px){.hero-bg canvas{-webkit-mask-image:linear-gradient(180deg,transparent 0%,transparent 55%,#000 75%);mask-image:linear-gradient(180deg,transparent 0%,transparent 55%,#000 75%)}}

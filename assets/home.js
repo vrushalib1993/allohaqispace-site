@@ -150,3 +150,4 @@ fetch("sounds.json",{cache:"no-cache"}).then(r=>r.ok?r.json():[]).catch(()=>[]).
  new IntersectionObserver(e=>{run=e[0].isIntersecting;cancelAnimationFrame(raf);if(run)loop()}).observe(c);
  document.addEventListener('visibilitychange',()=>{if(document.hidden){run=false;cancelAnimationFrame(raf)}else{run=true;loop()}});
 })();
+(function(){const i=document.querySelector('.hero-photo');if(!i)return;const on=()=>i.classList.add('loaded');i.complete&&i.naturalWidth?on():i.addEventListener('load',on);setTimeout(on,2500)})();

@@ -592,3 +592,19 @@ body.playing-bar .wa-float{bottom:100px}
 .cover{aspect-ratio:2.4/1;border-radius:var(--r-lg);overflow:hidden;background:var(--soft);margin-top:-1rem}
 .cover img{width:100%;height:100%;object-fit:cover;display:block}
 @media (max-width:640px){.cover{aspect-ratio:16/10}}
+
+/* ---- Hero photo background ---- */
+.hero{background:#fff;border-bottom:0}
+.hero-bg{background:#eef4fb}
+.hero-bg i{display:none}
+.hero-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 60%;transform-origin:70% 60%;animation:kenburns 40s ease-in-out infinite alternate;opacity:0;transition:opacity 1.2s ease}
+.hero-photo.loaded{opacity:1}
+@keyframes kenburns{from{transform:scale(1)}to{transform:scale(1.12) translate(-1.5%,-1%)}}
+.hero-veil{position:absolute;inset:0;background:
+ linear-gradient(90deg,rgba(255,255,255,.97) 0%,rgba(255,255,255,.93) 32%,rgba(255,255,255,.55) 55%,rgba(255,255,255,.08) 78%,rgba(255,255,255,0) 100%),
+ linear-gradient(180deg,rgba(255,255,255,.35) 0%,rgba(255,255,255,0) 30%,rgba(255,255,255,0) 75%,rgba(246,249,252,1) 100%)}
+.hero .reassure li{color:var(--text)}
+@media (max-width:980px){
+ .hero-photo{object-position:70% 70%}
+ .hero-veil{background:linear-gradient(180deg,rgba(255,255,255,.95) 0%,rgba(255,255,255,.88) 45%,rgba(255,255,255,.55) 70%,rgba(246,249,252,1) 100%)}
+}

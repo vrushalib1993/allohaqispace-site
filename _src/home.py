@@ -94,6 +94,20 @@ body = f'''
  </div>
 </div></section>
 
+<section class="nl-sec" id="newsletter"><div class="wrap"><div class="nl reveal">
+ <div class="nl-copy"><div class="eyebrow">Free tips from Rikhil</div>
+  <h2>Simple Qi Gong practices, straight to your inbox</h2>
+  <p>Short guided practices, seasonal routines and ideas for a calmer body and a clearer mind. Once or twice a month, never spam.</p>
+  <ul class="nl-points"><li>2-minute practices you can do at your desk</li><li>Early notice of healing events and new courses</li><li>Unsubscribe any time in one click</li></ul></div>
+ <form class="nl-form" data-newsletter="home" novalidate>
+  <div class="field"><label for="nlname">First name <span>(optional)</span></label><input id="nlname" name="name" autocomplete="given-name" placeholder="Priya"></div>
+  <div class="field"><label for="nlemail">Email</label><input id="nlemail" name="email" type="email" autocomplete="email" required placeholder="name@example.com"></div>
+  <input class="hp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <div class="nl-msg" aria-live="polite"></div>
+  <button class="btn btn-cta btn-lg btn-block" type="submit" data-deco="plain">Send me free tips</button>
+  <p class="nl-fine">We’ll only use your email to send Rikhil’s newsletter. See our <a href="/privacy-policy-2/">privacy policy</a>.</p>
+ </form></div></div></section>
+
 <section class="bg-cloud" id="approach"><div class="wrap">
  <div class="sec-head center reveal"><div class="eyebrow">Sound familiar?</div><h2>Qi Gong for the things that wear you down</h2><p class="lead">Slow, precise movement and focused attention, taught in plain language. Pick what bothers you most.</p></div>
  <div class="pains">

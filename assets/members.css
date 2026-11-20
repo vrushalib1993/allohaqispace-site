@@ -188,3 +188,6 @@ body:has(.p-shell) .m-sec-wrap{padding:0}
 .a-adv{margin:0 0 1rem}.a-adv summary{cursor:pointer;font-weight:600;color:var(--blue-d);margin-bottom:.8rem}
 #app select{width:100%;font:inherit;font-size:1rem;background:var(--cloud);border:1.5px solid var(--line);border-radius:12px;padding:.7rem .9rem;min-height:48px;color:var(--text)}
 @media (max-width:640px){.a-stats{grid-template-columns:1fr}}
+.a-solo{max-width:980px;margin:2rem auto 0;padding:0 clamp(1.2rem,4vw,2rem)}
+.a-help{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1.4rem 1.6rem;margin-top:1.2rem}
+.a-help h3{margin-bottom:.4rem}.a-help p{color:var(--muted);margin-bottom:1rem}

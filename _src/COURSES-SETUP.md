@@ -33,3 +33,13 @@ Project → Settings → Environment Variables, then redeploy:
 
 ## Preview
 Add `?demo=1` to /courses/ to try everything with sample data. `?demo=0` exits.
+
+## Newsletter (Resend)
+1. Supabase SQL Editor: run `_src/supabase/newsletter.sql` (done for the live project).
+2. Resend: create an account, Audience → Segments → create "Newsletter", copy its ID.
+3. Resend → Domains → add `allohaqispace.com` and add the DNS records it shows (needed for the welcome email
+   and for sending newsletters from hello@allohaqispace.com).
+4. Resend → API Keys → create a key with "Full access".
+5. Vercel env vars: `RESEND_API_KEY`, `RESEND_SEGMENT_ID`, and once the domain is verified
+   `RESEND_FROM` = `Rikhil Bithar <hello@allohaqispace.com>` (optional `RESEND_REPLY_TO`). Redeploy.
+6. Send newsletters from Resend → Broadcasts, choosing the Newsletter segment.

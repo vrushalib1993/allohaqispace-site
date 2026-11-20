@@ -128,3 +128,19 @@ document.querySelectorAll('.countdown[data-start]').forEach(el=>{
 /* member link label (lightweight; member pages refine it) */
 (function(){let signed=false;try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(/^sb-.+-auth-token$/.test(k)){signed=true;break}}if(sessionStorage.getItem('aqs-demo')==='1'){const d=JSON.parse(sessionStorage.getItem('aqs-demo-db')||'{}');signed=!!d.user}}catch(e){}
  if(signed)document.querySelectorAll('[data-member-link]').forEach(a=>{a.textContent='My courses';a.href='/account/'})})();
+
+/* newsletter sign-up */
+document.querySelectorAll('form[data-newsletter]').forEach(f=>{
+ const t0=Date.now(),msg=f.querySelector('.nl-msg'),btn=f.querySelector('button[type=submit]'),label=btn.innerHTML;
+ const show=(h,ok)=>{msg.innerHTML=h?`<div class="${ok?'nl-ok':'nl-err'}" role="${ok?'status':'alert'}">${h}</div>`:''};
+ f.querySelectorAll('input').forEach(i=>i.addEventListener('input',()=>show('')));
+ f.addEventListener('submit',async e=>{
+  e.preventDefault();const email=f.email.value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)){show('Enter a valid email address.');f.email.focus();return}
+  btn.disabled=true;btn.innerHTML='Subscribing…';
+  try{const r=await fetch('/api/subscribe',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({email,name:f.name.value.trim(),company:f.company.value,source:f.dataset.newsletter,t:Date.now()-t0})});
+   const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||'');
+   f.innerHTML=`<div class="nl-done"><div class="nl-tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h3>${d.already?'You’re already subscribed':'You’re in!'}</h3><p>${d.already?'Thanks for checking. Rikhil’s next tips will reach you soon.':'Check your inbox for a welcome note from Rikhil with your first 2-minute practice.'}</p></div>`;
+  }catch(x){btn.disabled=false;btn.innerHTML=label;show(x.message&&!/configured/i.test(x.message)?x.message:'Couldn’t subscribe right now. Please try again in a minute.')}
+ });
+});

@@ -93,6 +93,9 @@ export function realApi(cfg) {
       if (!p) throw new Error('No member with that email yet. Ask them to create an account first.');
       ok(await sb.from('enrollments').upsert({ user_id: p.id, course_id: courseId, source: 'admin' }, { onConflict: 'user_id,course_id', ignoreDuplicates: true }));
     },
+    // ---- newsletter (admin) ----
+    async subscribers() { return ok(await sb.from('newsletter_subscribers').select('*').order('created_at', { ascending: false })); },
+    async setSubscriberStatus(id, status) { ok(await sb.from('newsletter_subscribers').update({ status }).eq('id', id)); },
     // ---- events (admin) ----
     async adminEvents() { return ok(await sb.from('events').select('*').order('start_at', { ascending: false })); },
     async saveEvent(e) { const row = { ...e }; if (!row.id) delete row.id; return ok(await sb.from('events').upsert(row).select().single()); },

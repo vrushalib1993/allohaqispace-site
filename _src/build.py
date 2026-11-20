@@ -464,7 +464,7 @@ member_page("/account/", "My courses", "Your Alloha Qi Space courses.", "account
             '<header class="m-authhero"><div class="wrap"><h1>My learning</h1></div></header>')
 member_page("/learn/", "Lesson", "Course lesson.", "learn")
 member_page("/admin/", "Admin", "Site admin.", "admin",
-            '<header class="m-authhero"><div class="wrap"><h1>Admin</h1><p class="lead">Manage courses, lessons, healing events and bookings.</p></div></header>')
+            '<header class="m-authhero"><div class="wrap"><h1>Admin</h1><p class="lead">Manage courses, healing events, bookings and newsletter subscribers.</p></div></header>')
 
 # ---------- sitemap & robots ----------
 urls = ["/"] + [p for p in pages if p not in ("/event-booked/", "/404", "/event/", "/course/", "/login/", "/account/", "/learn/", "/admin/")]

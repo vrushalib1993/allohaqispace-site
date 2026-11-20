@@ -274,10 +274,11 @@ async function viewAdmin() {
   if (!(await api.user())) return go(loginUrl('/admin/'));
   const p = await api.profile();
   if (!p?.is_admin) { app.innerHTML = `<div class="m-wrap"><div class="m-empty"><h2>Admins only</h2><p>Your account doesn’t have admin access. See the setup guide to make an account an admin.</p></div></div>`; return; }
-  const section = qs.get('s') === 'events' ? 'events' : 'courses';
-  app.innerHTML = `<div class="a-switch"><a class="${section === 'courses' ? 'on' : ''}" href="/admin/">Courses</a><a class="${section === 'events' ? 'on' : ''}" href="/admin/?s=events">Healing events</a></div><div id="adm"></div>`;
+  const section = ['events', 'newsletter'].includes(qs.get('s')) ? qs.get('s') : 'courses';
+  app.innerHTML = `<div class="a-switch"><a class="${section === 'courses' ? 'on' : ''}" href="/admin/">Courses</a><a class="${section === 'events' ? 'on' : ''}" href="/admin/?s=events">Healing events</a><a class="${section === 'newsletter' ? 'on' : ''}" href="/admin/?s=newsletter">Newsletter</a></div><div id="adm"></div>`;
   const root = $('#adm');
   if (section === 'events') return adminEvents(root);
+  if (section === 'newsletter') return adminNewsletter(root);
   let courses = await api.adminCourses();
   let selId = qs.get('id') || courses[0]?.id || null;
   let tab = 'details';
@@ -482,6 +483,27 @@ async function adminEvents(root) {
     };
   }
   render();
+}
+
+
+// ---------- admin: newsletter ----------
+async function adminNewsletter(root) {
+  const subs = await api.subscribers();
+  const active = subs.filter(x => x.status === 'subscribed');
+  const month = active.filter(x => new Date(x.created_at) > new Date(Date.now() - 30 * 864e5)).length;
+  root.innerHTML = `<div class="a-solo"><div class="a-stats"><div><b>${active.length}</b><span>subscribers</span></div><div><b>${month}</b><span>joined in the last 30 days</span></div><div><b>${subs.filter(x => !x.resend_synced).length}</b><span>not yet in Resend</span></div></div>
+    <div class="a-help"><h3>Send a newsletter</h3><p>Write and send newsletters in Resend: <b>Broadcasts → Create</b>, choose the <b>Newsletter</b> segment. Resend adds the unsubscribe link and handles unsubscribes for you.</p>
+      <a class="btn btn-cta btn-sm" href="https://resend.com/broadcasts" target="_blank" rel="noopener">Open Resend Broadcasts</a></div>
+    <div class="a-actions" style="margin:1.4rem 0 1rem"><button class="btn btn-outline btn-sm" id="ncsv">Download list (CSV)</button></div>
+    <div class="a-members">${subs.map(x => `<div class="a-mem ${x.status !== 'subscribed' ? 'cx' : ''}"><div><b>${esc(x.email)}</b><small>${esc(x.name || '')}${x.source ? ' · from ' + esc(x.source) : ''}</small></div>
+      <span class="m-badge">${x.status}</span>${x.resend_synced ? '' : '<span class="m-badge">not in Resend</span>'}<small>${new Date(x.created_at).toLocaleDateString('en-IN')}</small>
+      <button class="linkbtn" data-ns="${x.id}" data-to="${x.status === 'subscribed' ? 'unsubscribed' : 'subscribed'}">${x.status === 'subscribed' ? 'Mark unsubscribed' : 'Resubscribe'}</button></div>`).join('') || '<p class="m-note">No subscribers yet. Sign-ups from the homepage appear here.</p>'}</div></div>`;
+  root.querySelectorAll('[data-ns]').forEach(b => b.onclick = async () => { await api.setSubscriberStatus(b.dataset.ns, b.dataset.to); adminNewsletter(root); });
+  $('#ncsv').onclick = () => {
+    const rows = [['Email', 'Name', 'Status', 'Source', 'Joined'], ...subs.map(x => [x.email, x.name, x.status, x.source, new Date(x.created_at).toLocaleString('en-IN')])];
+    const csv = rows.map(r => r.map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+    const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv' })); a.download = 'newsletter-subscribers.csv'; a.click();
+  };
 }
 
 // ---------- boot ----------

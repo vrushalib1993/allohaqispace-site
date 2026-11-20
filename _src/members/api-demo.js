@@ -87,6 +87,8 @@ export function demoApi() {
     async eventBookings(id) { return db.bookings.filter(b => b.event_id === id).sort((a, b) => b.created_at.localeCompare(a.created_at)); },
     async addBooking(b) { db.bookings.push({ id: uid(), created_at: new Date().toISOString(), ...b, status: 'manual' }); save(); },
     async setBookingStatus(id, status) { const b = db.bookings.find(x => x.id === id); if (b) b.status = status; save(); },
+    async subscribers() { return db.subs || (db.subs = [{ id: uid(), email: 'priya@example.com', name: 'Priya', source: 'home', status: 'subscribed', resend_synced: true, created_at: new Date().toISOString() }, { id: uid(), email: 'ravi@example.com', name: '', source: 'home', status: 'subscribed', resend_synced: true, created_at: new Date(Date.now() - 864e5 * 9).toISOString() }]); },
+    async setSubscriberStatus(id, status) { const x = (db.subs || []).find(s => s.id === id); if (x) x.status = status; save(); },
     resetDemo() { sessionStorage.removeItem(KEY); },
   };
   return api;

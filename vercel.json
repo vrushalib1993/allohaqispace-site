@@ -441,5 +441,15 @@
     }
    ]
   }
+ ],
+ "rewrites": [
+  {
+   "source": "/event/:slug",
+   "destination": "/event/"
+  },
+  {
+   "source": "/event/:slug/",
+   "destination": "/event/"
+  }
  ]
 }

@@ -274,6 +274,10 @@ async function viewAdmin() {
   if (!(await api.user())) return go(loginUrl('/admin/'));
   const p = await api.profile();
   if (!p?.is_admin) { app.innerHTML = `<div class="m-wrap"><div class="m-empty"><h2>Admins only</h2><p>Your account doesn’t have admin access. See the setup guide to make an account an admin.</p></div></div>`; return; }
+  const section = qs.get('s') === 'events' ? 'events' : 'courses';
+  app.innerHTML = `<div class="a-switch"><a class="${section === 'courses' ? 'on' : ''}" href="/admin/">Courses</a><a class="${section === 'events' ? 'on' : ''}" href="/admin/?s=events">Healing events</a></div><div id="adm"></div>`;
+  const root = $('#adm');
+  if (section === 'events') return adminEvents(root);
   let courses = await api.adminCourses();
   let selId = qs.get('id') || courses[0]?.id || null;
   let tab = 'details';
@@ -281,7 +285,7 @@ async function viewAdmin() {
 
   async function render() {
     const c = courses.find(x => x.id === selId);
-    app.innerHTML = `<div class="a-shell"><aside class="a-list"><button class="btn btn-cta btn-block" id="newc">+ New course</button>
+    root.innerHTML = `<div class="a-shell"><aside class="a-list"><button class="btn btn-cta btn-block" id="newc">+ New course</button>
       ${courses.map(x => `<button class="a-ci ${x.id === selId ? 'on' : ''}" data-id="${x.id}"><b>${esc(x.title)}</b><small>${x.published ? 'Published' : 'Draft'} · ${price(x.price)}</small></button>`).join('') || '<p class="m-note">No courses yet.</p>'}
       </aside><main class="a-main">${c ? `<div class="a-head"><h2>${esc(c.title)}</h2><a class="textlink" href="/course/?c=${encodeURIComponent(c.slug)}" target="_blank">View page →</a></div>
       <div class="m-tabs a-tabs"><button data-t="details">Details</button><button data-t="lessons">Lessons</button><button data-t="members">Members</button></div><div id="pane"></div>` : '<div class="m-empty sm"><h3>Create your first course</h3><p>Click “New course” to begin.</p></div>'}</main></div>`;
@@ -368,6 +372,114 @@ async function viewAdmin() {
       <div class="a-members">${ms.map(m => `<div class="a-mem"><div><b>${esc(m.full_name || '—')}</b><small>${esc(m.email || '')}</small></div><span class="m-badge">${esc(m.source)}${m.amount ? ' · ' + price(m.amount) : ''}</span><small>${new Date(m.created_at).toLocaleDateString('en-IN')}</small><button class="linkbtn" data-rv="${m.user_id}">Remove</button></div>`).join('')}</div>`;
     $('#gf').onsubmit = async (e) => { e.preventDefault(); try { await api.grant($('#ge').value, c.id); toast('Access granted'); membersPane(c); } catch (x) { errBox($('#gfm'), x.message); } };
     $$('[data-rv]').forEach(b => b.onclick = async () => { if (!confirm('Remove this member’s access to the course?')) return; await api.revoke(b.dataset.rv, c.id); membersPane(c); });
+  }
+  render();
+}
+
+
+// ---------- admin: healing events ----------
+const IST = (iso) => { if (!iso) return ''; const p = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Kolkata', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date(iso)).map(x => [x.type, x.value])); return `${p.year}-${p.month}-${p.day}T${p.hour}:${p.minute}`; };
+const fromIST = (v) => new Date(`${v}:00+05:30`).toISOString();
+const evDate = (iso) => new Intl.DateTimeFormat('en-IN', { timeZone: 'Asia/Kolkata', day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit' }).format(new Date(iso));
+const slugify2 = (s) => s.toLowerCase().normalize('NFKD').replace(/[^\w\s-]/g, '').trim().replace(/[\s_]+/g, '-').replace(/-+/g, '-').slice(0, 70);
+
+async function adminEvents(root) {
+  let events = await api.adminEvents();
+  let selId = qs.get('id') || events.find(e => new Date(e.end_at) > new Date())?.id || events[0]?.id || null;
+  let tab = qs.get('t') === 'bookings' ? 'bookings' : 'details';
+  async function render() {
+    const e = events.find(x => x.id === selId);
+    const now = new Date();
+    const item = (x) => `<button class="a-ci ${x.id === selId ? 'on' : ''}" data-id="${x.id}"><b>${esc(x.title)}</b><small>${evDate(x.start_at)} · ${x.published ? (new Date(x.end_at) < now ? 'Past' : 'Published') : 'Draft'} · ${price(x.price)}</small></button>`;
+    const up = events.filter(x => new Date(x.end_at) >= now).sort((a, b) => a.start_at.localeCompare(b.start_at)), past = events.filter(x => new Date(x.end_at) < now);
+    root.innerHTML = `<div class="a-shell"><aside class="a-list"><button class="btn btn-cta btn-block" id="newe">+ New event</button>
+      ${up.length ? '<div class="a-group">Upcoming</div>' + up.map(item).join('') : ''}${past.length ? '<div class="a-group">Past</div>' + past.map(item).join('') : ''}${events.length ? '' : '<p class="m-note">No events yet.</p>'}</aside>
+      <main class="a-main">${e ? `<div class="a-head"><h2>${esc(e.title)}</h2><a class="textlink" href="/event/${encodeURIComponent(e.slug)}/" target="_blank">View page →</a></div>
+      <div class="m-tabs a-tabs"><button data-t="details">Details</button><button data-t="bookings">Bookings</button></div><div id="pane"></div>` : '<div class="m-empty sm"><h3>Schedule your first event</h3><p>Click “New event” to add a workshop, healing circle or retreat.</p></div>'}</main></div>`;
+    $('#newe').onclick = () => editEvent(null);
+    root.querySelectorAll('.a-ci').forEach(b => b.onclick = () => { selId = b.dataset.id; tab = 'details'; render(); });
+    if (!e) return;
+    root.querySelectorAll('.a-tabs button').forEach(b => { b.classList.toggle('on', b.dataset.t === tab); b.onclick = () => { tab = b.dataset.t; render(); }; });
+    tab === 'details' ? editEvent(e) : bookingsPane(e);
+  }
+
+  function editEvent(e, copy) {
+    const isNew = !e || copy;
+    const base = e ? { ...e } : { title: '', slug: '', subtitle: '', summary: '', description: '', start_at: '', end_at: '', mode: 'in-person', venue: 'Alloha Qi Space, Kalyani Nagar, Pune',
+      price: 0, capacity: 20, max_per_booking: 6, cover_url: '', highlights: '', payment_link: '', booking_open: true, published: false };
+    if (copy) { delete base.id; base.title += ' (copy)'; base.slug += '-copy'; base.published = false; }
+    const target = isNew ? root.querySelector('.a-main') : $('#pane');
+    target.innerHTML = `${isNew ? `<h2>${copy ? 'Duplicate event' : 'New event'}</h2>` : ''}<form class="a-form" id="ef">
+      <div class="g2"><div class="field"><label>Event name</label><input name="title" required value="${esc(base.title)}" placeholder="Full Moon Healing Circle"></div><div class="field"><label>Web address</label><input name="slug" value="${esc(base.slug)}" placeholder="full-moon-healing-circle"></div></div>
+      <div class="field"><label>Tagline <small>(shown under the title)</small></label><input name="subtitle" value="${esc(base.subtitle)}"></div>
+      <div class="field"><label>Card summary <small>(one sentence for event cards)</small></label><input name="summary" value="${esc(base.summary)}"></div>
+      <div class="g2"><div class="field"><label>Starts (India time)</label><input name="start" type="datetime-local" required value="${IST(base.start_at)}"></div><div class="field"><label>Ends (India time)</label><input name="end" type="datetime-local" required value="${IST(base.end_at)}"></div></div>
+      <div class="g2"><div class="field"><label>Format</label><select name="mode">${[['in-person', 'In person'], ['online', 'Live online'], ['hybrid', 'In person & online']].map(([v, l]) => `<option value="${v}" ${base.mode === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div>
+        <div class="field"><label>Venue / where</label><input name="venue" value="${esc(base.venue)}" placeholder="Zoom link sent after booking"></div></div>
+      <div class="g3"><div class="field"><label>Price per seat in ₹ (0 = free)</label><input name="price" type="number" min="0" step="1" value="${base.price}"></div>
+        <div class="field"><label>Total seats (0 = unlimited)</label><input name="capacity" type="number" min="0" step="1" value="${base.capacity}"></div>
+        <div class="field"><label>Max seats per booking</label><input name="max_per_booking" type="number" min="1" max="50" step="1" value="${base.max_per_booking}"></div></div>
+      <div class="field"><label>Description <small>(Markdown: **bold**, - lists, ## headings)</small></label><textarea name="description" rows="8">${esc(base.description)}</textarea></div>
+      <div class="field"><label>What to expect <small>(one point per line)</small></label><textarea name="highlights" rows="4">${esc(base.highlights)}</textarea></div>
+      <div class="g2"><div class="field"><label>Cover image URL</label><input name="cover_url" value="${esc(base.cover_url)}"></div><div class="field"><label>…or upload cover</label><input type="file" id="ecov" accept="image/*"></div></div>
+      <details class="a-adv"><summary>Advanced</summary><div class="field"><label>External payment link <small>(optional; replaces the built-in booking form)</small></label><input name="payment_link" value="${esc(base.payment_link)}" placeholder="https://rzp.io/l/..."></div></details>
+      <div class="g2"><label class="a-check"><input type="checkbox" name="booking_open" ${base.booking_open ? 'checked' : ''}> Bookings open</label><label class="a-check"><input type="checkbox" name="published" ${base.published ? 'checked' : ''}> Published (visible on the website)</label></div>
+      <div id="efm"></div><div class="a-actions"><button class="btn btn-cta" type="submit">${isNew ? 'Create event' : 'Save changes'}</button>
+      ${isNew ? '' : '<button class="btn btn-outline" type="button" id="dupe">Duplicate</button><button class="btn btn-outline" type="button" id="dele">Delete</button>'}</div></form>`;
+    const f = $('#ef');
+    f.title.oninput = () => { if (isNew && !copy) f.slug.value = slugify2(f.title.value); };
+    $('#ecov').onchange = async (x) => { const file = x.target.files[0]; if (!file) return; $('#efm').innerHTML = '<div class="m-ok"><span class="spin"></span>Uploading cover…</div>';
+      try { f.cover_url.value = await api.uploadCover(file); $('#efm').innerHTML = '<div class="m-ok">Cover uploaded. Save to apply.</div>'; } catch (y) { errBox($('#efm'), y.message); } };
+    f.onsubmit = async (x) => {
+      x.preventDefault();
+      const slug = f.slug.value.trim() || slugify2(f.title.value);
+      if (!f.title.value.trim()) return errBox($('#efm'), 'Enter the event name.');
+      if (!/^[a-z0-9-]+$/.test(slug)) return errBox($('#efm'), 'Web address may use lowercase letters, numbers and dashes only.');
+      if (!f.start.value || !f.end.value) return errBox($('#efm'), 'Enter the start and end date and time.');
+      if (f.end.value < f.start.value) return errBox($('#efm'), 'The event must end after it starts.');
+      const row = { ...(isNew ? {} : { id: e.id }), title: f.title.value.trim(), slug, subtitle: f.subtitle.value.trim(), summary: f.summary.value.trim(), description: f.description.value,
+        start_at: fromIST(f.start.value), end_at: fromIST(f.end.value), mode: f.mode.value, venue: f.venue.value.trim(),
+        price: Math.max(0, parseInt(f.price.value || '0', 10)), capacity: Math.max(0, parseInt(f.capacity.value || '0', 10)), max_per_booking: Math.min(50, Math.max(1, parseInt(f.max_per_booking.value || '1', 10))),
+        cover_url: f.cover_url.value.trim(), highlights: f.highlights.value.trim(), payment_link: f.payment_link.value.trim(), booking_open: f.booking_open.checked, published: f.published.checked };
+      try { const saved = await api.saveEvent(row); events = await api.adminEvents(); selId = saved.id; tab = 'details'; await render(); toast(row.published ? 'Event saved and live' : 'Event saved as draft'); }
+      catch (y) { errBox($('#efm'), /duplicate|unique/i.test(y.message) ? 'That web address is already used by another event.' : y.message); }
+    };
+    if (!isNew) {
+      $('#dupe').onclick = () => editEvent(e, true);
+      $('#dele').onclick = async () => { if (!confirm(`Delete "${e.title}" and all its bookings? This cannot be undone.`)) return; await api.deleteEvent(e.id); events = await api.adminEvents(); selId = events[0]?.id || null; render(); };
+    }
+  }
+
+  async function bookingsPane(e) {
+    const bs = await api.eventBookings(e.id);
+    const conf = bs.filter(b => ['paid', 'free', 'manual'].includes(b.status));
+    const seats = conf.reduce((a, b) => a + b.seats, 0), revenue = bs.filter(b => b.status === 'paid').reduce((a, b) => a + b.amount, 0);
+    const pending = bs.filter(b => b.status === 'pending').length;
+    $('#pane').innerHTML = `<div class="a-stats"><div><b>${seats}${e.capacity ? ` / ${e.capacity}` : ''}</b><span>seats confirmed</span></div><div><b>${conf.length}</b><span>bookings</span></div><div><b>${price(revenue)}</b><span>paid online</span></div></div>
+      ${pending ? `<p class="m-note" style="text-align:left">${pending} unfinished checkout${pending > 1 ? 's' : ''} (people who opened payment but didn’t pay). These don’t hold seats.</p>` : ''}
+      <div class="a-actions" style="margin:1rem 0"><button class="btn btn-outline btn-sm" id="csv">Download attendee list (CSV)</button><button class="btn btn-outline btn-sm" id="addb">+ Add booking</button></div>
+      <div id="addf"></div>
+      <div class="a-members">${bs.filter(b => b.status !== 'pending').map(b => `<div class="a-mem ${b.status === 'cancelled' ? 'cx' : ''}"><div><b>${esc(b.name)}</b><small>${esc(b.email)}${b.phone ? ' · ' + esc(b.phone) : ''}</small></div>
+        <span>${b.seats} seat${b.seats > 1 ? 's' : ''}</span><span class="m-badge">${esc(b.status)}${b.amount ? ' · ' + price(b.amount) : ''}</span><small>${new Date(b.created_at).toLocaleDateString('en-IN')}</small>
+        ${b.phone ? `<a class="linkbtn" href="https://wa.me/${b.phone.replace(/\D/g, '').replace(/^(\d{10})$/, '91$1')}" target="_blank" rel="noopener">WhatsApp</a>` : ''}
+        <button class="linkbtn" data-st="${b.id}" data-to="${b.status === 'cancelled' ? (b.payment_id ? 'paid' : b.amount ? 'manual' : 'free') : 'cancelled'}">${b.status === 'cancelled' ? 'Restore' : 'Cancel'}</button></div>`).join('') || '<p class="m-note">No bookings yet.</p>'}</div>`;
+    $$('[data-st]').forEach(b => b.onclick = async () => { if (b.dataset.to === 'cancelled' && !confirm('Cancel this booking? The seat is released. Refunds are done in your Razorpay dashboard.')) return; await api.setBookingStatus(b.dataset.st, b.dataset.to); bookingsPane(e); });
+    $('#csv').onclick = () => {
+      const rows = [['Name', 'Email', 'Phone', 'Seats', 'Status', 'Amount (INR)', 'Payment ID', 'Booked on', 'Note'], ...bs.filter(b => b.status !== 'pending').map(b => [b.name, b.email, b.phone, b.seats, b.status, b.amount, b.payment_id || '', new Date(b.created_at).toLocaleString('en-IN'), b.note || ''])];
+      const csv = rows.map(r => r.map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+      const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv' })); a.download = `${e.slug}-attendees.csv`; a.click();
+    };
+    $('#addb').onclick = () => {
+      $('#addf').innerHTML = `<form class="a-form a-lform" id="bf"><h3>Add a booking</h3><p class="m-note" style="text-align:left">For people who paid in cash or by UPI, or guests you invite.</p>
+        <div class="g2"><div class="field"><label>Name</label><input name="name" required></div><div class="field"><label>Email</label><input name="email" type="email"></div></div>
+        <div class="g3"><div class="field"><label>Phone</label><input name="phone"></div><div class="field"><label>Seats</label><input name="seats" type="number" min="1" value="1"></div><div class="field"><label>Amount received (₹)</label><input name="amount" type="number" min="0" value="${e.price}"></div></div>
+        <div class="field"><label>Note</label><input name="note" placeholder="Paid by UPI on 12 Dec"></div><div id="bfm"></div>
+        <div class="a-actions"><button class="btn btn-cta">Add booking</button><button class="btn btn-outline" type="button" id="bfc">Cancel</button></div></form>`;
+      const bf = $('#bf'); $('#bfc').onclick = () => { $('#addf').innerHTML = ''; };
+      bf.onsubmit = async (x) => { x.preventDefault(); if (!bf.name.value.trim()) return errBox($('#bfm'), 'Enter a name.');
+        try { await api.addBooking({ event_id: e.id, name: bf.name.value.trim(), email: bf.email.value.trim() || '-', phone: bf.phone.value.trim(), seats: Math.max(1, +bf.seats.value || 1), amount: Math.max(0, +bf.amount.value || 0), note: bf.note.value.trim() });
+          toast('Booking added'); bookingsPane(e); } catch (y) { errBox($('#bfm'), y.message); } };
+    };
   }
   render();
 }

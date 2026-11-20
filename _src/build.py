@@ -158,7 +158,7 @@ def add_arrows(doc):
         return tag + body + m.group(4)
     return _btn_re.sub(f, doc)
 
-def page(path, title, desc, body, cur="", ld=None, progress=False, og_type="website", scripts="", mbar=None, og_image=None, noindex=False, member=False):
+def page(path, title, desc, body, cur="", ld=None, progress=False, og_type="website", scripts="", mbar=None, og_image=None, noindex=False, member=False, extra_css=False):
     canon = DOMAIN + path
     lds = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in (ld or []))
     full_title = title if "Alloha" in title else f"{title} | Alloha Qi Space"
@@ -182,7 +182,7 @@ def page(path, title, desc, body, cur="", ld=None, progress=False, og_type="webs
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v={ver("site.css")}">{f'<link rel="stylesheet" href="/assets/members.css?v={ver("members.css")}">' if member else ""}{'<meta name="robots" content="noindex">' if noindex else ""}
+<link rel="stylesheet" href="/assets/site.css?v={ver("site.css")}">{f'<link rel="stylesheet" href="/assets/members.css?v={ver("members.css")}">' if (member or extra_css) else ""}{'<meta name="robots" content="noindex">' if noindex else ""}
 {lds}
 </head>
 <body>
@@ -392,102 +392,18 @@ body += f'''<section><div class="wrap grid2" style="gap:3rem;align-items:start">
 <section style="padding-top:0"><div class="wrap"><div class="map reveal"><iframe title="Map to Alloha Qi Space" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Kalpataru+Regency+2,+Lane+10,+Kalyani+Nagar,+Pune+411006&output=embed"></iframe></div></div></section>'''
 pages.append(page("/contact-us/", "Contact & Book a Session", "Book Zhineng Qigong classes or Hun Yuan Qi healing at Alloha Qi Space, Kalyani Nagar, Pune. WhatsApp +91 98811 92288.", body, cur="/contact-us/", ld=[BUSINESS]))
 
-# ---------- events ----------
-import datetime as _dt
-from urllib.parse import quote as _q
-EVENTS = json.loads((SRC / "events.json").read_text())
-_now = _dt.datetime.now(_dt.timezone(_dt.timedelta(hours=5, minutes=30))).replace(tzinfo=None)
-for ev in EVENTS:
-    ev["s"] = _dt.datetime.fromisoformat(ev["start"]); ev["e"] = _dt.datetime.fromisoformat(ev["end"])
-    ev["past"] = ev["e"] < _now
-UPCOMING = sorted([e for e in EVENTS if not e["past"]], key=lambda e: e["s"])
-PAST = sorted([e for e in EVENTS if e["past"]], key=lambda e: e["s"], reverse=True)
-
-def _t(d): return d.strftime("%I:%M %p").lstrip("0").lower().replace(":00 ", " ")
-def ev_when(ev):
-    s, e = ev["s"], ev["e"]
-    if s.date() == e.date():
-        return f'{s.strftime("%A")}, {s.day} {s.strftime("%B %Y")}', f'{_t(s)} – {_t(e)}'
-    return f'{s.day} {s.strftime("%b")} – {e.day} {e.strftime("%b %Y")}', f'{_t(s)} – {_t(e)} daily'
-def ev_price(ev): return "Free" if not ev["price"] else f'₹{ev["price"]:,}'
-MODE = {"in-person": "In person, Pune", "online": "Live online", "hybrid": "In person & online"}
-def ev_img(ev, w=800, h=500): return f'https://images.unsplash.com/photo-{ev["image"]}?auto=format&fit=crop&q=70&w={w}&h={h}'
-def gcal(ev):
-    f = "%Y%m%dT%H%M%S"
-    return ("https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + _q(ev["title"]) +
-            f'&dates={ev["s"].strftime(f)}/{ev["e"].strftime(f)}&ctz=Asia/Kolkata&details=' + _q(ev["summary"] + " " + DOMAIN + f'/event/{ev["slug"]}/') +
-            "&location=" + _q(ev["venue"]))
-def write_ics(ev):
-    f = "%Y%m%dT%H%M%S"
-    ics = "\r\n".join(["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Alloha Qi Space//Events//EN", "BEGIN:VEVENT",
-        f'UID:{ev["slug"]}@allohaqispace.com', f'DTSTAMP:{_now.strftime(f)}', f'DTSTART;TZID=Asia/Kolkata:{ev["s"].strftime(f)}',
-        f'DTEND;TZID=Asia/Kolkata:{ev["e"].strftime(f)}', f'SUMMARY:{ev["title"]}', f'LOCATION:{ev["venue"]}',
-        f'DESCRIPTION:{ev["summary"]} {DOMAIN}/event/{ev["slug"]}/', "END:VEVENT", "END:VCALENDAR", ""])
-    d = OUT / "event" / ev["slug"]; d.mkdir(parents=True, exist_ok=True); (d / "event.ics").write_text(ics)
-
-def event_card(ev):
-    day, tm = ev_when(ev)
-    badge = "Past event" if ev["past"] else MODE.get(ev["mode"], "")
-    cta = '<span class="textlink">See highlights →</span>' if ev["past"] else f'<span class="btn btn-cta btn-sm">Book now</span>'
-    return (f'<a class="evcard reveal{" past" if ev["past"] else ""}" href="/event/{ev["slug"]}/"><div class="evimg"><img src="{ev_img(ev)}" alt="" loading="lazy" decoding="async">'
-            f'<div class="evdate"><b>{ev["s"].day}</b><span>{ev["s"].strftime("%b")}</span></div></div>'
-            f'<div class="evbody"><div class="evmeta"><span class="tag">{badge}</span>{"" if ev["past"] else f"<span class=evprice>{ev_price(ev)}</span>"}</div>'
-            f'<h3>{esc(ev["title"])}</h3><p>{esc(ev["summary"])}</p><small>{day} · {tm}</small>{cta}</div></a>')
-
-ev_msg = wa("Hi Rikhil, please let me know about upcoming healing events at Alloha Qi Space.")
+# ---------- events (live from Supabase via /assets/events.js) ----------
+def ev_scripts():
+    return f'<script src="/assets/config.js?v={ver("config.js")}"></script><script type="module" src="/assets/events.js?v={ver("events.js")}"></script>'
+EV_LOADING = '<div class="wrap"><div class="m-loading"><span class="spin"></span>Loading events…</div></div>'
 body = hero("Healing events", "Healing events, workshops &amp; <span class=hl>retreats</span>",
             "Practise together. Group Qi Gong sessions, healing circles and workshops in Pune and live online. Book your seat online in a minute.",
             crumbs=[("Home", "/"), ("Healing events", None)])
-if UPCOMING:
-    up = f'<div class="sec-head reveal"><div class="eyebrow">Upcoming</div><h2>Book your seat</h2></div><div class="grid3">{"".join(event_card(e) for e in UPCOMING)}</div>'
-else:
-    up = (f'<div class="empty reveal"><h3>New healing events are being planned</h3><p>Workshops, healing circles and practice days are announced on WhatsApp first. '
-          f'Ask to be added and you’ll hear before seats open.</p><p style="margin-top:1.4rem"><a class="btn btn-cta" href="{ev_msg}" target="_blank" rel="noopener">Notify me about the next event</a></p></div>')
-pastsec = (f'<div class="sec-head reveal" style="margin-top:4.5rem"><div class="eyebrow">Past events</div><h2>From our community</h2></div>'
-           f'<div class="grid3">{"".join(event_card(e) for e in PAST)}</div>') if PAST else ""
-body += f'<section><div class="wrap">{up}{pastsec}</div></section>{cta_band()}'
-pages.append(page("/events/", "Healing Events", "Book healing events, Qi Gong workshops and practice days at Alloha Qi Space in Kalyani Nagar, Pune and online.", body, cur="/events/"))
-
-for ev in EVENTS:
-    day, tm = ev_when(ev)
-    content, _ = render_md(ev["body"])
-    hl = "".join(f"<li>{esc(h)}</li>" for h in ev.get("highlights", []))
-    if ev["past"]:
-        panel = (f'<div class="evbook past"><div class="eyebrow">This event has passed</div><h3>Join the next one</h3>'
-                 f'<p>New healing events are announced on WhatsApp first.</p><a class="btn btn-cta btn-block" href="{ev_msg}" target="_blank" rel="noopener">Notify me on WhatsApp</a></div>')
-    else:
-        resmsg = wa(f'Hi Rikhil, I\'d like to book a seat for {ev["title"]} on {day}.')
-        if ev.get("razorpay_button_id"):
-            pay = (f'<div class="rzp"><form><script src="https://checkout.razorpay.com/v1/payment-button.js" data-payment_button_id="{esc(ev["razorpay_button_id"])}" async></script></form></div>'
-                   '<p class="secure"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure payment by Razorpay · UPI, cards, netbanking</p>')
-        elif ev.get("razorpay_link"):
-            pay = (f'<a class="btn btn-cta btn-lg btn-block" href="{esc(ev["razorpay_link"])}" target="_blank" rel="noopener">Book &amp; pay {ev_price(ev)}</a>'
-                   '<p class="secure"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Secure payment by Razorpay · UPI, cards, netbanking</p>')
-        else:
-            pay = (f'<a class="btn btn-cta btn-lg btn-block" href="{resmsg}" target="_blank" rel="noopener">Reserve on WhatsApp</a>'
-                   '<p class="secure">Rikhil will confirm your seat and share payment details.</p>')
-        seats = f'<li><b>Seats</b><span>Limited to {ev["seats"]}</span></li>' if ev.get("seats") else ""
-        panel = (f'<div class="evbook" id="book"><div class="evprice-big">{ev_price(ev)}<small>{"per person" if ev["price"] else "registration required"}</small></div>'
-                 f'<div class="countdown" data-start="{ev["s"].isoformat()}+05:30"></div>'
-                 f'<ul class="evfacts"><li><b>Date</b><span>{day}</span></li><li><b>Time</b><span>{tm}</span></li><li><b>Where</b><span>{esc(ev["venue"])}</span></li>{seats}</ul>'
-                 f'{pay}<div class="evcal"><a href="{gcal(ev)}" target="_blank" rel="noopener">+ Google Calendar</a><a href="/event/{ev["slug"]}/event.ics" download>+ Apple / Outlook</a></div>'
-                 f'<p class="evq">Questions? <a href="{resmsg}" target="_blank" rel="noopener">Ask Rikhil on WhatsApp</a></p></div>')
-    write_ics(ev)
-    body = hero("Past event" if ev["past"] else "Healing event", esc(ev["title"]), esc(ev.get("subtitle", "")), img=ev["image"],
-                crumbs=[("Home", "/"), ("Healing events", "/events/"), (ev["title"], None)],
-                extra=f'<div class="meta-row"><span>{day}</span><span>·</span><span>{tm}</span><span>·</span><span>{MODE.get(ev["mode"], "")}</span></div>'
-                      + ("" if ev["past"] else '<div class="cta-row"><a class="btn btn-cta btn-lg" href="#book">Book your seat</a></div>'))
-    body += (f'<section><div class="wrap layout evlayout"><article class="prose reveal">{content}'
-             f'{f"<h2>What to expect</h2><ul>{hl}</ul>" if hl else ""}</article><aside class="aside">{panel}</aside></div></section>{cta_band()}')
-    ld = {"@context": "https://schema.org", "@type": "Event", "name": ev["title"], "description": ev["summary"],
-          "startDate": ev["s"].isoformat() + "+05:30", "endDate": ev["e"].isoformat() + "+05:30", "image": ev_img(ev, 1200, 630),
-          "eventStatus": "https://schema.org/EventScheduled",
-          "eventAttendanceMode": {"online": "https://schema.org/OnlineEventAttendanceMode", "hybrid": "https://schema.org/MixedEventAttendanceMode"}.get(ev["mode"], "https://schema.org/OfflineEventAttendanceMode"),
-          "location": {"@type": "Place", "name": "Alloha Qi Space", "address": BUSINESS["address"]} if ev["mode"] != "online" else {"@type": "VirtualLocation", "url": DOMAIN + f'/event/{ev["slug"]}/'},
-          "organizer": {"@type": "Organization", "name": "Alloha Qi Space", "url": DOMAIN},
-          "offers": {"@type": "Offer", "price": ev["price"], "priceCurrency": "INR", "url": DOMAIN + f'/event/{ev["slug"]}/', "availability": "https://schema.org/InStock"}}
-    pages.append(page(f'/event/{ev["slug"]}/', ev["title"], ev["summary"], body, cur="/events/", ld=[ld], og_image=ev_img(ev, 1200, 630),
-                      mbar=None if ev["past"] else mbar_html("Book your seat", "#book", 500)))
+body += f'<section><div id="ev-app" data-view="events">{EV_LOADING}</div></section>{cta_band()}'
+pages.append(page("/events/", "Healing Events", "Book healing events, Qi Gong workshops and practice days at Alloha Qi Space in Kalyani Nagar, Pune and online.", body,
+                  cur="/events/", scripts=ev_scripts(), extra_css=True))
+body = f'<div id="ev-app" data-view="event"><div style="padding-top:150px">{EV_LOADING}</div></div>{cta_band()}'
+pages.append(page("/event/", "Healing event", "A healing event at Alloha Qi Space, Pune.", body, cur="/events/", scripts=ev_scripts(), extra_css=True, mbar=""))
 
 # booking confirmation (Razorpay redirect target)
 body = hero("Booking received", "Thank you, your seat is <span class=hl>booked</span>",
@@ -547,11 +463,11 @@ member_page("/login/", "Log in", "Log in to your Alloha Qi Space account.", "log
 member_page("/account/", "My courses", "Your Alloha Qi Space courses.", "account",
             '<header class="m-authhero"><div class="wrap"><h1>My learning</h1></div></header>')
 member_page("/learn/", "Lesson", "Course lesson.", "learn")
-member_page("/admin/", "Manage courses", "Course admin.", "admin",
-            '<header class="m-authhero"><div class="wrap"><h1>Manage courses</h1><p class="lead">Create courses, add lessons and manage members.</p></div></header>')
+member_page("/admin/", "Admin", "Site admin.", "admin",
+            '<header class="m-authhero"><div class="wrap"><h1>Admin</h1><p class="lead">Manage courses, lessons, healing events and bookings.</p></div></header>')
 
 # ---------- sitemap & robots ----------
-urls = ["/"] + [p for p in pages if p not in ("/event-booked/", "/404", "/course/", "/login/", "/account/", "/learn/", "/admin/")]
+urls = ["/"] + [p for p in pages if p not in ("/event-booked/", "/404", "/event/", "/course/", "/login/", "/account/", "/learn/", "/admin/")]
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for u in urls:
     pr = "1.0" if u == "/" else ("0.9" if u in ["/programs/"] + [f"/{p['slug']}/" for p in programs] else "0.7")

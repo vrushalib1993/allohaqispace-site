@@ -24,11 +24,16 @@ function seed() {
       { id: uid(), course_id: C2, section: 'Week 2: Mobility', title: 'Daily 10-minute routine', position: 3, is_preview: false, duration_text: '10 min', body: 'Paid lesson content.', video_url: '', video_path: '', audio_path: '' },
     ],
     enrollments: [], progress: [], members: {},
+    events: [{ id: uid(), slug: 'full-moon-healing-circle', title: 'Full Moon Healing Circle', subtitle: 'An evening of group Qi Gong and guided healing practice.', summary: 'Sample event for preview.',
+      description: 'Sample event description.', start_at: new Date(Date.now() + 12 * 864e5).toISOString(), end_at: new Date(Date.now() + 12 * 864e5 + 2 * 36e5).toISOString(), mode: 'in-person',
+      venue: 'Alloha Qi Space, Kalyani Nagar, Pune', price: 1200, capacity: 20, max_per_booking: 4, cover_url: '', highlights: 'Group Qi Gong\nGuided healing practice', payment_link: '', booking_open: true, published: true }],
+    bookings: [],
   };
 }
 
 export function demoApi() {
   let db; try { db = JSON.parse(sessionStorage.getItem(KEY)) || seed(); } catch { db = seed(); }
+  if (!db.events) { db.events = seed().events; db.bookings = []; }
   const save = () => sessionStorage.setItem(KEY, JSON.stringify(db));
   const wait = (ms = 150) => new Promise(r => setTimeout(r, ms));
   const pub = (id) => db.courses.find(c => c.id === id)?.published;
@@ -76,6 +81,12 @@ export function demoApi() {
     async members(cid) { return db.enrollments.filter(e => e.course_id === cid).map(e => ({ ...e, user_id: 'demo-user', email: db.profile.email, full_name: db.profile.full_name })); },
     async grant(email, cid) { await wait(); if (!db.enrollments.some(e => e.course_id === cid)) db.enrollments.push({ course_id: cid, created_at: new Date().toISOString(), source: 'admin' }); save(); },
     async revoke(u, cid) { db.enrollments = db.enrollments.filter(e => e.course_id !== cid); save(); },
+    async adminEvents() { return [...db.events].sort((a, b) => b.start_at.localeCompare(a.start_at)); },
+    async saveEvent(e) { await wait(); if (!e.id) e.id = uid(); const i = db.events.findIndex(x => x.id === e.id); i < 0 ? db.events.push({ ...e }) : (db.events[i] = { ...db.events[i], ...e }); save(); return db.events.find(x => x.id === e.id); },
+    async deleteEvent(id) { db.events = db.events.filter(e => e.id !== id); save(); },
+    async eventBookings(id) { return db.bookings.filter(b => b.event_id === id).sort((a, b) => b.created_at.localeCompare(a.created_at)); },
+    async addBooking(b) { db.bookings.push({ id: uid(), created_at: new Date().toISOString(), ...b, status: 'manual' }); save(); },
+    async setBookingStatus(id, status) { const b = db.bookings.find(x => x.id === id); if (b) b.status = status; save(); },
     resetDemo() { sessionStorage.removeItem(KEY); },
   };
   return api;

@@ -120,7 +120,7 @@ body = f'''
  <div class="filters reveal" data-filter-group=".scard">{filters}</div>
  <div class="grid3">{"".join(program_card(p) for p in programs)}</div>
 </div></section>
-{('<section class="bg-white" id="events"><div class="wrap"><div class="sec-head reveal"><div class="eyebrow">Healing events</div><h2>Upcoming healing events</h2><p class="lead">Group sessions, healing circles and workshops. Seats are limited, book online in a minute.</p></div><div class="grid3">' + "".join(B.event_card(x) for x in B.UPCOMING[:3]) + '</div><div class="center-cta reveal"><a class="btn btn-outline" href="/events/">See all events</a></div></div></section>') if B.UPCOMING else ""}
+<div id="home-events"></div>
 
 
 <section class="bg-cloud" id="stories"><div class="wrap grid2" style="gap:3rem;align-items:center">
@@ -195,5 +195,5 @@ body = f'''
 '''
 B.page("/", "Alloha Qi Space: Qi Gong Classes in Kalyani Nagar, Pune & Online",
        "Gentle Qi Gong classes in Kalyani Nagar, Pune, and online with certified teacher Rikhil Bithar. No experience needed. Book your first session on WhatsApp.",
-       body, ld=[B.BUSINESS, {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in faqs]}], mbar=B.mbar_html("Book your first session", "#book", 700), scripts=f'\n<script src="/assets/home.js?v={B.ver("home.js")}" defer></script>')
+       body, ld=[B.BUSINESS, {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in faqs]}], mbar=B.mbar_html("Book your first session", "#book", 700), scripts=f'\n<script src="/assets/home.js?v={B.ver("home.js")}" defer></script>' + B.ev_scripts())
 print("homepage built")

@@ -93,6 +93,13 @@ export function realApi(cfg) {
       if (!p) throw new Error('No member with that email yet. Ask them to create an account first.');
       ok(await sb.from('enrollments').upsert({ user_id: p.id, course_id: courseId, source: 'admin' }, { onConflict: 'user_id,course_id', ignoreDuplicates: true }));
     },
+    // ---- events (admin) ----
+    async adminEvents() { return ok(await sb.from('events').select('*').order('start_at', { ascending: false })); },
+    async saveEvent(e) { const row = { ...e }; if (!row.id) delete row.id; return ok(await sb.from('events').upsert(row).select().single()); },
+    async deleteEvent(id) { ok(await sb.from('events').delete().eq('id', id)); },
+    async eventBookings(eventId) { return ok(await sb.from('event_bookings').select('*').eq('event_id', eventId).order('created_at', { ascending: false })); },
+    async addBooking(b) { ok(await sb.from('event_bookings').insert({ ...b, status: 'manual' })); },
+    async setBookingStatus(id, status) { ok(await sb.from('event_bookings').update({ status }).eq('id', id)); },
     async revoke(userId, courseId) { ok(await sb.from('enrollments').delete().eq('user_id', userId).eq('course_id', courseId)); },
   };
   return api;

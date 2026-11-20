@@ -31,7 +31,8 @@ export async function sb(path, { method = 'GET', body, prefer } = {}) {
   const key = env('SUPABASE_SERVICE_ROLE_KEY');
   const res = await fetch(url, {
     method,
-    headers: { apikey: key, authorization: `Bearer ${key}`, 'content-type': 'application/json', ...(prefer ? { prefer } : {}) },
+    // New-style secret keys (sb_secret_…) go in the apikey header only; legacy service_role JWTs also as Bearer.
+    headers: { apikey: key, ...(key.startsWith('sb_') ? {} : { authorization: `Bearer ${key}` }), 'content-type': 'application/json', ...(prefer ? { prefer } : {}) },
     body: body ? JSON.stringify(body) : undefined,
   });
   const text = await res.text();

@@ -124,3 +124,7 @@ document.querySelectorAll('.countdown[data-start]').forEach(el=>{
   el.innerHTML=`<div><b>${D}</b><span>days</span></div><div><b>${H}</b><span>hours</span></div><div><b>${M}</b><span>mins</span></div>`};
  tick();setInterval(tick,30000);
 });
+
+/* member link label (lightweight; member pages refine it) */
+(function(){let signed=false;try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(/^sb-.+-auth-token$/.test(k)){signed=true;break}}if(sessionStorage.getItem('aqs-demo')==='1'){const d=JSON.parse(sessionStorage.getItem('aqs-demo-db')||'{}');signed=!!d.user}}catch(e){}
+ if(signed)document.querySelectorAll('[data-member-link]').forEach(a=>{a.textContent='My courses';a.href='/account/'})})();

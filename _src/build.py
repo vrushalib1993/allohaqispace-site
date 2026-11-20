@@ -107,12 +107,12 @@ def fmt_date(d):
 
 # ---------- shared chrome ----------
 LOGO_IMG = '<img src="/assets/logo.webp" alt="Alloha Qi Space: Unite Body, Mind and Nature" width="302" height="67">'
-NAV_ITEMS = [("Practices", "/programs/"), ("Healing Events", "/events/"), ("Listen", "/#listen"), ("About", "/about-us/"), ("Journal", "/inspiration/"), ("FAQ", "/faq/"), ("Contact", "/contact-us/")]
+NAV_ITEMS = [("Practices", "/programs/"), ("Courses", "/courses/"), ("Healing Events", "/events/"), ("About", "/about-us/"), ("Journal", "/inspiration/"), ("Contact", "/contact-us/")]
 
 def nav_html(cur=""):
     lis = "".join(f'<li><a href="{h}"{" class=\"cur\"" if cur==h else ""}>{t}</a></li>' for t, h in NAV_ITEMS)
     return (f'<nav class="top" id="nav"><div class="wrap"><a href="/" class="logo" aria-label="Alloha Qi Space home">{LOGO_IMG}</a>'
-            f'<ul class="links" id="links">{lis}<li><a href="/contact-us/#book" class="btn btn-cta">Book a session</a></li></ul>'
+            f'<ul class="links" id="links">{lis}<li><a href="/login/" class="memlink" data-member-link>Log in</a></li><li><a href="/contact-us/#book" class="btn btn-cta">Book a session</a></li></ul>'
             '<button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>')
 
 WA_ICON = '<svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.7c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.9 1 3.9.8a3.3 3.3 0 0 0 2.2-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>'
@@ -132,7 +132,7 @@ def footer_html():
   <p style="margin-top:1rem"><a href="{MAPS}" target="_blank" rel="noopener">{ADDR}</a></p>
   <p style="margin-top:.6rem"><a href="https://wa.me/{WA}" target="_blank" rel="noopener">WhatsApp +91 98811 92288</a></p></div>
  <div><h4>Programs</h4><ul>{progs}</ul></div>
- <div><h4>Explore</h4><ul><li><a href="/about-us/">About us</a></li><li><a href="/programs/">All programs</a></li><li><a href="/#finder">Practice finder</a></li><li><a href="/#listen">Listen &amp; practise</a></li><li><a href="/inspiration/">Journal</a></li><li><a href="/events/">Healing events</a></li><li><a href="/shop/">Shop</a></li><li><a href="/faq/">FAQ</a></li></ul></div>
+ <div><h4>Explore</h4><ul><li><a href="/about-us/">About us</a></li><li><a href="/programs/">All programs</a></li><li><a href="/#finder">Practice finder</a></li><li><a href="/#listen">Listen &amp; practise</a></li><li><a href="/inspiration/">Journal</a></li><li><a href="/events/">Healing events</a></li><li><a href="/courses/">Online courses</a></li><li><a href="/account/">My courses</a></li><li><a href="/shop/">Shop</a></li><li><a href="/faq/">FAQ</a></li></ul></div>
  <div><h4>Visit</h4><ul><li><a href="/contact-us/">Contact &amp; booking</a></li><li><a href="{MAPS}" target="_blank" rel="noopener">Open in Google Maps</a></li><li><a href="https://wa.me/{WA}" target="_blank" rel="noopener">Chat on WhatsApp</a></li><li><a href="tel:+919881192288">Call +91 98811 92288</a></li></ul></div>
 </div>
 <p class="disc">Qigong is a complementary wellness practice and is not a substitute for medical diagnosis or treatment. Please continue any treatment prescribed by your doctor and consult them before starting new practices, especially during pregnancy or after surgery.</p>
@@ -158,7 +158,7 @@ def add_arrows(doc):
         return tag + body + m.group(4)
     return _btn_re.sub(f, doc)
 
-def page(path, title, desc, body, cur="", ld=None, progress=False, og_type="website", scripts="", mbar=None, og_image=None):
+def page(path, title, desc, body, cur="", ld=None, progress=False, og_type="website", scripts="", mbar=None, og_image=None, noindex=False, member=False):
     canon = DOMAIN + path
     lds = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in (ld or []))
     full_title = title if "Alloha" in title else f"{title} | Alloha Qi Space"
@@ -182,7 +182,7 @@ def page(path, title, desc, body, cur="", ld=None, progress=False, og_type="webs
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/site.css?v={ver("site.css")}">
+<link rel="stylesheet" href="/assets/site.css?v={ver("site.css")}">{f'<link rel="stylesheet" href="/assets/members.css?v={ver("members.css")}">' if member else ""}{'<meta name="robots" content="noindex">' if noindex else ""}
 {lds}
 </head>
 <body>
@@ -191,7 +191,7 @@ def page(path, title, desc, body, cur="", ld=None, progress=False, og_type="webs
 {body}
 {footer_html()}
 {mbar if mbar is not None else mbar_html()}
-<script src="/assets/site.js?v={ver("site.js")}" defer></script>{scripts}
+<script src="/assets/site.js?v={ver("site.js")}" defer></script>{f'<script src="/assets/config.js?v={ver("config.js")}"></script><script type="module" src="/assets/members.js?v={ver("members.js")}"></script>' if member else ""}{scripts}
 </body>
 </html>
 '''
@@ -531,8 +531,27 @@ body = hero("Page not found", "This page has <span class=hl>moved on</span>", "T
             extra='<div class="cta-row"><a class="btn btn-primary" href="/">Go to the homepage</a><a class="btn btn-outline" href="/programs/">See programs</a><a class="btn btn-outline" href="/inspiration/">Read the journal</a></div>')
 page("/404", "Page not found", "This page could not be found.", body)
 
+# ---------- member area (rendered in the browser by /assets/members.js) ----------
+LOADING = '<div class="m-wrap"><div class="m-loading"><span class="spin"></span>Loading…</div></div>'
+def member_page(path, title, desc, view, top="", noindex=True):
+    body = top + f'<section class="m-sec-wrap"><div id="app" data-view="{view}">{LOADING}</div></section>'
+    pages.append(page(path, title, desc, body, cur="/courses/" if view in ("courses", "course", "learn") else "", noindex=noindex, member=True, mbar=""))
+member_page("/courses/", "Online Qigong Courses", "Learn Zhineng Qigong at home with free and paid online courses taught by Rikhil Bithar of Alloha Qi Space, Pune.", "courses",
+            hero("Online courses", "Learn Qi Gong at home, <span class=hl>at your own pace</span>",
+                 "Free and paid video courses taught by Rikhil Bithar. Log in once and watch on your phone, tablet or computer.",
+                 crumbs=[("Home", "/"), ("Courses", None)], img="1767611120077-3697335ec748",
+                 extra='<div class="cta-row"><a class="btn btn-outline" href="/account/" data-member-link>Log in</a></div>'), noindex=False)
+member_page("/course/", "Course", "An online course from Alloha Qi Space.", "course")
+member_page("/login/", "Log in", "Log in to your Alloha Qi Space account.", "login",
+            '<header class="m-authhero"><div class="wrap"><h1>Welcome to your practice space</h1><p class="lead">Log in to continue your courses, or create a free account.</p></div></header>')
+member_page("/account/", "My courses", "Your Alloha Qi Space courses.", "account",
+            '<header class="m-authhero"><div class="wrap"><h1>My learning</h1></div></header>')
+member_page("/learn/", "Lesson", "Course lesson.", "learn")
+member_page("/admin/", "Manage courses", "Course admin.", "admin",
+            '<header class="m-authhero"><div class="wrap"><h1>Manage courses</h1><p class="lead">Create courses, add lessons and manage members.</p></div></header>')
+
 # ---------- sitemap & robots ----------
-urls = ["/"] + [p for p in pages if p not in ("/event-booked/", "/404")]
+urls = ["/"] + [p for p in pages if p not in ("/event-booked/", "/404", "/course/", "/login/", "/account/", "/learn/", "/admin/")]
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for u in urls:
     pr = "1.0" if u == "/" else ("0.9" if u in ["/programs/"] + [f"/{p['slug']}/" for p in programs] else "0.7")

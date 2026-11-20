@@ -89,6 +89,10 @@ export function demoApi() {
     async setBookingStatus(id, status) { const b = db.bookings.find(x => x.id === id); if (b) b.status = status; save(); },
     async subscribers() { return db.subs || (db.subs = [{ id: uid(), email: 'priya@example.com', name: 'Priya', source: 'home', status: 'subscribed', resend_synced: true, created_at: new Date().toISOString() }, { id: uid(), email: 'ravi@example.com', name: '', source: 'home', status: 'subscribed', resend_synced: true, created_at: new Date(Date.now() - 864e5 * 9).toISOString() }]); },
     async setSubscriberStatus(id, status) { const x = (db.subs || []).find(s => s.id === id); if (x) x.status = status; save(); },
+    async stories() { return db.stories || (db.stories = [{ id: uid(), age_range: '50s', gender: 'Woman', location: 'Pune', area: 'Neck & back', practice: 'Sample story for preview', duration: '3 months', before_text: 'Sample text.', after_text: 'Sample story shown in preview mode only. Real stories come from students through the share form.', quote: '', doctor_care: true, consent: true, contact: '', status: 'pending', position: 0, created_at: new Date().toISOString() }]); },
+    async saveStory(x) { const s = (db.stories || []).find(y => y.id === x.id); Object.assign(s, x); save(); },
+    async addStory(x) { (db.stories = db.stories || []).push({ id: uid(), created_at: new Date().toISOString(), ...x }); save(); },
+    async deleteStory(id) { db.stories = (db.stories || []).filter(y => y.id !== id); save(); },
     resetDemo() { sessionStorage.removeItem(KEY); },
   };
   return api;

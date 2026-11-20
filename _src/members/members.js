@@ -274,11 +274,12 @@ async function viewAdmin() {
   if (!(await api.user())) return go(loginUrl('/admin/'));
   const p = await api.profile();
   if (!p?.is_admin) { app.innerHTML = `<div class="m-wrap"><div class="m-empty"><h2>Admins only</h2><p>Your account doesn’t have admin access. See the setup guide to make an account an admin.</p></div></div>`; return; }
-  const section = ['events', 'newsletter'].includes(qs.get('s')) ? qs.get('s') : 'courses';
-  app.innerHTML = `<div class="a-switch"><a class="${section === 'courses' ? 'on' : ''}" href="/admin/">Courses</a><a class="${section === 'events' ? 'on' : ''}" href="/admin/?s=events">Healing events</a><a class="${section === 'newsletter' ? 'on' : ''}" href="/admin/?s=newsletter">Newsletter</a></div><div id="adm"></div>`;
+  const section = ['events', 'newsletter', 'stories'].includes(qs.get('s')) ? qs.get('s') : 'courses';
+  app.innerHTML = `<div class="a-switch"><a class="${section === 'courses' ? 'on' : ''}" href="/admin/">Courses</a><a class="${section === 'events' ? 'on' : ''}" href="/admin/?s=events">Healing events</a><a class="${section === 'stories' ? 'on' : ''}" href="/admin/?s=stories">Stories</a><a class="${section === 'newsletter' ? 'on' : ''}" href="/admin/?s=newsletter">Newsletter</a></div><div id="adm"></div>`;
   const root = $('#adm');
   if (section === 'events') return adminEvents(root);
   if (section === 'newsletter') return adminNewsletter(root);
+  if (section === 'stories') return adminStories(root);
   let courses = await api.adminCourses();
   let selId = qs.get('id') || courses[0]?.id || null;
   let tab = 'details';
@@ -485,6 +486,49 @@ async function adminEvents(root) {
   render();
 }
 
+
+
+// ---------- admin: healing stories ----------
+const AREAS = ['Neck & back', 'Stress & sleep', 'Energy & fatigue', 'Eyes', 'Recovery support', 'Emotional balance', 'Other'];
+async function adminStories(root, openId) {
+  const list = await api.stories();
+  const counts = { pending: 0, published: 0, hidden: 0 }; list.forEach(x => counts[x.status]++);
+  const label = (x) => [[x.gender, x.age_range].filter(Boolean).join(', '), x.location].filter(Boolean).join(' · ') || 'Student';
+  root.innerHTML = `<div class="a-solo"><div class="a-stats"><div><b>${counts.pending}</b><span>waiting for review</span></div><div><b>${counts.published}</b><span>published</span></div><div><b>${counts.hidden}</b><span>hidden</span></div></div>
+    <div class="a-help"><h3>How stories work</h3><p>Students send stories from <a href="/healing-stories/#share" target="_blank">the Healing Stories page</a>. Read each one, remove any names or identifying details, keep it in the person’s own words, and avoid words like “cured”. Then publish. You can also add a story someone sent you on WhatsApp.</p>
+      <button class="btn btn-outline btn-sm" id="snew">+ Add a story</button></div>
+    <div id="sedit"></div>
+    <div class="a-members" style="margin-top:1.2rem">${list.map(x => `<div class="a-mem ${x.status === 'hidden' ? 'cx' : ''}"><div><b>${esc(label(x))}</b><small>${esc(x.area)} · ${esc((x.quote || x.after_text || '').slice(0, 90))}…</small></div>
+      <span class="m-badge">${x.status === 'pending' ? 'needs review' : x.status}</span><small>${new Date(x.created_at).toLocaleDateString('en-IN')}</small><button class="btn btn-outline btn-sm" data-se="${x.id}">Review</button></div>`).join('') || '<p class="m-note">No stories yet.</p>'}</div></div>`;
+  const edit = (x) => {
+    const isNew = !x; x = x || { age_range: '', gender: '', location: '', area: 'Other', practice: '', duration: '', before_text: '', after_text: '', quote: '', doctor_care: false, consent: true, contact: '', status: 'pending', position: 0 };
+    $('#sedit').innerHTML = `<form class="a-form a-lform" id="sf"><h3>${isNew ? 'Add a story' : 'Review story'}</h3>
+      ${x.contact ? `<p class="m-note" style="text-align:left">Private contact (never shown): <b>${esc(x.contact)}</b></p>` : ''}
+      <div class="g3"><div class="field"><label>Age range</label><input name="age_range" value="${esc(x.age_range)}"></div><div class="field"><label>Woman / Man</label><input name="gender" value="${esc(x.gender)}"></div><div class="field"><label>City</label><input name="location" value="${esc(x.location)}"></div></div>
+      <div class="g3"><div class="field"><label>Area</label><select name="area">${AREAS.map(a => `<option ${a === x.area ? 'selected' : ''}>${a}</option>`).join('')}</select></div><div class="field"><label>Practised</label><input name="practice" value="${esc(x.practice)}"></div><div class="field"><label>How long</label><input name="duration" value="${esc(x.duration)}"></div></div>
+      <div class="field"><label>Short quote for the card <small>(optional; otherwise the first sentence of “What changed” is used)</small></label><input name="quote" value="${esc(x.quote)}"></div>
+      <div class="field"><label>Came with</label><textarea name="before_text" rows="3">${esc(x.before_text)}</textarea></div>
+      <div class="field"><label>What changed</label><textarea name="after_text" rows="5">${esc(x.after_text)}</textarea></div>
+      <div class="g2"><label class="a-check"><input type="checkbox" name="doctor_care" ${x.doctor_care ? 'checked' : ''}> Alongside medical care</label><label class="a-check"><input type="checkbox" name="consent" ${x.consent ? 'checked' : ''}> Has given consent to share</label></div>
+      <div class="g2"><div class="field"><label>Status</label><select name="status">${[['pending', 'Needs review'], ['published', 'Published'], ['hidden', 'Hidden']].map(([v, l]) => `<option value="${v}" ${v === x.status ? 'selected' : ''}>${l}</option>`).join('')}</select></div><div class="field"><label>Order (lower shows first)</label><input name="position" type="number" value="${x.position || 0}"></div></div>
+      <div id="sfm"></div><div class="a-actions"><button class="btn btn-cta" type="submit">Save</button><button class="btn btn-outline" type="button" id="sfc">Close</button>${isNew ? '' : '<button class="btn btn-outline" type="button" id="sfd">Delete</button>'}</div></form>`;
+    $('#sf').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const f = $('#sf');
+    $('#sfc').onclick = () => { $('#sedit').innerHTML = ''; };
+    if (!isNew) $('#sfd').onclick = async () => { if (!confirm('Delete this story permanently?')) return; await api.deleteStory(x.id); adminStories(root); };
+    f.onsubmit = async (e) => {
+      e.preventDefault();
+      const row = { age_range: f.age_range.value.trim(), gender: f.gender.value.trim(), location: f.location.value.trim(), area: f.area.value, practice: f.practice.value.trim(), duration: f.duration.value.trim(),
+        quote: f.quote.value.trim(), before_text: f.before_text.value.trim(), after_text: f.after_text.value.trim(), doctor_care: f.doctor_care.checked, consent: f.consent.checked, status: f.status.value, position: parseInt(f.position.value || '0', 10) };
+      if (row.after_text.length < 20) return errBox($('#sfm'), 'Add the “What changed” text.');
+      if (row.status === 'published' && !row.consent) return errBox($('#sfm'), 'Only publish stories where the person has given consent.');
+      if (row.status === 'published' && /\bcured?\b|\bcures\b/i.test(row.quote + ' ' + row.after_text + ' ' + row.before_text)) return errBox($('#sfm'), 'Please reword “cure/cured” before publishing (for example “felt much better” or “my symptoms eased”).');
+      try { isNew ? await api.addStory(row) : await api.saveStory({ id: x.id, ...row }); toast(row.status === 'published' ? 'Story published' : 'Story saved'); adminStories(root); } catch (y) { errBox($('#sfm'), y.message); }
+    };
+  };
+  $('#snew').onclick = () => edit(null);
+  root.querySelectorAll('[data-se]').forEach(b => b.onclick = () => edit(list.find(x => x.id === b.dataset.se)));
+}
 
 // ---------- admin: newsletter ----------
 async function adminNewsletter(root) {

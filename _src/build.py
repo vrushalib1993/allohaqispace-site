@@ -142,7 +142,7 @@ def footer_html():
   <p style="margin-top:1rem"><a href="{MAPS}" target="_blank" rel="noopener">{ADDR}</a></p>
   <p style="margin-top:.6rem"><a href="https://wa.me/{WA}" target="_blank" rel="noopener">WhatsApp +91 98811 92288</a></p></div>
  <div><h4>Programs</h4><ul>{progs}</ul></div>
- <div><h4>Explore</h4><ul><li><a href="/about-us/">About us</a></li><li><a href="/programs/">All programs</a></li><li><a href="/#finder">Practice finder</a></li><li><a href="/#listen">Listen &amp; practise</a></li><li><a href="/inspiration/">Journal</a></li><li><a href="/events/">Healing events</a></li><li><a href="/courses/">Online courses</a></li><li><a href="/account/">My courses</a></li><li><a href="/shop/">Shop</a></li><li><a href="/faq/">FAQ</a></li></ul></div>
+ <div><h4>Explore</h4><ul><li><a href="/about-us/">About us</a></li><li><a href="/programs/">All programs</a></li><li><a href="/#finder">Practice finder</a></li><li><a href="/#listen">Listen &amp; practise</a></li><li><a href="/inspiration/">Journal</a></li><li><a href="/events/">Healing events</a></li><li><a href="/healing-stories/">Healing stories</a></li><li><a href="/courses/">Online courses</a></li><li><a href="/account/">My courses</a></li><li><a href="/shop/">Shop</a></li><li><a href="/faq/">FAQ</a></li></ul></div>
  <div><h4>Visit</h4><ul><li><a href="/contact-us/">Contact &amp; booking</a></li><li><a href="{MAPS}" target="_blank" rel="noopener">Open in Google Maps</a></li><li><a href="https://wa.me/{WA}" target="_blank" rel="noopener">Chat on WhatsApp</a></li><li><a href="tel:+919881192288">Call +91 98811 92288</a></li></ul></div>
 </div>
 <p class="disc">Qigong is a complementary wellness practice and is not a substitute for medical diagnosis or treatment. Please continue any treatment prescribed by your doctor and consult them before starting new practices, especially during pregnancy or after surgery.</p>
@@ -572,6 +572,42 @@ for slug, title, src in [("terms-of-service", "Terms of Service", "terms-of-serv
 body = hero("Page not found", "This page has <span class=hl>moved on</span>", "The page you were looking for isn’t here. Try one of these instead.",
             extra='<div class="cta-row"><a class="btn btn-primary" href="/">Go to the homepage</a><a class="btn btn-outline" href="/programs/">See programs</a><a class="btn btn-outline" href="/inspiration/">Read the journal</a></div>')
 page("/404", "Page not found", "This page could not be found.", body)
+
+# ---------- healing stories ----------
+AREA_OPTS = ["Neck & back", "Stress & sleep", "Energy & fatigue", "Eyes", "Recovery support", "Emotional balance", "Other"]
+story_form = f"""<form class="sform" id="story-form" novalidate>
+ <div class="g3"><div class="field"><label for="s_age">Age range</label><select id="s_age" name="age_range"><option value="">Prefer not to say</option>{"".join(f'<option>{a}</option>' for a in ["Teens","20s","30s","40s","50s","60s","70s+"])}</select></div>
+ <div class="field"><label for="s_gen">I am a</label><select id="s_gen" name="gender"><option value="">Prefer not to say</option><option>Woman</option><option>Man</option></select></div>
+ <div class="field"><label for="s_loc">City</label><input id="s_loc" name="location" placeholder="Pune, Mumbai, online…"></div></div>
+ <div class="g2"><div class="field"><label for="s_area">What it relates to</label><select id="s_area" name="area">{"".join(f'<option>{a}</option>' for a in AREA_OPTS)}</select></div>
+ <div class="field"><label for="s_dur">How long you have practised</label><input id="s_dur" name="duration" placeholder="3 months"></div></div>
+ <div class="field"><label for="s_pr">What you practised with Rikhil</label><input id="s_pr" name="practice" placeholder="Zhineng Qigong classes, Hun Yuan Qi sessions, online course…"></div>
+ <div class="field"><label for="s_bef">What were you dealing with when you started?</label><textarea id="s_bef" name="before_text" rows="3" placeholder="In your own words"></textarea></div>
+ <div class="field"><label for="s_aft">What changed for you?</label><textarea id="s_aft" name="after_text" rows="5" required placeholder="What you noticed in your body, mind, sleep, energy or daily life"></textarea></div>
+ <label class="scheck"><input type="checkbox" name="doctor_care"><span>I was also under a doctor’s care during this time</span></label>
+ <div class="field"><label for="s_con">Phone or email <span>(optional, private, only so Rikhil can thank you)</span></label><input id="s_con" name="contact"></div>
+ <input class="hp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+ <label class="scheck consent"><input type="checkbox" name="consent"><span>I agree to Alloha Qi Space sharing my story on its website and social media <b>without my name</b>. It may be lightly edited for length.</span></label>
+ <div class="nl-msg" aria-live="polite"></div>
+ <button class="btn btn-cta btn-lg" type="submit" data-deco="plain">Share my story</button></form>"""
+body = hero("Healing stories", "Zhineng Qigong <span class=hl>healing stories</span>",
+            "Real experiences from people who practise with Rikhil, shared in their own words, without names. Every body is different, and these stories describe personal journeys rather than promised results.",
+            crumbs=[("Home", "/"), ("Healing stories", None)], img="1506126613408-eca07ce68773")
+body += f"""<section><div class="wrap"><div id="stories-app"><div class="m-loading"><span class="spin"></span>Loading stories…</div></div></div></section>
+<section class="bg-white"><div class="wrap"><div class="sec-head reveal"><div class="eyebrow">Understanding the practice</div><h2>What Zhineng Qigong and Hun Yuan Qi therapy work with</h2>
+<p class="lead">Both practices come from the Zhineng Qigong system developed by Dr. Pang Ming. They work with Hun Yuan Qi, the fine, subtle Qi of nature, together with movement, breath and focused intention.</p></div>
+<div class="scope-grid">
+ <div class="scope reveal"><div class="eyebrow">Zhineng Qigong</div><h3>A practice you learn and do yourself</h3><p>Gentle, repeated movements, relaxed breathing and calm attention. Students practise in class and at home to build balance, flexibility and steadier energy. It is an open system: you learn to connect with the Qi around you rather than only working with your own.</p>
+  <ul><li>Stiffness in the neck, back and joints</li><li>Stress, a busy mind and restless sleep</li><li>Low energy and recovery after illness, alongside medical care</li><li>Balance and confidence as we age</li></ul></div>
+ <div class="scope reveal"><div class="eyebrow">Hun Yuan Qi therapy</div><h3>Guided sessions with Rikhil</h3><p>In a therapy session, Rikhil uses Hun Yuan Qi methods to support your body’s own capacity to rebalance, in person in Pune or online. Sessions are paired with practices you can continue at home, and many people combine therapy with regular classes.</p>
+  <ul><li>One-to-one sessions shaped around your situation</li><li>Simple home practices between sessions</li><li>Online sessions for people outside Pune</li><li>Always as a complement to your doctor’s care</li></ul></div>
+</div>
+<div class="scope-note reveal"><b>How we share stories</b><p>Stories are shared with permission and without names. We do not claim that Qigong cures any disease. It is a gentle practice that many people use alongside medical treatment, and experiences vary from person to person. Please continue any treatment prescribed by your doctor.</p></div>
+</div></section>
+<section id="share"><div class="wrap share-wrap"><div class="sec-head reveal"><div class="eyebrow">Share your story</div><h2>Has your practice made a difference?</h2>
+<p class="lead">If you have practised with Rikhil, your experience could encourage someone who is just starting. Rikhil reads every story personally before anything is published.</p></div>{story_form}</div></section>{cta_band()}"""
+pages.append(page("/healing-stories/", "Zhineng Qigong Healing Stories", "Real, anonymous experiences from people who practise Zhineng Qigong and Hun Yuan Qi therapy with Rikhil Bithar at Alloha Qi Space, Pune and online.", body,
+                  cur="", scripts=ev_scripts(), extra_css=True))
 
 # ---------- member area (rendered in the browser by /assets/members.js) ----------
 LOADING = '<div class="m-wrap"><div class="m-loading"><span class="spin"></span>Loading…</div></div>'

@@ -119,6 +119,7 @@ body = f'''
  <div class="center-cta reveal"><a class="btn btn-cta btn-lg" href="#book">Book a session</a><p>or <a class="textlink" style="font-size:.85rem" href="#finder">find the right practice for you →</a></p></div>
 </div></section>
 
+<div id="home-stories"></div>
 <section class="bg-white" id="how"><div class="wrap">
  <div class="sec-head center reveal"><div class="eyebrow">How it works</div><h2>Three simple steps to get started</h2></div>
  <div class="how">

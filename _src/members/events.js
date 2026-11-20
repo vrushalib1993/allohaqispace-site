@@ -181,9 +181,58 @@ async function viewEvent(app) {
   };
 }
 
+
+// ---------- healing stories ----------
+const who = (x) => [[x.gender, x.age_range].filter(Boolean).join(', '), x.location].filter(Boolean).join(' · ') || 'Alloha Qi Space student';
+const firstSentence = (t) => (String(t || '').match(/^.{20,180}?[.!?](\s|$)/) || [String(t || '').slice(0, 160)])[0].trim();
+function storyCard(x, full) {
+  const q = x.quote || firstSentence(x.after_text);
+  return `<article class="story reveal in"><div class="story-q">“${esc(q)}”</div>
+    ${full ? `${x.before_text ? `<div class="story-row"><b>Came with</b><p>${esc(x.before_text)}</p></div>` : ''}
+    ${x.practice || x.duration ? `<div class="story-row"><b>Practised</b><p>${esc([x.practice, x.duration].filter(Boolean).join(' · '))}</p></div>` : ''}
+    <div class="story-row"><b>What changed</b><p>${esc(x.after_text)}</p></div>` : ''}
+    <div class="story-foot"><span class="story-av">${esc((x.gender || 'S')[0].toUpperCase())}</span><div><b>${esc(who(x))}</b><small>${esc(x.area || '')}${x.doctor_care ? ' · alongside medical care' : ''}</small></div></div></article>`;
+}
+async function loadStories() { return rest('public_healing_stories?select=*&order=position.asc,created_at.desc'); }
+async function viewStories(app) {
+  const all = await loadStories();
+  if (!all.length) { app.innerHTML = `<div class="stories-empty"><h3>Stories are being gathered</h3><p>Rikhil’s students are sharing their experiences with us now. If you have practised with Alloha Qi Space, we would love to hear yours.</p><a class="btn btn-cta" href="#share">Share your story</a></div>`; return; }
+  const areas = [...new Set(all.map(x => x.area).filter(Boolean))];
+  const render = (f) => { app.querySelector('.stories-grid').innerHTML = all.filter(x => f === 'all' || x.area === f).map(x => storyCard(x, true)).join(''); };
+  app.innerHTML = `${areas.length > 1 ? `<div class="filters">${['all', ...areas].map((a, i) => `<button class="chip${i ? '' : ' on'}" data-a="${esc(a)}">${a === 'all' ? 'All stories' : esc(a)}</button>`).join('')}</div>` : ''}<div class="stories-grid"></div>`;
+  app.querySelectorAll('[data-a]').forEach(b => b.onclick = () => { app.querySelectorAll('[data-a]').forEach(x => x.classList.toggle('on', x === b)); render(b.dataset.a); });
+  render('all');
+}
+async function viewHomeStories(el) {
+  const all = (await loadStories()).slice(0, 3);
+  if (!all.length) return;
+  el.innerHTML = `<section class="bg-white" id="healing-stories"><div class="wrap"><div class="sec-head center reveal in"><div class="eyebrow">Healing stories</div><h2>In our students’ own words</h2>
+    <p class="lead">Real experiences shared by people who practise with Rikhil. Every journey is personal and results vary.</p></div>
+    <div class="stories-grid home">${all.map(x => storyCard(x, false)).join('')}</div><div class="center-cta"><a class="btn btn-outline" href="/healing-stories/">Read their stories</a></div></div></section>`;
+}
+function shareForm(f) {
+  const t0 = Date.now(), msg = f.querySelector('.nl-msg'), btn = f.querySelector('button[type=submit]');
+  const show = (h) => { msg.innerHTML = h ? `<div class="nl-err" role="alert">${h}</div>` : ''; };
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const v = (n) => (f.elements[n]?.value || '').trim();
+    if (v('after_text').length < 30) { show('Please tell us a little more about what changed for you.'); return f.elements.after_text.focus(); }
+    if (!f.elements.consent.checked) { show('Please tick the consent box so we can share your story.'); return; }
+    btn.disabled = true; btn.textContent = 'Sending…';
+    try {
+      const d = await post('/api/story', { age_range: v('age_range'), gender: v('gender'), location: v('location'), area: v('area'), practice: v('practice'), duration: v('duration'),
+        before_text: v('before_text'), after_text: v('after_text'), doctor_care: f.elements.doctor_care.checked, consent: f.elements.consent.checked, contact: v('contact'), company: v('company'), t: Date.now() - t0 });
+      f.innerHTML = `<div class="nl-done"><div class="nl-tick"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><h3>Thank you for sharing</h3><p>Rikhil will read your story personally. We may lightly edit it for length and will never show your name.</p></div>`;
+    } catch (x) { btn.disabled = false; btn.textContent = 'Share my story'; show(x.status === 500 ? 'Couldn’t send right now. Please try again in a minute.' : esc(x.message)); }
+  });
+}
+
 (async () => {
   if (!CFG.supabaseUrl || !CFG.supabaseAnonKey) return;
   const app = document.getElementById('ev-app'), home = document.getElementById('home-events');
+  const sApp = document.getElementById('stories-app'), sHome = document.getElementById('home-stories'), sForm = document.getElementById('story-form');
+  if (sForm) shareForm(sForm);
+  try { if (sHome) await viewHomeStories(sHome); if (sApp) await viewStories(sApp); } catch (x) { console.error(x); if (sApp) sApp.innerHTML = ''; }
   try {
     if (home) await viewHome(home);
     if (app) await (app.dataset.view === 'event' ? viewEvent(app) : viewList(app));

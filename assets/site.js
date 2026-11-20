@@ -91,9 +91,8 @@ $$("[data-copy]").forEach(b=>b.addEventListener("click",async()=>{try{await navi
  if(reduce) return;
  /* card tilt + spotlight */
  if(fine){
-  document.querySelectorAll('.scard,.pain,.post,.hstep,.creds li,.hbook').forEach(c=>{
-   const max=c.classList.contains('hbook')?3:5;
-   if(!c.classList.contains('hbook'))c.classList.add('tilt');
+  document.querySelectorAll('.scard,.pain,.post,.hstep,.creds li').forEach(c=>{
+   const max=5;c.classList.add('tilt');
    c.addEventListener('pointerenter',()=>{c.style.transitionDelay='0ms'});
    c.addEventListener('pointermove',e=>{const r=c.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
     c.style.setProperty('--mx',x*100+'%');c.style.setProperty('--my',y*100+'%');
@@ -115,31 +114,4 @@ $$("[data-copy]").forEach(b=>b.addEventListener("click",async()=>{try{await navi
  const t=document.createElement('button');t.className='totop';t.setAttribute('aria-label','Back to top');t.innerHTML='<svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg>';document.body.appendChild(t);
  t.onclick=()=>scrollTo({top:0,behavior:'smooth'});
  addEventListener('scroll',()=>t.classList.toggle('on',scrollY>900),{passive:true});
-})();
-
-/* ===== Soft UI sounds (Web Audio, no files) ===== */
-(function(){
- const KEY='aqs-sound';let on=true;try{on=localStorage.getItem(KEY)!=='off'}catch(e){}
- let ctx=null;const ac=()=>{if(!ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return null;ctx=new A()}if(ctx.state==='suspended')ctx.resume();return ctx};
- function bell(){const c=ac();if(!c)return;const t=c.currentTime,m=c.createGain();m.gain.value=.11;m.connect(c.destination);
-  [[528,1,1.6],[1056,.35,1.1],[1584,.16,.7],[792,.22,1.3]].forEach(([f,a,d])=>{const o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=f;
-   g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(a,t+.008);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(m);o.start(t);o.stop(t+d+.05)})}
- function tap(){const c=ac();if(!c)return;const t=c.currentTime,o=c.createOscillator(),g=c.createGain();o.type='sine';
-  o.frequency.setValueAtTime(880,t);o.frequency.exponentialRampToValueAtTime(520,t+.07);g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(.06,t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+.12);
-  o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.14)}
- function chime(){const c=ac();if(!c)return;[0,.09].forEach((d,i)=>{const t=c.currentTime+d,o=c.createOscillator(),g=c.createGain();o.type='sine';o.frequency.value=i?990:660;
-  g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(.07,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+.45);o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+.5)})}
- window.aqsSound={bell,tap,chime,get on(){return on}};
- document.addEventListener('click',e=>{
-  if(!on)return;const el=e.target.closest('a,button,[role=button],summary');if(!el||el.closest('.sound-toggle'))return;
-  if(el.closest('#listen .track, #player, .tracks'))return;
-  if(el.matches('.btn-cta,[type=submit]'))bell();
-  else if(el.matches('.btn,.links a,.brand'))chime();
-  else tap();
- },true);
- const b=document.createElement('button');b.className='sound-toggle';b.type='button';
- const ic={on:'<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>',off:'<svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>'};
- const paint=()=>{b.innerHTML=on?ic.on:ic.off;b.setAttribute('aria-label',on?'Turn click sounds off':'Turn click sounds on');b.title=on?'Sound on':'Sound off';b.classList.toggle('off',!on)};
- paint();b.onclick=()=>{on=!on;try{localStorage.setItem(KEY,on?'on':'off')}catch(e){}paint();if(on)tap()};
- document.body.appendChild(b);
 })();

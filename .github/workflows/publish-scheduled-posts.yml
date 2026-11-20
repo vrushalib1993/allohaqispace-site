@@ -1,0 +1,34 @@
+# Publishes journal posts whose publish_at time (India time) has arrived.
+# Posts live in _src/content/blog/*.md. Runs daily at 08:05 IST, and can be run by hand from the Actions tab.
+name: Publish scheduled posts
+on:
+  schedule:
+    - cron: "35 2 * * *"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: publish
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: pip install markdown==3.*
+      - name: Build site
+        run: python _src/build.py && python _src/home.py
+      - name: Commit if new posts went live
+        run: |
+          if [ -n "$(git status --porcelain -- . ':!_src')" ]; then
+            git config user.name "Shardul Doshi"
+            git config user.email "noreply@anthropic.com"
+            git add -A -- . ':!_src/__pycache__' ':!_src/site_data.json'
+            git commit -m "Publish scheduled journal posts"
+            git push
+          else
+            echo "Nothing new to publish today."
+          fi

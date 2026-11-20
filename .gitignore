@@ -1,2 +1,4 @@
 node_modules/
 _src/members/node_modules/
+_src/__pycache__/
+_src/site_data.json

@@ -77,7 +77,7 @@ for slug, d in POST_PATHS.items():
     meta, body = load_md(SRC / "journal" / f"{slug}.md")
     posts.append(dict(slug=slug, path=f"/{d}/{slug}/", body=body, **meta))
 import datetime as _dtb
-NOW_IST = _dtb.datetime.now(_dtb.timezone(_dtb.timedelta(hours=5, minutes=30))).replace(tzinfo=None)
+NOW_IST = _dtb.datetime.fromisoformat(os.environ["AQS_NOW"]) if os.environ.get("AQS_NOW") else _dtb.datetime.now(_dtb.timezone(_dtb.timedelta(hours=5, minutes=30))).replace(tzinfo=None)
 blog_all = []
 for f in sorted((SRC / "blog").glob("*.md")):
     meta, body = load_md(f)
@@ -423,7 +423,7 @@ for b in blog_live:
     rel_posts = [q for k, q in links if k == "post"]
     rel_posts += [q for q in sorted(blog_live, key=lambda x: x["date"], reverse=True) if q is not b and q not in rel_posts]
     rel_posts = rel_posts[:3]
-    pages_links = [v for k, v in links if k == "page"]
+    pages_links = list({v[1]: v for k, v in links if k == "page"}.values())
     hero_html = hero(esc(b["category"]), esc(b["title"]), esc(b["description"]), img=b["cover"], focus="center 50%",
                      crumbs=[("Home", "/"), ("Journal", "/inspiration/"), (b["category"], None)],
                      extra=f'<div class="bauthor"><span class="bav">RB</span><div><b>Rikhil Bithar</b><small>{fmt_date(b["date"])} · {rt} min read</small></div></div>')

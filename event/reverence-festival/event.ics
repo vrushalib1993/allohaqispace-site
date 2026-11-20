@@ -1,0 +1,13 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Alloha Qi Space//Events//EN
+BEGIN:VEVENT
+UID:reverence-festival@allohaqispace.com
+DTSTAMP:20261120T105433
+DTSTART;TZID=Asia/Kolkata:20260421T080000
+DTEND;TZID=Asia/Kolkata:20260421T170000
+SUMMARY:Reverence Festival
+LOCATION:Alloha Qi Space, Kalyani Nagar, Pune
+DESCRIPTION:A week of art, wellness and community: daily Qi Gong, yoga, live music, drum circles and more. https://allohaqispace.com/event/reverence-festival/
+END:VEVENT
+END:VCALENDAR

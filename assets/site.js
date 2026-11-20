@@ -115,3 +115,12 @@ $$("[data-copy]").forEach(b=>b.addEventListener("click",async()=>{try{await navi
  t.onclick=()=>scrollTo({top:0,behavior:'smooth'});
  addEventListener('scroll',()=>t.classList.toggle('on',scrollY>900),{passive:true});
 })();
+
+/* event countdown */
+document.querySelectorAll('.countdown[data-start]').forEach(el=>{
+ const t=new Date(el.dataset.start).getTime();
+ const tick=()=>{let d=t-Date.now();if(d<=0){el.innerHTML='';return}
+  const D=Math.floor(d/864e5),H=Math.floor(d/36e5)%24,M=Math.floor(d/6e4)%60;
+  el.innerHTML=`<div><b>${D}</b><span>days</span></div><div><b>${H}</b><span>hours</span></div><div><b>${M}</b><span>mins</span></div>`};
+ tick();setInterval(tick,30000);
+});

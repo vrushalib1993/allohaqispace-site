@@ -76,6 +76,16 @@ posts = []
 for slug, d in POST_PATHS.items():
     meta, body = load_md(SRC / "journal" / f"{slug}.md")
     posts.append(dict(slug=slug, path=f"/{d}/{slug}/", body=body, **meta))
+import datetime as _dtb
+NOW_IST = _dtb.datetime.now(_dtb.timezone(_dtb.timedelta(hours=5, minutes=30))).replace(tzinfo=None)
+blog_all = []
+for f in sorted((SRC / "blog").glob("*.md")):
+    meta, body = load_md(f)
+    n = int(f.name[:2]); slug = f.stem[3:]
+    blog_all.append(dict(meta, n=n, slug=slug, body=body, path=f"/blog/{slug}/", excerpt=meta["description"],
+                         date=meta["publish_at"][:10], blog=True, live=_dtb.datetime.fromisoformat(meta["publish_at"]) <= NOW_IST))
+blog_live = [b for b in blog_all if b["live"]]
+posts += blog_live
 posts.sort(key=lambda p: p["date"], reverse=True)
 HUES = [("#468FE9", "#DCEBF6"), ("#18334C", "#468FE9"), ("#DCEBF6", "#468FE9"), ("#468FE9", "#F7A253"), ("#18334C", "#DCEBF6")]
 
@@ -96,7 +106,7 @@ POST_IMG = {
 def uimg(pid, w, h=None):
     return f"https://images.unsplash.com/photo-{pid}?auto=format&fit=crop&q=70&w={w}" + (f"&h={h}" if h else "")
 def post_img(p, cls="art", w=800, ratio=0.5625, eager=False):
-    pid, alt = POST_IMG[p["slug"]]
+    pid, alt = (p["cover"], p["cover_alt"]) if p.get("cover") else POST_IMG[p["slug"]]
     ss = ", ".join(f"{uimg(pid, x, int(x*ratio))} {x}w" for x in (480, 800, 1200, 1600) if x <= w*2)
     return (f'<div class="{cls}"><img src="{uimg(pid, w, int(w*ratio))}" srcset="{ss}" sizes="(max-width:980px) 100vw, 60vw" '
             f'alt="{esc(alt)}" loading="{"eager" if eager else "lazy"}" decoding="async"></div>')
@@ -158,10 +168,10 @@ def add_arrows(doc):
         return tag + body + m.group(4)
     return _btn_re.sub(f, doc)
 
-def page(path, title, desc, body, cur="", ld=None, progress=False, og_type="website", scripts="", mbar=None, og_image=None, noindex=False, member=False, extra_css=False):
+def page(path, title, desc, body, cur="", ld=None, progress=False, og_type="website", scripts="", mbar=None, og_image=None, noindex=False, member=False, extra_css=False, exact_title=False):
     canon = DOMAIN + path
     lds = "".join(f'<script type="application/ld+json">{json.dumps(x, ensure_ascii=False)}</script>' for x in (ld or []))
-    full_title = title if "Alloha" in title else f"{title} | Alloha Qi Space"
+    full_title = title if ("Alloha" in title or exact_title) else f"{title} | Alloha Qi Space"
     doc = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -315,6 +325,7 @@ def post_card(p, i, feature=False):
             f'<small>{esc(cat)} · {fmt_date(p["date"])}</small><h3>{esc(p["title"])}</h3><p>{esc(p["excerpt"])}</p><span class="textlink">Read article →</span></div></a>')
 
 for i, p in enumerate(posts):
+    if p.get("blog"): continue
     content, toks = render_md(p["body"])
     rt = reading_time(p["body"])
     related = [q for q in posts if q is not p][:3]
@@ -333,6 +344,119 @@ for i, p in enumerate(posts):
           {"@context": "https://schema.org", "@type": "BlogPosting", "headline": p["title"], "description": p["excerpt"], "datePublished": p["date"], "dateModified": p["date"],
            "author": {"@type": "Organization", "name": "Alloha Qi Space"}, "publisher": {"@type": "Organization", "name": "Alloha Qi Space"}, "mainEntityOfPage": DOMAIN + p["path"]}]
     pages.append(page(p["path"], p["title"], p["excerpt"], body, cur="/inspiration/", ld=ld, progress=True, og_type="article", og_image=uimg(POST_IMG[p["slug"]][0], 1200, 630)))
+
+# ---------- scheduled blog posts (/blog/<slug>/) ----------
+LINK_MAP = {"beginner classes page": ("Beginner classes", "/foundational-qigong-practice/"), "free intro course": ("Free online introduction", "/courses/"),
+            "class schedule": ("Book a class", "/contact-us/#book"), "corporate workshops page": ("Workshops for teams", "/contact-us/"),
+            "online course page": ("Online courses", "/courses/"), "online courses page": ("Online courses", "/courses/"),
+            "senior batch page": ("Gentle classes for seniors", "/contact-us/#book"), "events page": ("Healing events", "/events/")}
+by_n = {b["n"]: b for b in blog_live}
+def blog_links(b):
+    out = []
+    for part in [x.strip() for x in b.get("links", "").split(";") if x.strip()]:
+        m = re.match(r"Post (\d+)", part)
+        if m:
+            q = by_n.get(int(m.group(1)))
+            if q: out.append(("post", q))
+        elif part.lower() in LINK_MAP: out.append(("page", LINK_MAP[part.lower()]))
+    return out
+
+def fig(pid, alt, cls="bfig"):
+    u = lambda w: uimg(pid, w, int(w * 0.6))
+    return (f'<figure class="{cls} reveal"><img src="{u(1200)}" srcset="{u(640)} 640w, {u(1000)} 1000w, {u(1400)} 1400w" sizes="(max-width:980px) 100vw, 760px" '
+            f'alt="{esc(alt)}" loading="lazy" decoding="async"><figcaption>{esc(alt)}</figcaption></figure>')
+
+NL_FORM = '''<form class="nl-form" data-newsletter="blog" novalidate>
+  <div class="field"><label for="nlname">First name <span>(optional)</span></label><input id="nlname" name="name" autocomplete="given-name" placeholder="Priya"></div>
+  <div class="field"><label for="nlemail">Email</label><input id="nlemail" name="email" type="email" autocomplete="email" required placeholder="name@example.com"></div>
+  <input class="hp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true"><div class="nl-msg" aria-live="polite"></div>
+  <button class="btn btn-cta btn-block" type="submit" data-deco="plain">Send me free tips</button>
+  <p class="nl-fine">One or two emails a month. Unsubscribe any time.</p></form>'''
+
+def blog_body(b):
+    html_, toks = render_md(b["body"])
+    parts = re.split(r'(?=<h2 )', html_)
+    intro, secs = parts[0], parts[1:]
+    faq, cta = secs[-1], secs[-2]
+    content_secs = secs[:-2]
+    def enhance(h):
+        # bold-lead lists → key lists
+        h = re.sub(r'<ul>(\s*<li><strong>)', r'<ul class="keylist">\1', h)
+        # numbered h3 steps → step cards
+        def step(m):
+            hid, num, title, rest = m.group(1), m.group(2), m.group(3), m.group(4)
+            dur = re.search(r'\s*\(([^)]+)\)\s*$', title)
+            t = title[:dur.start()] if dur else title
+            badge = f'<span class="bdur">{dur.group(1)}</span>' if dur else ''
+            return f'<div class="bstep reveal"><span class="bnum">{num}</span><div><h3 id="{hid}">{t}{badge}</h3>{rest}</div></div>'
+        h = re.sub(r'<h3 id="([^"]+)">(\d+)\.\s*(.*?)</h3>\s*((?:<p>.*?</p>\s*)+)', step, h, flags=re.S)
+        return h
+    body = enhance(intro) if intro.strip() else ""
+    for i, sec in enumerate(content_secs):
+        if i == 2: body += fig(b["img1"], b["img1_alt"])
+        if i == 3: body += (f'<aside class="binline reveal"><div><b>New to qigong?</b><span>Try a gentle beginner session with Rikhil in Kalyani Nagar, Pune, or join live online.</span></div>'
+                            f'<a class="btn btn-cta btn-sm" href="{wa("Hi Rikhil, I read your article " + chr(34) + b["title"] + chr(34) + " and would like to try a session.")}" target="_blank" rel="noopener">Book a session</a></aside>')
+        if i == 4 or (i == len(content_secs) - 1 and len(content_secs) <= 4): body += fig(b["img2"], b["img2_alt"])
+        body += enhance(sec)
+    # CTA box
+    cta_h = re.search(r'<h2[^>]*>(.*?)</h2>', cta).group(1); cta_p = re.sub(r'<h2[^>]*>.*?</h2>', '', cta, count=1)
+    second = ("Healing events", "/events/") if "event" in b["slug"] or "Events page" in b.get("links", "") else ("Online courses", "/courses/")
+    body += (f'<section class="bcta reveal" id="{re.search(r'id="([^"]+)"', cta).group(1)}"><div class="eyebrow">Practise with Rikhil</div><h2>{cta_h}</h2>{cta_p}'
+             f'<div class="cta-row"><a class="btn btn-cta" href="{wa("Hi Rikhil, I read " + chr(34) + b["title"] + chr(34) + " and would like to book a session.")}" target="_blank" rel="noopener">Book on WhatsApp</a>'
+             f'<a class="btn btn-outline" href="{second[1]}">{second[0]}</a></div></section>')
+    # FAQ accordion
+    qa = re.findall(r'<h3[^>]*>(.*?)</h3>\s*((?:<p>.*?</p>\s*)+)', faq, flags=re.S)
+    faq_id = re.search(r'id="([^"]+)"', faq).group(1)
+    body += f'<section class="bfaq" id="{faq_id}"><h2>Frequently asked questions</h2>' + "".join(
+        f'<details class="bqa reveal"{" open" if j == 0 else ""}><summary>{q}</summary><div>{a}</div></details>' for j, (q, a) in enumerate(qa)) + '</section>'
+    toc = [(t["id"], t["name"]) for t in toks]
+    return body, toc, qa
+
+def blog_card(q):
+    return (f'<a class="bcard" href="{q["path"]}"><div class="bcard-img"><img src="{uimg(q["cover"], 640, 400)}" alt="" loading="lazy"></div>'
+            f'<div><small>{esc(q["category"])}</small><b>{esc(q["title"])}</b></div></a>')
+
+for b in blog_live:
+    body_html, toc, qa = blog_body(b)
+    rt = reading_time(b["body"])
+    links = blog_links(b)
+    rel_posts = [q for k, q in links if k == "post"]
+    rel_posts += [q for q in sorted(blog_live, key=lambda x: x["date"], reverse=True) if q is not b and q not in rel_posts]
+    rel_posts = rel_posts[:3]
+    pages_links = [v for k, v in links if k == "page"]
+    hero_html = hero(esc(b["category"]), esc(b["title"]), esc(b["description"]), img=b["cover"], focus="center 50%",
+                     crumbs=[("Home", "/"), ("Journal", "/inspiration/"), (b["category"], None)],
+                     extra=f'<div class="bauthor"><span class="bav">RB</span><div><b>Rikhil Bithar</b><small>{fmt_date(b["date"])} · {rt} min read</small></div></div>')
+    toc_list = "".join(f'<li><a href="#{i}">{esc(re.sub("<[^>]+>", "", n))}</a></li>' for i, n in toc)
+    share_url = DOMAIN + b["path"]
+    from urllib.parse import quote as _q
+    share = (f'<div class="bshare"><span>Share</span><a href="https://wa.me/?text={_q(b["title"] + " " + share_url)}" target="_blank" rel="noopener" aria-label="Share on WhatsApp">WhatsApp</a>'
+             f'<a href="https://www.linkedin.com/sharing/share-offsite/?url={_q(share_url)}" target="_blank" rel="noopener" aria-label="Share on LinkedIn">LinkedIn</a>'
+             f'<a href="https://twitter.com/intent/tweet?text={_q(b["title"])}&url={_q(share_url)}" target="_blank" rel="noopener" aria-label="Share on X">X</a><button type="button" data-copy>Copy link</button></div>')
+    keypoints = "".join(f'<li><a href="#{i}">{esc(re.sub("<[^>]+>", "", n))}</a></li>' for i, n in toc[:-2])
+    explore = "".join(f'<a href="{u}">{esc(l)} →</a>' for l, u in pages_links)
+    body = hero_html + f'''<section class="bwrap"><div class="wrap blayout">
+<aside class="btoc"><div class="btoc-in"><div class="eyebrow">In this article</div><ol>{toc_list}</ol>{share}</div></aside>
+<article class="bpost">
+ <div class="bkeys reveal"><b>In this guide</b><ol>{keypoints}</ol></div>
+ <div class="prose bprose">{body_html}</div>
+ <div class="bnote"><b>A note on health</b><p>Qigong is a gentle complement to medical care, not a replacement for it. If you have a medical condition, are pregnant or are recovering from surgery, please check with your doctor before starting a new practice.</p></div>
+ <div class="bbio reveal"><span class="bav lg">RB</span><div><small>Written by</small><b>Rikhil Bithar</b><p>Founder of Alloha Qi Space in Kalyani Nagar, Pune. Zhineng Qigong Level 1 teacher trained under Master Yuantong Liu and certified Hun Yuan Qi therapist, teaching in person and online.</p><a class="textlink" href="/about-us/">More about Rikhil →</a></div></div>
+ {f'<div class="bexplore reveal"><b>Continue exploring</b><div>{explore}</div></div>' if explore else ''}
+ <div class="bnl reveal"><div><div class="eyebrow">Free tips from Rikhil</div><h3>Get simple Qi Gong practices in your inbox</h3><p>Short routines and ideas for a calmer body and clearer mind, once or twice a month.</p></div>{NL_FORM}</div>
+</article></div></section>
+{f'<section class="brel"><div class="wrap"><div class="sec-head reveal"><div class="eyebrow">Keep reading</div><h2>More from the journal</h2></div><div class="grid3">{"".join(post_card(q, 0) for q in rel_posts)}</div></div></section>' if rel_posts else ''}
+{cta_band()}'''
+    ld = [breadcrumb_ld([("Home", "/"), ("Journal", "/inspiration/"), (b["title"], b["path"])]),
+          {"@context": "https://schema.org", "@type": "BlogPosting", "headline": b["title"], "description": b["description"], "image": uimg(b["cover"], 1200, 630),
+           "datePublished": b["publish_at"] + ":00+05:30", "dateModified": b["publish_at"] + ":00+05:30", "keywords": f'{b["primary"]}, {b["secondary"]}',
+           "author": {"@type": "Person", "name": "Rikhil Bithar", "url": DOMAIN + "/about-us/"},
+           "publisher": {"@type": "Organization", "name": "Alloha Qi Space", "logo": {"@type": "ImageObject", "url": DOMAIN + "/assets/logo.png"}},
+           "mainEntityOfPage": DOMAIN + b["path"]},
+          {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": re.sub("<[^>]+>", "", q), "acceptedAnswer": {"@type": "Answer", "text": re.sub("<[^>]+>", "", a).strip()}} for q, a in qa]}]
+    pages.append(page(b["path"], b["seo_title"], b["description"], body, cur="/inspiration/", ld=ld, progress=True, og_type="article",
+                      og_image=uimg(b["cover"], 1200, 630), exact_title=True))
+
 
 # ---------- journal index ----------
 cats = sorted({p["category"] for p in posts})
@@ -466,12 +590,15 @@ member_page("/learn/", "Lesson", "Course lesson.", "learn")
 member_page("/admin/", "Admin", "Site admin.", "admin",
             '<header class="m-authhero"><div class="wrap"><h1>Admin</h1><p class="lead">Manage courses, healing events, bookings and newsletter subscribers.</p></div></header>')
 
+SITE_UPDATED = "2026-11-20"
 # ---------- sitemap & robots ----------
 urls = ["/"] + [p for p in pages if p not in ("/event-booked/", "/404", "/event/", "/course/", "/login/", "/account/", "/learn/", "/admin/")]
 sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
 for u in urls:
     pr = "1.0" if u == "/" else ("0.9" if u in ["/programs/"] + [f"/{p['slug']}/" for p in programs] else "0.7")
-    sm.append(f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{TODAY}</lastmod><priority>{pr}</priority></url>")
+    bp = next((b for b in blog_live if b["path"] == u), None)
+    if bp: pr = "0.8"
+    sm.append(f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{bp['date'] if bp else SITE_UPDATED}</lastmod><priority>{pr}</priority></url>")
 sm.append("</urlset>")
 (OUT / "sitemap.xml").write_text("\n".join(sm) + "\n")
 (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")

@@ -144,3 +144,9 @@ document.querySelectorAll('form[data-newsletter]').forEach(f=>{
   }catch(x){btn.disabled=false;btn.innerHTML=label;show(x.message&&!/configured/i.test(x.message)?x.message:'Couldn’t subscribe right now. Please try again in a minute.')}
  });
 });
+
+/* blog: highlight current section in the table of contents */
+(function(){const links=[...document.querySelectorAll('.btoc a[href^="#"]')];if(!links.length)return;
+ const map=new Map(links.map(a=>[decodeURIComponent(a.getAttribute('href').slice(1)),a]));
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){links.forEach(l=>l.classList.remove('on'));map.get(e.target.id)?.classList.add('on')}}),{rootMargin:'-20% 0px -70% 0px'});
+ map.forEach((a,id)=>{const el=document.getElementById(id);if(el)io.observe(el)});})();

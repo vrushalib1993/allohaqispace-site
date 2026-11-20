@@ -416,6 +416,16 @@
    "source": "/topics/",
    "destination": "/inspiration/",
    "permanent": true
+  },
+  {
+   "source": "/blog",
+   "destination": "/inspiration/",
+   "permanent": false
+  },
+  {
+   "source": "/blog/",
+   "destination": "/inspiration/",
+   "permanent": false
   }
  ],
  "headers": [

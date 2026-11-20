@@ -182,6 +182,9 @@ body = f'''
  <div class="tracks" id="tones"></div>
 </div></section>
 
+<section class="bg-cloud" id="journal"><div class="wrap"><div class="sec-head reveal"><div class="eyebrow">From the journal</div><h2>Guides from Rikhil</h2><p class="lead">Practical, beginner-friendly articles on Qi Gong, stress, sleep, pain and daily practice.</p></div>
+<div class="grid3">{"".join(B.post_card(q, 0) for q in sorted(B.posts, key=lambda x: x["date"], reverse=True)[:3])}</div><div class="center-cta reveal"><a class="btn btn-outline" href="/inspiration/">Read all articles</a></div></div></section>
+
 <section class="bg-white" id="faq"><div class="wrap grid2" style="gap:4rem;align-items:start">
  <div class="reveal"><div class="eyebrow">Before you book</div><h2 style="margin:.7rem 0 1rem">Your questions, answered</h2><p class="lead">Still unsure? Ask Rikhil directly. He’s happy to talk it through before you commit.</p>
   <div class="cta-row"><a class="btn btn-cta" href="{wa("Hi Rikhil, I have a question before booking a Qigong session.")}" target="_blank" rel="noopener">Ask a question on WhatsApp</a><a class="btn btn-outline" href="/faq/">All FAQs</a></div></div>

@@ -20,7 +20,7 @@ Rikhil Bithar is a certified Hun Yuan Qi Therapist and a Zhineng Qi Gong Level 1
 
 Rikhil also holds a certification from the Joyful Belly Ayurveda College of Digestion and Nutrition, allowing him to seamlessly integrate Ayurvedic principles into his work. By understanding the bio-characteristics of food, he helps individuals make better dietary choices for long-term health.
 
-In addition, Rikhil has developed the Qi Core Improvement Series—a thoughtfully structured program designed to revitalize the spine and harmonize mental, physical, and energetic systems. Through this comprehensive approach, Rikhil empowers individuals to unlock their full potential, creating a pathway toward balance, coherence, and long-term well-being.
+In addition, Rikhil teaches the Qi Core Improvement Series, a six-form system created by Master Yuantong Liu to revitalize the spine and harmonize mental, physical, and energetic systems. Through this comprehensive approach, Rikhil empowers individuals to unlock their full potential, creating a pathway toward balance, coherence, and long-term well-being.
 
 ## Ravina Bithar, Co-Founder
 

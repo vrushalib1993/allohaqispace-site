@@ -82,7 +82,7 @@ body = f'''
    <div class="eyebrow">Meet your teacher</div>
    <h2>Rikhil Bithar teaches every student personally</h2>
    <p class="lead">Rikhil and his mother, Ravina Bithar, founded Alloha Qi Space after seeing first-hand how Qigong supported healing and recovery in their own family. They felt every family should have access to the same simple, practical tools.</p>
-   <p>Today Rikhil teaches at the Kalyani Nagar centre and live online, shaping each session around your body, your goals and your pace. He also created the <a class="textlink" href="/qi-core-improvement/">Qi Core Improvement Series</a>, a structured programme for the spine and overall balance.</p>
+   <p>Today Rikhil teaches at the Kalyani Nagar centre and live online, shaping each session around your body, your goals and your pace. He also teaches the <a class="textlink" href="/qi-core-improvement/">Qi Core Improvement Series</a>, a six-form system for the spine and overall balance created by his teacher, Master Yuantong Liu.</p>
    <ul class="creds">
     <li><span class="ic">{ico("goal")}</span><div><b>Certified Hun Yuan Qi Therapist</b><small>Hands-on Qi therapy sessions</small></div></li>
     <li><span class="ic">{ico("user")}</span><div><b>Zhineng Qigong Level 1 Teacher</b><small>Trained under Master Yuantong Liu</small></div></li>

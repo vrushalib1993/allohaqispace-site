@@ -349,7 +349,7 @@ for i, p in enumerate(posts):
 LINK_MAP = {"beginner classes page": ("Beginner classes", "/foundational-qigong-practice/"), "free intro course": ("Free online introduction", "/courses/"),
             "class schedule": ("Book a class", "/contact-us/#book"), "corporate workshops page": ("Workshops for teams", "/contact-us/"),
             "online course page": ("Online courses", "/courses/"), "online courses page": ("Online courses", "/courses/"),
-            "senior batch page": ("Gentle classes for seniors", "/contact-us/#book"), "events page": ("Healing events", "/events/")}
+            "senior batch page": ("Gentle classes for seniors", "/contact-us/#book"), "corporate enquiry page": ("Workshops for your team", "/contact-us/"), "events page": ("Healing events", "/events/")}
 by_n = {b["n"]: b for b in blog_live}
 def blog_links(b):
     out = []
@@ -394,15 +394,17 @@ def blog_body(b):
     body = enhance(intro) if intro.strip() else ""
     for i, sec in enumerate(content_secs):
         if i == 2: body += fig(b["img1"], b["img1_alt"])
-        if i == 3: body += (f'<aside class="binline reveal"><div><b>New to qigong?</b><span>Try a gentle beginner session with Rikhil in Kalyani Nagar, Pune, or join live online.</span></div>'
+        if i == 3 and "corporate" in b["slug"]: body += (f'<aside class="binline reveal"><div><b>Planning a wellness day?</b><span>Rikhil runs qigong workshops on-site in Pune and live online for teams.</span></div>'
+                            f'<a class="btn btn-cta btn-sm" href="{wa("Hi Rikhil, I would like to discuss a qigong workshop for our team.")}" target="_blank" rel="noopener">Talk to Rikhil</a></aside>')
+        elif i == 3: body += (f'<aside class="binline reveal"><div><b>New to qigong?</b><span>Try a gentle beginner session with Rikhil in Kalyani Nagar, Pune, or join live online.</span></div>'
                             f'<a class="btn btn-cta btn-sm" href="{wa("Hi Rikhil, I read your article " + chr(34) + b["title"] + chr(34) + " and would like to try a session.")}" target="_blank" rel="noopener">Book a session</a></aside>')
         if i == 4 or (i == len(content_secs) - 1 and len(content_secs) <= 4): body += fig(b["img2"], b["img2_alt"])
         body += enhance(sec)
     # CTA box
     cta_h = re.search(r'<h2[^>]*>(.*?)</h2>', cta).group(1); cta_p = re.sub(r'<h2[^>]*>.*?</h2>', '', cta, count=1)
     second = ("Healing events", "/events/") if "event" in b["slug"] or "Events page" in b.get("links", "") else ("Online courses", "/courses/")
-    body += (f'<section class="bcta reveal" id="{re.search(r'id="([^"]+)"', cta).group(1)}"><div class="eyebrow">Practise with Rikhil</div><h2>{cta_h}</h2>{cta_p}'
-             f'<div class="cta-row"><a class="btn btn-cta" href="{wa("Hi Rikhil, I read " + chr(34) + b["title"] + chr(34) + " and would like to book a session.")}" target="_blank" rel="noopener">Book on WhatsApp</a>'
+    body += (f'<section class="bcta reveal" id="{re.search(r'id="([^"]+)"', cta).group(1)}"><div class="eyebrow">Practise with Rikhil</div><h2>{cta_h}</h2>{cta_p}' +
+             (f'<div class="cta-row"><a class="btn btn-cta" href="{wa("Hi Rikhil, I read your article on corporate wellness and would like to discuss a qigong workshop for our team.")}" target="_blank" rel="noopener">Enquire about a team workshop</a>' if "corporate" in b["slug"] else f'<div class="cta-row"><a class="btn btn-cta" href="{wa("Hi Rikhil, I read " + chr(34) + b["title"] + chr(34) + " and would like to book a session.")}" target="_blank" rel="noopener">Book on WhatsApp</a>') +
              f'<a class="btn btn-outline" href="{second[1]}">{second[0]}</a></div></section>')
     # FAQ accordion
     qa = re.findall(r'<h3[^>]*>(.*?)</h3>\s*((?:<p>.*?</p>\s*)+)', faq, flags=re.S)

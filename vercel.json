@@ -84,12 +84,12 @@
   },
   {
    "source": "/my-account",
-   "destination": "/shop/",
+   "destination": "/account/",
    "permanent": true
   },
   {
    "source": "/my-account-2",
-   "destination": "/shop/",
+   "destination": "/account/",
    "permanent": true
   },
   {
@@ -154,46 +154,41 @@
   },
   {
    "source": "/membership-login/(.*)",
-   "destination": "/contact-us/",
+   "destination": "/login/",
    "permanent": true
   },
   {
    "source": "/membership-login",
-   "destination": "/contact-us/",
+   "destination": "/login/",
    "permanent": true
   },
   {
    "source": "/membership-join/(.*)",
-   "destination": "/contact-us/",
+   "destination": "/login/?mode=signup",
    "permanent": true
   },
   {
    "source": "/membership-join",
-   "destination": "/contact-us/",
+   "destination": "/login/?mode=signup",
    "permanent": true
   },
   {
    "source": "/membership-pricing",
-   "destination": "/contact-us/",
+   "destination": "/courses/",
    "permanent": true
   },
   {
    "source": "/register",
-   "destination": "/contact-us/",
+   "destination": "/login/?mode=signup",
    "permanent": true
   },
   {
    "source": "/register-2",
-   "destination": "/contact-us/",
+   "destination": "/login/?mode=signup",
    "permanent": true
   },
   {
    "source": "/registration",
-   "destination": "/contact-us/",
-   "permanent": true
-  },
-  {
-   "source": "/login",
    "destination": "/contact-us/",
    "permanent": true
   },
@@ -304,12 +299,12 @@
   },
   {
    "source": "/my-account/",
-   "destination": "/shop/",
+   "destination": "/account/",
    "permanent": true
   },
   {
    "source": "/my-account-2/",
-   "destination": "/shop/",
+   "destination": "/account/",
    "permanent": true
   },
   {
@@ -369,36 +364,31 @@
   },
   {
    "source": "/membership-login/",
-   "destination": "/contact-us/",
+   "destination": "/login/",
    "permanent": true
   },
   {
    "source": "/membership-join/",
-   "destination": "/contact-us/",
+   "destination": "/login/?mode=signup",
    "permanent": true
   },
   {
    "source": "/membership-pricing/",
-   "destination": "/contact-us/",
+   "destination": "/courses/",
    "permanent": true
   },
   {
    "source": "/register/",
-   "destination": "/contact-us/",
+   "destination": "/login/?mode=signup",
    "permanent": true
   },
   {
    "source": "/register-2/",
-   "destination": "/contact-us/",
+   "destination": "/login/?mode=signup",
    "permanent": true
   },
   {
    "source": "/registration/",
-   "destination": "/contact-us/",
-   "permanent": true
-  },
-  {
-   "source": "/login/",
    "destination": "/contact-us/",
    "permanent": true
   },

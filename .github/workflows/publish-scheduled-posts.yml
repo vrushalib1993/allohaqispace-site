@@ -23,10 +23,13 @@ jobs:
         run: python _src/build.py && python _src/home.py
       - name: Commit if new posts went live
         run: |
-          if [ -n "$(git status --porcelain -- . ':!_src')" ]; then
+          set -euo pipefail
+          changes="$(git status --porcelain -- . ':(exclude)_src')"
+          if [ -n "$changes" ]; then
+            echo "$changes"
             git config user.name "Shardul Doshi"
             git config user.email "noreply@anthropic.com"
-            git add -A -- . ':!_src/__pycache__' ':!_src/site_data.json'
+            git add -A -- . ':(exclude)_src/__pycache__' ':(exclude)_src/site_data.json'
             git commit -m "Publish scheduled journal posts"
             git push
           else

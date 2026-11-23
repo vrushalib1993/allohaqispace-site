@@ -1,6 +1,6 @@
 ---
 title: Online Healing & Classes
-h1: Online Healing & Classes
+h1: Online Qigong Healing & Classes, Live from Pune
 tags: online, mind
 summary: Live online classes, Hun Yuan Qi healing sessions and consultations, wherever you are in the world.
 ---

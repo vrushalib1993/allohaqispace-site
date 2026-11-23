@@ -1,6 +1,6 @@
 ---
 title: Comprehensive Consultations
-h1: Comprehensive Consultations
+h1: Comprehensive Qigong Consultations in Pune & Online
 tags: mind, online
 summary: A deep look at your food, environment and hidden risks, ending with a personal blueprint for well-being.
 ---

@@ -105,7 +105,7 @@ body = f'''
   <input class="hp" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
   <div class="nl-msg" aria-live="polite"></div>
   <button class="btn btn-cta btn-lg btn-block" type="submit" data-deco="plain">Send me free tips</button>
-  <p class="nl-fine">We’ll only use your email to send Rikhil’s newsletter. See our <a href="/privacy-policy-2/">privacy policy</a>.</p>
+  <p class="nl-fine">We’ll only use your email to send Rikhil’s newsletter. See our <a href="/privacy-policy/">privacy policy</a>.</p>
  </form></div></div></section>
 
 <section class="bg-cloud" id="approach"><div class="wrap">
@@ -161,9 +161,9 @@ body = f'''
 <section class="bg-soft" id="finder"><div class="wrap finder">
  <div class="reveal"><div class="eyebrow">Practice finder</div><h2 style="margin:.7rem 0 1rem">Not sure where to start?</h2>
   <p class="lead">Answer three quick questions and we’ll suggest a practice you can book in one tap.</p>
-  <ol class="steps"><li><b>1</b><div><h4>Tell us your goal</h4><p>Energy, calm, recovery or a specific area of the body.</p></div></li>
-  <li><b>2</b><div><h4>Choose how you practise</h4><p>Visit the Pune centre or join online from anywhere.</p></div></li>
-  <li><b>3</b><div><h4>Get a suggestion</h4><p>A recommended practice with a ready-to-send message.</p></div></li></ol></div>
+  <ol class="steps"><li><b>1</b><div><h3>Tell us your goal</h3><p>Energy, calm, recovery or a specific area of the body.</p></div></li>
+  <li><b>2</b><div><h3>Choose how you practise</h3><p>Visit the Pune centre or join online from anywhere.</p></div></li>
+  <li><b>3</b><div><h3>Get a suggestion</h3><p>A recommended practice with a ready-to-send message.</p></div></li></ol></div>
  <div class="quiz reveal" id="quiz">
   <div class="qtop"><span id="qcount">Question 1 of 3</span><span>About 30 seconds</span></div>
   <div class="qprog"><i id="qbar"></i></div>

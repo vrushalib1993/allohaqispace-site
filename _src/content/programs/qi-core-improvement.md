@@ -1,6 +1,6 @@
 ---
 title: Qi Core Improvement – Revitalize the Spine
-h1: Qi Core Improvement – Revitalize the Spine
+h1: Qi Core Improvement: Qigong to Revitalize the Spine
 tags: body
 summary: A six-form system by Master Yuantong Liu, based on Dr. Pang’s methods, for the spine, organs and brain.
 ---

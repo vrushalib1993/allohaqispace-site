@@ -1,6 +1,6 @@
 ---
 title: Eye Recovery & Brain Cells
-h1: Eye Recovery & Brain Cells: True Nourishment
+h1: Eye Recovery & Brain Cells: Qigong in Pune & Online
 tags: body, mind
 summary: Qigong practices to ease eye strain and nourish the eyes and brain with fresh Qi.
 ---

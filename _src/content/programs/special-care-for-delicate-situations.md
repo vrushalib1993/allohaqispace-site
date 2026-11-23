@@ -1,6 +1,6 @@
 ---
 title: Special Care for Delicate Situations
-h1: Special Care for Delicate Situations
+h1: Gentle Qigong Care for Delicate Situations in Pune
 tags: recovery
 summary: Gentle, adapted support during pregnancy, illness, recovery and other sensitive times.
 ---

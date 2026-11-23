@@ -46,7 +46,7 @@ export const POST = handle(async (request) => {
   // Welcome email (only for new subscribers, only once a sending domain is set up).
   if (isNew && process.env.RESEND_FROM) {
     const hi = name ? `Hi ${esc(name.split(' ')[0])},` : 'Hi,';
-    const site = (process.env.SITE_URL || 'https://allohaqispace.com').replace(/\/$/, '');
+    const site = (process.env.SITE_URL || 'https://www.allohaqispace.com').replace(/\/$/, '');
     const w = await resend('emails', {
       from: process.env.RESEND_FROM, to: [email], reply_to: process.env.RESEND_REPLY_TO || undefined,
       subject: 'Welcome to Alloha Qi Space: your first practice',

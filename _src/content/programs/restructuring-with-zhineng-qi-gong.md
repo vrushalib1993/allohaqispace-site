@@ -1,6 +1,6 @@
 ---
 title: Restructuring with Zhineng Qi Gong
-h1: Restructuring with Zhineng Qi Gong
+h1: Restructuring with Zhineng Qi Gong in Pune & Online
 tags: body, recovery
 summary: Connect with Hun Yuan Qi to restructure, heal and rejuvenate the body from within.
 ---

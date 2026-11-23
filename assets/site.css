@@ -248,7 +248,7 @@ form.book .seg{margin:0}
 /* FOOTER (navy; logo presented on a white card, per logo guidance) */
 footer.site{background:var(--navy);color:rgba(255,255,255,.72);padding:80px 0 32px;font-size:.95rem}
 .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:3rem}
-footer.site h4{font-family:var(--head);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#8fbaf2;margin-bottom:1.1rem;font-weight:600}
+footer.site h4,footer.site h2.fh{font-family:var(--head);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#8fbaf2;margin-bottom:1.1rem;font-weight:600}
 footer.site ul{list-style:none;display:grid;gap:.6rem}
 footer.site a{text-decoration:none;transition:color .2s}
 footer.site a:hover{color:#fff}
@@ -307,7 +307,7 @@ footer.site .fbot nav{display:flex;gap:1.4rem;flex-wrap:wrap}
 .steps{list-style:none;display:grid;gap:1.3rem;margin-top:2rem}
 .steps li{display:flex;gap:1rem}
 .steps b{flex:none;width:44px;height:44px;border-radius:50%;background:#fff;color:var(--blue);font-family:var(--head);display:grid;place-items:center;font-weight:700}
-.steps h4{font-size:1.05rem;margin-bottom:.15rem}
+.steps h3,.steps h4{font-size:1.05rem;margin-bottom:.15rem}
 .steps p{color:var(--muted);font-size:.95rem}
 .quiz{background:#fff;border-radius:var(--r-lg);padding:2.4rem;box-shadow:var(--shadow);min-height:440px}
 .qtop{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;color:var(--muted);margin-bottom:.8rem}
@@ -895,3 +895,19 @@ nav.top,nav.top.solid{border-bottom:1px solid rgba(12,31,49,.09)}
 .scheck input{width:20px;height:20px;margin-top:.15rem;accent-color:var(--ink);flex:none}
 .scheck.consent{background:var(--cloud);border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem}
 @media (max-width:760px){.scope-grid,.sform .g2,.sform .g3{grid-template-columns:1fr}}
+
+/* ---- audit fixes: skip link, readable accent text, hours ---- */
+:root{--blue-t:#1F5F99;--blue-d:#1F5F99}
+.skip{position:absolute;left:1rem;top:-100px;z-index:100;background:var(--navy);color:#fff;padding:.7rem 1.1rem;border-radius:10px;font-weight:600;text-decoration:none;transition:top .15s}
+.skip:focus{top:1rem}
+main:focus{outline:none}
+.eyebrow,.textlink,.crumbs a,.links a:hover,.links a.cur,.toc a.on,.post small,.tag{color:var(--blue-t)}
+.textlink:hover{color:var(--navy)}
+.hl{color:#3578cf}
+.btn-blue,.portrait .mono,.who .av,.hstep .num,.aw,.bookcover .cover,.meet-badge .mono,.tbtn,.pbtn{background:#2f6fc4}
+.btn-blue:hover{background:var(--blue-d)}
+.tmeta .dur{color:#5b6e80}
+.steps b{color:var(--blue-t)}
+.prose a.btn-cta,.prose a.btn-cta .lbl{color:#fff!important}
+.prose a.btn-outline{color:var(--ink)}
+.prose .binline a.btn-cta,.prose .binline a.btn-cta .lbl{color:var(--ink)!important}

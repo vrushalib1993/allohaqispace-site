@@ -10,7 +10,7 @@ const nav=$("#nav");
 const onScroll=()=>{nav&&nav.classList.toggle("solid",scrollY>30);
   const p=$("#progress");if(p){const h=document.documentElement.scrollHeight-innerHeight;p.style.width=(h>0?scrollY/h*100:0)+"%"}};
 addEventListener("scroll",onScroll,{passive:true});onScroll();
-$("#burger")&&($("#burger").onclick=()=>document.body.classList.toggle("menu-open"));
+$("#burger")&&($("#burger").onclick=()=>{const o=document.body.classList.toggle("menu-open");$("#burger").setAttribute("aria-expanded",o?"true":"false")});
 $$("#links a").forEach(a=>a.addEventListener("click",()=>document.body.classList.remove("menu-open")));
 
 /* reveal */

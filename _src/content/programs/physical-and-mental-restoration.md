@@ -1,6 +1,6 @@
 ---
 title: Physical and Mental Restoration
-h1: Physical and Mental Restoration
+h1: Physical & Mental Restoration with Qigong in Pune
 tags: mind, recovery
 summary: Use conscious awareness to repair the body, gather a scattered mind, and restore harmony.
 ---

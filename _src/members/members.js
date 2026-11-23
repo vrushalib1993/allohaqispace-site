@@ -160,7 +160,7 @@ async function viewLogin() {
       <button class="btn btn-cta btn-lg btn-block" id="go" type="submit">Log in</button>
       <div class="m-alt"><button type="button" class="linkbtn" id="magic">Email me a login link instead</button><button type="button" class="linkbtn si" id="forgot">Forgot password?</button></div>
     </form></div>
-    <p class="m-note">By creating an account you agree to our <a href="/terms-of-service/">terms</a> and <a href="/privacy-policy-2/">privacy policy</a>.</p></div>`;
+    <p class="m-note">By creating an account you agree to our <a href="/terms-of-service/">terms</a> and <a href="/privacy-policy/">privacy policy</a>.</p></div>`;
   let m = mode;
   const set = (x) => { m = x; $$('.m-tabs button').forEach(b => b.classList.toggle('on', b.dataset.m === x)); $$('.su').forEach(e => e.hidden = x !== 'signup'); $$('.si').forEach(e => e.hidden = x !== 'signin');
     $('#go').textContent = x === 'signup' ? 'Create account' : 'Log in'; $('#pw').autocomplete = x === 'signup' ? 'new-password' : 'current-password'; errBox($('#msg'), ''); };

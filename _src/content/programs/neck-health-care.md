@@ -1,6 +1,6 @@
 ---
 title: Neck Health Care
-h1: Neck Health Care
+h1: Qigong for Neck Health in Pune & Online
 tags: body
 summary: A precise six-step Zhineng Qigong sequence to release tension, restore mobility and support posture.
 ---

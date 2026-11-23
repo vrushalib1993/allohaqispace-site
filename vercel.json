@@ -23,11 +23,6 @@
       "permanent": true
     },
     {
-      "source": "/privacy-policy",
-      "destination": "/privacy-policy-2/",
-      "permanent": true
-    },
-    {
       "source": "/healing-events",
       "destination": "/events/",
       "permanent": true
@@ -253,11 +248,6 @@
       "permanent": true
     },
     {
-      "source": "/privacy-policy/",
-      "destination": "/privacy-policy-2/",
-      "permanent": true
-    },
-    {
       "source": "/healing-events/",
       "destination": "/events/",
       "permanent": true
@@ -426,6 +416,16 @@
       "source": "/blog/",
       "destination": "/inspiration/",
       "permanent": false
+    },
+    {
+      "source": "/privacy-policy-2",
+      "destination": "/privacy-policy/",
+      "permanent": true
+    },
+    {
+      "source": "/privacy-policy-2/",
+      "destination": "/privacy-policy/",
+      "permanent": true
     }
   ],
   "headers": [

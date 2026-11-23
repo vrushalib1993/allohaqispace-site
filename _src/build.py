@@ -6,7 +6,9 @@ import markdown
 
 SRC = Path(__file__).parent / "content"
 OUT = Path(__file__).resolve().parent.parent
-DOMAIN = "https://allohaqispace.com"
+DOMAIN = "https://www.allohaqispace.com"
+OG_DEFAULT = DOMAIN + "/assets/og-default.jpg"
+HOURS_TEXT = "Mon–Sat, 8 am–8 pm"
 WA = "919881192288"
 TODAY = "2026-11-19"
 ADDR = "Unit 1, Kalpataru Regency 2, Lane 10, Kalyani Nagar, Pune 411006"
@@ -123,7 +125,7 @@ def nav_html(cur=""):
     lis = "".join(f'<li><a href="{h}"{" class=\"cur\"" if cur==h else ""}>{t}</a></li>' for t, h in NAV_ITEMS)
     return (f'<nav class="top" id="nav"><div class="wrap"><a href="/" class="logo" aria-label="Alloha Qi Space home">{LOGO_IMG}</a>'
             f'<ul class="links" id="links">{lis}<li><a href="/login/" class="memlink" data-member-link>Log in</a></li><li><a href="/contact-us/#book" class="btn btn-cta">Book a session</a></li></ul>'
-            '<button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>')
+            '<button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="links"><span></span><span></span><span></span></button></div></nav>')
 
 WA_ICON = '<svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.7c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.6 3.6 0 0 0-1.1 2.7 6.3 6.3 0 0 0 1.3 3.3 14.4 14.4 0 0 0 5.5 4.9c2 .9 2.9 1 3.9.8a3.3 3.3 0 0 0 2.2-1.5 2.7 2.7 0 0 0 .2-1.5c-.1-.2-.3-.3-.6-.4z"/></svg>'
 
@@ -141,12 +143,12 @@ def footer_html():
  <div><a href="/" class="flogo" aria-label="Alloha Qi Space home">{LOGO_IMG}</a><p>Zhineng Qigong and Hun Yuan Qi therapy in Kalyani Nagar, Pune, and online worldwide.</p>
   <p style="margin-top:1rem"><a href="{MAPS}" target="_blank" rel="noopener">{ADDR}</a></p>
   <p style="margin-top:.6rem"><a href="https://wa.me/{WA}" target="_blank" rel="noopener">WhatsApp +91 98811 92288</a></p></div>
- <div><h4>Programs</h4><ul>{progs}</ul></div>
- <div><h4>Explore</h4><ul><li><a href="/about-us/">About us</a></li><li><a href="/programs/">All programs</a></li><li><a href="/#finder">Practice finder</a></li><li><a href="/#listen">Listen &amp; practise</a></li><li><a href="/inspiration/">Journal</a></li><li><a href="/events/">Healing events</a></li><li><a href="/healing-stories/">Healing stories</a></li><li><a href="/courses/">Online courses</a></li><li><a href="/account/">My courses</a></li><li><a href="/shop/">Shop</a></li><li><a href="/faq/">FAQ</a></li></ul></div>
- <div><h4>Visit</h4><ul><li><a href="/contact-us/">Contact &amp; booking</a></li><li><a href="{MAPS}" target="_blank" rel="noopener">Open in Google Maps</a></li><li><a href="https://wa.me/{WA}" target="_blank" rel="noopener">Chat on WhatsApp</a></li><li><a href="tel:+919881192288">Call +91 98811 92288</a></li></ul></div>
+ <div><h2 class="fh">Programs</h2><ul>{progs}</ul></div>
+ <div><h2 class="fh">Explore</h2><ul><li><a href="/about-us/">About us</a></li><li><a href="/programs/">All programs</a></li><li><a href="/#finder">Practice finder</a></li><li><a href="/#listen">Listen &amp; practise</a></li><li><a href="/inspiration/">Journal</a></li><li><a href="/events/">Healing events</a></li><li><a href="/healing-stories/">Healing stories</a></li><li><a href="/courses/">Online courses</a></li><li><a href="/account/">My courses</a></li><li><a href="/shop/">Shop</a></li><li><a href="/faq/">FAQ</a></li></ul></div>
+ <div><h2 class="fh">Visit</h2><ul><li>Open {HOURS_TEXT}</li><li><a href="/contact-us/">Contact &amp; booking</a></li><li><a href="{MAPS}" target="_blank" rel="noopener">Open in Google Maps</a></li><li><a href="https://wa.me/{WA}" target="_blank" rel="noopener">Chat on WhatsApp</a></li><li><a href="tel:+919881192288">Call +91 98811 92288</a></li></ul></div>
 </div>
 <p class="disc">Qigong is a complementary wellness practice and is not a substitute for medical diagnosis or treatment. Please continue any treatment prescribed by your doctor and consult them before starting new practices, especially during pregnancy or after surgery.</p>
-<div class="fbot"><span>© <span class="yr">2026</span> Alloha Qi Space · Kalyani Nagar, Pune</span><nav><a href="/terms-of-service/">Terms</a><a href="/privacy-policy-2/">Privacy</a><a href="/refund-policy/">Refunds</a></nav></div>
+<div class="fbot"><span>© <span class="yr">2026</span> Alloha Qi Space · Kalyani Nagar, Pune</span><nav><a href="/terms-of-service/">Terms</a><a href="/privacy-policy/">Privacy</a><a href="/refund-policy/">Refunds</a></nav></div>
 </div></footer>
 <a class="wa-float" href="{wa("Hi Rikhil, I'd like to know more about Qigong sessions.")}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">{WA_ICON}</a>
 <div class="toast" id="toast"></div>'''
@@ -157,6 +159,19 @@ def ver(f): return hashlib.md5((OUT/"assets"/f).read_bytes()).hexdigest()[:8]
 ARROW = '<span class="arr" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>'
 WA_ICON = '<span class="wai" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M16 3C8.8 3 3 8.7 3 15.8c0 2.5.7 4.9 2 7L3 29l6.4-2c2 1.1 4.3 1.7 6.6 1.7 7.2 0 13-5.7 13-12.8C29 8.7 23.2 3 16 3zm0 23.4c-2.1 0-4.1-.6-5.9-1.7l-.4-.2-3.8 1.2 1.2-3.7-.3-.4a10.4 10.4 0 0 1-1.6-5.7C5.2 10 10 5.3 16 5.3S26.8 10 26.8 15.8 22 26.4 16 26.4zm5.9-7.8c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1a8.8 8.8 0 0 1-4.4-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4s-1.2 1.1-1.2 2.7 1.2 3.2 1.4 3.4 2.4 3.6 5.8 5c2.1.9 3 1 4 .8.7-.1 1.9-.8 2.2-1.5s.3-1.4.2-1.5-.3-.2-.6-.3z"/></svg></span>'
 _btn_re = re.compile(r'(<(a|button)\b[^>]*class="[^"]*\bbtn-cta\b[^"]*"[^>]*>)(.*?)(</\2>)', re.S)
+def add_img_sizes(doc):
+    def f(m):
+        t = m.group(0)
+        if re.search(r'\swidth=', t): return t
+        src = re.search(r'src="([^"]+)"', t)
+        u = src.group(1) if src else ""
+        w = re.search(r'[?&]w=(\d+)', u); h = re.search(r'[?&]h=(\d+)', u)
+        if w and h: W, H = w.group(1), h.group(1)
+        elif 'hero-photo' in t: W, H = "1600", "900"
+        else: W, H = "800", "500"
+        return t[:-1].rstrip("/").rstrip() + f' width="{W}" height="{H}">'
+    return re.sub(r'<img\b[^>]*>', f, doc)
+
 def add_arrows(doc):
     def f(m):
         open_tag, inner = m.group(1), m.group(3)
@@ -197,12 +212,11 @@ def page(path, title, desc, body, cur="", ld=None, progress=False, og_type="webs
 <title>{esc(full_title)}</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="canonical" href="{canon}">
-<meta property="og:type" content="{og_type}">{f'<meta property="og:image" content="{og_image}"><meta name="twitter:card" content="summary_large_image">' if og_image else ""}
+<meta property="og:type" content="{og_type}"><meta property="og:image" content="{og_image or OG_DEFAULT}"><meta property="og:image:alt" content="{esc(full_title)}"><meta name="twitter:card" content="summary_large_image">
 <meta property="og:title" content="{esc(full_title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:url" content="{canon}">
 <meta property="og:site_name" content="Alloha Qi Space">
-<meta name="twitter:card" content="summary">
 <meta name="theme-color" content="#18334C">
 <link rel="icon" href="/assets/icon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="/assets/icon-180.png">
@@ -213,16 +227,19 @@ def page(path, title, desc, body, cur="", ld=None, progress=False, og_type="webs
 {lds}
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <div class="progress" id="progress"></div>
 {nav_html(cur)}
+<main id="main" tabindex="-1">
 {body}
+</main>
 {footer_html()}
 {mbar if mbar is not None else mbar_html()}
 <script src="/assets/site.js?v={ver("site.js")}" defer></script>{f'<script src="/assets/config.js?v={ver("config.js")}"></script><script type="module" src="/assets/members.js?v={ver("members.js")}"></script>' if member else ""}{scripts}
 </body>
 </html>
 '''
-    doc = add_arrows(doc)
+    doc = add_img_sizes(add_arrows(doc))
     dest = OUT / path.strip("/") / "index.html" if path != "/404" else OUT / "404.html"
     dest.parent.mkdir(parents=True, exist_ok=True)
     dest.write_text(doc)
@@ -265,6 +282,10 @@ BUSINESS = {
     "description": "Zhineng Qigong classes, Hun Yuan Qi therapy and holistic wellness consultations in Kalyani Nagar, Pune, and online.",
     "address": {"@type": "PostalAddress", "streetAddress": "Unit 1, Kalpataru Regency 2, Lane 10, Kalyani Nagar", "addressLocality": "Pune", "addressRegion": "Maharashtra", "postalCode": "411006", "addressCountry": "IN"},
     "founder": {"@type": "Person", "name": "Rikhil Bithar"}, "areaServed": ["Pune", "Online"],
+    "image": OG_DEFAULT, "logo": DOMAIN + "/assets/logo.png", "hasMap": MAPS,
+    "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], "opens": "08:00", "closes": "20:00"}],
+    "paymentAccepted": "Cash, UPI, Credit Card, Debit Card",
+    "sameAs": ["https://www.youtube.com/@allohaqispace"],
 }
 
 def breadcrumb_ld(items):
@@ -292,7 +313,7 @@ def program_card(p, i=0):
     tags = p["tags"].replace(",", " ")
     pid, alt = PROGRAM_IMG[p["slug"]]
     return (f'<a class="scard reveal" href="/{p["slug"]}/" data-tags="{tags}"><div class="sthumb"><img src="https://images.unsplash.com/photo-{pid}?auto=format&fit=crop&q=70&w=640&h=400" alt="{esc(alt)}" loading="lazy" decoding="async"></div><div class="ico">{ICONS.get(p["slug"],"")}</div>'
-            f'<h3>{esc(p["title"].split(" – ")[0])}</h3><p>{esc(p["summary"])}</p><span class="textlink">Discover →</span></a>')
+            f'<h3>{esc(p["title"].split(" – ")[0])}</h3><p>{esc(p["summary"])}</p><span class="textlink" aria-hidden="true">Discover →</span></a>')
 
 for i, p in enumerate(programs):
     content, toks = render_md(p["body"])
@@ -575,15 +596,15 @@ pages.append(page("/product/ohana/", "Ohana: A Wellness Guide (eBook)", "Ohana i
 body = hero("Shop", "Guides &amp; <span class=hl>resources</span>", "Take the practice home with you.", crumbs=[("Home", "/"), ("Shop", None)])
 body += f'''<section><div class="wrap"><div class="grid3"><a class="post reveal" href="/product/ohana/"><div class="art" style="background:var(--blue);display:grid;place-items:center"><span style="font-family:var(--head);font-size:2.6rem;font-weight:700;color:#fff;position:relative">Ohana</span></div>
 <div class="body"><small>eBook · PDF</small><h3>Ohana: a wellness guide</h3><p>Mindfulness, breathing and energy-awareness practices for individuals and families.</p><span class="textlink">₹800 <s style="color:var(--muted);font-weight:400">₹2,400</s> →</span></div></a></div></div></section>{cta_band()}'''
-pages.append(page("/shop/", "Shop", "Wellness guides and resources from Alloha Qi Space.", body))
+pages.append(page("/shop/", "Shop", "Wellness guides and resources from Alloha Qi Space, including the Ohana guide for individuals and families practising Qigong at home.", body))
 
 # ---------- policies ----------
-for slug, title, src in [("terms-of-service", "Terms of Service", "terms-of-service"), ("privacy-policy-2", "Privacy Policy", "privacy-policy"), ("refund-policy", "Refund Policy", "refund-policy")]:
+for slug, title, src in [("terms-of-service", "Terms of Service", "terms-of-service"), ("privacy-policy", "Privacy Policy", "privacy-policy"), ("refund-policy", "Refund Policy", "refund-policy")]:
     _, md_ = load_md(SRC / "pages" / f"{src}.md")
     content, _ = render_md(md_)
     body = hero("Legal", title, f"Last updated: {fmt_date(TODAY)}", crumbs=[("Home", "/"), (title, None)])
     body += f'<section><div class="wrap layout narrow"><article class="prose reveal">{content}</article></div></section>'
-    pages.append(page(f"/{slug}/", title, f"{title} for Alloha Qi Space, Kalyani Nagar, Pune.", body))
+    pages.append(page(f"/{slug}/", title, f"{title} for Alloha Qi Space, the Zhineng Qigong and Hun Yuan Qi therapy centre in Kalyani Nagar, Pune, and online.", body))
 
 # ---------- 404 ----------
 body = hero("Page not found", "This page has <span class=hl>moved on</span>", "The page you were looking for isn’t here. Try one of these instead.",
@@ -656,6 +677,38 @@ for u in urls:
     sm.append(f"  <url><loc>{DOMAIN}{u}</loc><lastmod>{bp['date'] if bp else SITE_UPDATED}</lastmod><priority>{pr}</priority></url>")
 sm.append("</urlset>")
 (OUT / "sitemap.xml").write_text("\n".join(sm) + "\n")
+_llm_progs = "\n".join(f"- [{p['title']}]({DOMAIN}/{p['slug']}/): {p['summary']}" for p in programs)
+_llm_posts = "\n".join(f"- [{b['title']}]({DOMAIN}{b['path']}): {b['description']}" for b in blog_live[:15])
+(OUT / "llms.txt").write_text(f"""# Alloha Qi Space
+
+> Zhineng Qigong classes and Hun Yuan Qi therapy with certified teacher Rikhil Bithar, at Unit 1, Kalpataru Regency 2, Lane 10, Kalyani Nagar, Pune 411006, India, and online worldwide. Beginner-friendly; no experience needed. Sessions complement, and never replace, medical care.
+
+## Key facts
+- Teacher: Rikhil Bithar, who founded Alloha Qi Space with his mother, Ravina Bithar
+- Practices: Zhineng Qigong (gentle movement, relaxed breathing, calm attention) and Hun Yuan Qi therapy sessions
+- Formats: in person at the Pune centre, live online classes and sessions, corporate wellness programs, healing events, online courses
+- Hours: {HOURS_TEXT} (Sunday closed)
+- Booking: WhatsApp or call +91 98811 92288, or the booking form at {DOMAIN}/contact-us/
+- Fees: shared on request on WhatsApp
+- Payments: UPI, cards and cash
+
+## Main pages
+- [Home]({DOMAIN}/)
+- [All programs]({DOMAIN}/programs/)
+- [About Rikhil and Alloha Qi Space]({DOMAIN}/about-us/)
+- [Contact and booking]({DOMAIN}/contact-us/)
+- [FAQ]({DOMAIN}/faq/)
+- [Healing events]({DOMAIN}/events/)
+- [Online courses]({DOMAIN}/courses/)
+- [Healing stories]({DOMAIN}/healing-stories/)
+- [Journal]({DOMAIN}/inspiration/)
+
+## Programs
+{_llm_progs}
+
+## Guides from the journal
+{_llm_posts}
+""")
 (OUT / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
 
 # export data for homepage patching

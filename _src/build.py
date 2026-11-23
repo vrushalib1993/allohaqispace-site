@@ -173,7 +173,9 @@ TRACKING = """<script async src="https://www.googletagmanager.com/gtm.js?id=GTM-
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
+  gtag('config', 'G-C4GP8CRRG0');
 </script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-C4GP8CRRG0"></script>
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};

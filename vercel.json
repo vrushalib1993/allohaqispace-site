@@ -1,5 +1,5 @@
 {
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": true,
   "redirects": [
     {
@@ -450,26 +450,9 @@
           "value": "strict-origin-when-cross-origin"
         }
       ]
-    },
-    {
-      "source": "/verify/(.*)",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/html; charset=utf-8"
-        },
-        {
-          "key": "X-Robots-Tag",
-          "value": "noindex"
-        }
-      ]
     }
   ],
   "rewrites": [
-    {
-      "source": "/google8eed6be3dc1bf6fe.html",
-      "destination": "/verify/google8eed6be3dc1bf6fe.txt"
-    },
     {
       "source": "/event/:slug",
       "destination": "/event/"

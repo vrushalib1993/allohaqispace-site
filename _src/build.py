@@ -257,12 +257,19 @@ STUDIO = [("studio-hall", "The open practice hall at Alloha Qi Space, Kalyani Na
           ("studio-glass-rooms", "Seating area beside the private session rooms"),
           ("studio-lounge", "Rest area with Rikhil's certificates on the wall"),
           ("studio-gallery", "Gallery wall in the main hall"),
-          ("studio-photo-wall", "Framed landscape photographs in the studio")]
+          ("studio-photo-wall", "Framed landscape photographs in the studio"),
+          ("studio-hall2", "Reading corner and practice space in the main hall"),
+          ("studio-waiting", "Waiting area beside the therapy rooms"),
+          ("studio-sunset", "Large sunset photograph in a quiet corner of the studio")]
 ART = {"foundational-qigong-practice": ("art-dantian", "Illustration of a woman gathering glowing Qi at her lower abdomen"),
        "qi-core-improvement": ("art-spine", "Illustration of a practitioner with a line of light along the spine, arms raised"),
        "restructuring-with-zhineng-qi-gong": ("art-diver", "Mosaic of a diver gliding through blue water"),
        "physical-and-mental-restoration": ("art-surfer", "Mosaic of a surfer riding a wave under a bright sun"),
-       "special-care-for-delicate-situations": ("art-mother", "Illustration of an expectant mother surrounded by warm light")}
+       "special-care-for-delicate-situations": ("art-mother", "Illustration of an expectant mother surrounded by warm light"),
+       "comprehensive-consultations": ("art-hands", "Two hands holding a glowing ball of Qi"),
+       "online-healing-classes": ("art-joy", "Illustration of a smiling woman holding a small ball of light"),
+       "eye-recovery": ("art-awareness", "Illustration of a man turning his attention from screens to the light in his chest")}
+PFIG = {"foundational-qigong-practice": ("rikhil-practice", "Rikhil Bithar practising Lift Qi Up in the Alloha Qi Space studio")}
 def gallery(items, cls="gallery"):
     return f'<div class="{cls}">' + "".join(
         f'<figure class="reveal"><img src="/assets/img/{n}-800.jpg" srcset="/assets/img/{n}-800.jpg 800w, /assets/img/{n}-1600.jpg 1600w" '
@@ -357,7 +364,8 @@ for i, p in enumerate(programs):
     body = hero("", esc(p.get("h1", name)), esc(p["summary"]), img=PROGRAM_IMG[p["slug"]][0], focus="center 45%", crumbs=[("Home", "/"), ("Programs", "/programs/"), (name, None)],
                 tags=[t.strip() for t in p["tags"].split(",")],
                 extra=f'<div class="cta-row"><a class="btn btn-cta btn-lg" href="{wa(f"Hi Rikhil, I would like to book the {name} practice. Could you share available times and fees?")}" target="_blank" rel="noopener">Book this practice →</a><a class="btn btn-outline btn-lg" href="#content">How it works</a></div><ul class="reassure"><li>No experience needed</li><li>In person or online</li><li>Personal reply from Rikhil</li></ul>')
-    pfig = artfig(*ART[p["slug"]], cls="artfig pfig") if p["slug"] in ART else ""
+    _f = PFIG.get(p["slug"]) or ART.get(p["slug"])
+    pfig = artfig(*_f, cls="artfig pfig") if _f else ""
     body += f'''<section id="content"><div class="wrap layout"><article class="prose reveal">{pfig}{content}</article>
 <aside class="aside">{book}{toc_html(toks)}{finder}</aside></div></section>
 <section class="bg-white"><div class="wrap"><div class="sec-head reveal"><div class="eyebrow">Keep exploring</div><h2>Other programs</h2></div>
@@ -552,7 +560,8 @@ body = hero("About us", "A family’s healing, <span class=hl>shared with every 
 body += f'''<div class="wrap"><div class="creds">{badges}</div></div>
 <section><div class="wrap layout"><article class="prose reveal">{content}</article>
 <aside class="aside"><figure class="pcard"><img src="/assets/img/rikhil-portrait-800.jpg" alt="Rikhil Bithar at Alloha Qi Space, Kalyani Nagar" loading="lazy" decoding="async"><figcaption><b>Rikhil Bithar</b><span>Founder &amp; teacher</span></figcaption></figure>{toc_html(toks)}{artfig("art-aperture", "Poster: Open yourself to let the light enter. Like a camera, a human has an aperture. Willingness and positivity can bring change and transformation.")}<div class="card navy"><h3 >Meet Rikhil</h3><p>Visit the centre in Kalyani Nagar or book an online session.</p><a class="btn btn-white" href="/contact-us/#book">Book a session</a></div></aside></div></section>
-<section class="bg-white"><div class="wrap"><div class="sec-head reveal"><div class="eyebrow">The space</div><h2>Inside Alloha Qi Space</h2><p class="lead">Our studio in Kalyani Nagar, Pune, has an open hall for group practice and glass-walled rooms for one-to-one sessions, filled with daylight and nature photography.</p></div>{gallery(STUDIO[:6], "gallery g3")}</div></section>{cta_band()}'''
+<section class="bg-white"><div class="wrap"><div class="sec-head reveal"><div class="eyebrow">The space</div><h2>Inside Alloha Qi Space</h2><p class="lead">Our studio in Kalyani Nagar, Pune, has an open hall for group practice and glass-walled rooms for one-to-one sessions, filled with daylight and nature photography.</p></div>{gallery(STUDIO[:9], "gallery g3")}</div></section>
+<section><div class="wrap"><div class="sec-head reveal"><div class="eyebrow">In practice</div><h2>Rikhil at work</h2><p class="lead">Rikhil practises every day and teaches each movement the way he learned it, slowly and with attention.</p></div>{gallery([("rikhil-practice", "Rikhil Bithar practising Lift Qi Up in the studio"), ("rikhil-qi", "Artistic photo of Rikhil with arms outstretched, light flowing through him")], "gallery g2")}</div></section>{cta_band()}'''
 pages.append(page("/about-us/", "About Rikhil & Ravina Bithar", "Alloha Qi Space was founded by Rikhil Bithar, a certified Hun Yuan Qi Therapist and Zhineng Qigong teacher, and his mother Ravina Bithar.", body, cur="/about-us/",
                   ld=[BUSINESS, {"@context": "https://schema.org", "@type": "Person", "name": "Rikhil Bithar", "jobTitle": "Hun Yuan Qi Therapist and Zhineng Qigong Teacher", "worksFor": {"@type": "Organization", "name": "Alloha Qi Space"}, "image": DOMAIN + "/assets/img/rikhil-portrait-800.jpg", "sameAs": [IG]}], og_image=DOMAIN + "/assets/img/studio-corridor-1600.jpg"))
 
@@ -562,8 +571,8 @@ qas = "".join(f'<div class="qa"><button aria-expanded="false">{esc(q)}</button><
 body = hero("FAQ", "Questions, <span class=hl>answered</span>", "Everything you need to know before your first Zhineng Qigong session.", crumbs=[("Home", "/"), ("FAQ", None)])
 body += f'''<section><div class="wrap layout"><div class="reveal"><div class="search" style="max-width:none;margin:0 0 1.4rem"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg><input id="fq" type="search" placeholder="Search questions…" aria-label="Search questions"></div>
 {qas}<p id="nores" style="display:none;color:var(--muted);padding:1rem 0">No matches. Ask us directly on WhatsApp.</p></div>
-<aside class="aside"><div class="card navy"><h3 >Still have a question?</h3><p>Rikhil answers personally on WhatsApp.</p><a class="btn btn-white" href="{wa("Hi Rikhil, I have a question about Qigong.")}" target="_blank" rel="noopener">Ask on WhatsApp</a></div>
-<div class="card"><h3>New to Qigong?</h3><p>The foundational practice is the best place to start.</p><a class="btn btn-outline" href="/foundational-qigong-practice/">Start here</a></div></aside></div></section>{cta_band()}'''
+<aside class="aside">{artfig("art-teapot", "Illustration: Qi poured into a body full of smiling cells, beside a body where nothing is being supplied to the cells")}<div class="card navy"><h3 >Still have a question?</h3><p>Rikhil answers personally on WhatsApp.</p><a class="btn btn-white" href="{wa("Hi Rikhil, I have a question about Qigong.")}" target="_blank" rel="noopener">Ask on WhatsApp</a></div>
+<div class="card">{artfig("art-seed", "A seedling sprouting from a seed in a glowing circle", "artfig seedfig")}<h3>New to Qigong?</h3><p>The foundational practice is the best place to start.</p><a class="btn btn-outline" href="/foundational-qigong-practice/">Start here</a></div></aside></div></section>{cta_band()}'''
 pages.append(page("/faq/", "Zhineng Qigong FAQ", "Answers to common questions about Zhineng Qigong: what it is, who it suits, how it works, how often to practise and what you need.", body, cur="/faq/",
                   ld=[{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]}]))
 
@@ -595,7 +604,8 @@ EV_LOADING = '<div class="wrap"><div class="m-loading"><span class="spin"></span
 body = hero("Healing events", "Healing events, workshops &amp; <span class=hl>retreats</span>",
             "Practise together. Group Qi Gong sessions, healing circles and workshops in Pune and live online. Book your seat online in a minute.",
             crumbs=[("Home", "/"), ("Healing events", None)])
-body += f'<section><div id="ev-app" data-view="events">{EV_LOADING}</div></section>{cta_band()}'
+body += f'<section><div id="ev-app" data-view="events">{EV_LOADING}</div></section>'
+body += f'''<section style="padding-top:0"><div class="wrap evjoin">{artfig("art-join", "Poster: Feel completely free to join me in my practice. Open your heart and mind.")}<div class="reveal"><div class="eyebrow">Practise together</div><h2>Everyone is welcome</h2><p class="lead">Group practice builds a shared Qi field, and many students find it easier to settle and focus together. No experience is needed: come as you are, move at your own pace, and Rikhil will guide you through every step.</p><a class="btn btn-outline" href="{wa("Hi Rikhil, I would like to join a group practice. When is the next one?")}" target="_blank" rel="noopener">Ask about the next session</a></div></div></section>{cta_band()}'''
 pages.append(page("/events/", "Healing Events", "Book healing events, Qi Gong workshops and practice days at Alloha Qi Space in Kalyani Nagar, Pune and online.", body,
                   cur="/events/", scripts=ev_scripts(), extra_css=True))
 body = f'<div id="ev-app" data-view="event"><div style="padding-top:150px">{EV_LOADING}</div></div>{cta_band()}'
@@ -662,7 +672,7 @@ story_form = f"""<form class="sform" id="story-form" novalidate>
  <button class="btn btn-cta btn-lg" type="submit" data-deco="plain">Share my story</button></form>"""
 body = hero("Healing stories", "Zhineng Qigong <span class=hl>healing stories</span>",
             "Real experiences from people who practise with Rikhil, shared in their own words, without names. Every body is different, and these stories describe personal journeys rather than promised results.",
-            crumbs=[("Home", "/"), ("Healing stories", None)], img="1506126613408-eca07ce68773")
+            crumbs=[("Home", "/"), ("Healing stories", None)], img="/assets/img/art-lotus", focus="center 50%")
 body += f"""<section><div class="wrap"><div id="stories-app"><div class="m-loading"><span class="spin"></span>Loading stories…</div></div></div></section>
 <section class="bg-white"><div class="wrap"><div class="sec-head reveal"><div class="eyebrow">Understanding the practice</div><h2>What Zhineng Qigong and Hun Yuan Qi therapy work with</h2>
 <p class="lead">Both practices come from the Zhineng Qigong system developed by Dr. Pang Ming. They work with Hun Yuan Qi, the fine, subtle Qi of nature, together with movement, breath and focused intention.</p></div>

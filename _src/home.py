@@ -76,7 +76,7 @@ body = f'''
  <div class="meet-grid">
   <div class="meet-media reveal">
    {B.yt("DCJgmAhAYRA","Meet Rikhil and Alloha Qi Space")}
-   <div class="meet-badge"><div class="mono">RB</div><div><b>Rikhil Bithar</b><small>Founder &amp; teacher, Alloha Qi Space</small></div></div>
+   <div class="meet-badge"><div class="mono">{B.AVATAR}</div><div><b>Rikhil Bithar</b><small>Founder &amp; teacher, Alloha Qi Space</small></div></div>
   </div>
   <div class="reveal">
    <div class="eyebrow">Meet your teacher</div>
@@ -107,6 +107,12 @@ body = f'''
   <button class="btn btn-cta btn-lg btn-block" type="submit" data-deco="plain">Send me free tips</button>
   <p class="nl-fine">We’ll only use your email to send Rikhil’s newsletter. See our <a href="/privacy-policy/">privacy policy</a>.</p>
  </form></div></div></section>
+
+<section class="bg-white" id="studio"><div class="wrap">
+ <div class="sec-head reveal"><div class="eyebrow">The studio</div><h2>Step inside Alloha Qi Space</h2><p class="lead">A calm, light-filled space in Kalyani Nagar, Pune, with an open hall for group practice and glass-walled rooms for one-to-one Hun Yuan Qi sessions.</p></div>
+ {B.gallery(B.STUDIO[:5], "gallery g4")}
+ <p style="margin-top:1.6rem"><a class="btn btn-outline" href="/contact-us/">Plan your visit →</a></p>
+</div></section>
 
 <section class="bg-cloud" id="approach"><div class="wrap">
  <div class="sec-head center reveal"><div class="eyebrow">Sound familiar?</div><h2>Qi Gong for the things that wear you down</h2><p class="lead">Slow, precise movement and focused attention, taught in plain language. Pick what bothers you most.</p></div>

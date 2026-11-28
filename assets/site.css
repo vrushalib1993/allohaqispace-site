@@ -911,3 +911,26 @@ main:focus{outline:none}
 .prose a.btn-cta,.prose a.btn-cta .lbl{color:#fff!important}
 .prose a.btn-outline{color:var(--ink)}
 .prose .binline a.btn-cta,.prose .binline a.btn-cta .lbl{color:var(--ink)!important}
+
+/* ---- client photos & artwork ---- */
+.meet-badge .mono,.bav{overflow:hidden;padding:0}
+.meet-badge .mono img,.bav img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
+.gallery{display:grid;gap:1rem;margin-top:.6rem}
+.gallery.g3{grid-template-columns:repeat(3,1fr)}
+.gallery.g4{grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto}
+.gallery.g4 figure:first-child{grid-row:span 2}
+.gallery figure{margin:0;border-radius:var(--r-lg);overflow:hidden;background:var(--soft);aspect-ratio:4/3;box-shadow:0 18px 40px -28px rgba(12,31,49,.45)}
+.gallery.g4 figure:first-child{aspect-ratio:auto}
+.gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .8s var(--ease)}
+.gallery figure:hover img{transform:scale(1.04)}
+.artfig{margin:0;border-radius:var(--r-lg);overflow:hidden;box-shadow:0 22px 44px -26px rgba(12,31,49,.5)}
+.artfig img{width:100%;height:auto;display:block}
+.prose .pfig{float:right;width:min(300px,42%);margin:.3rem 0 1.4rem 2rem}
+.aside .artfig{margin-bottom:1.4rem}
+.pcard{margin:0 0 1.4rem;border-radius:var(--r-lg);overflow:hidden;background:#fff;box-shadow:0 22px 44px -26px rgba(12,31,49,.45)}
+.pcard img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+.pcard figcaption{padding:1rem 1.2rem}.pcard b{display:block;font-family:var(--head);color:var(--navy)}.pcard span{font-size:.88rem;color:var(--muted)}
+.scope-grid.three{grid-template-columns:.8fr 1fr 1fr;align-items:start}
+.scope-art img{aspect-ratio:2/3;object-fit:cover}
+@media (max-width:900px){.gallery.g3,.gallery.g4{grid-template-columns:1fr 1fr}.gallery.g4 figure:first-child{grid-column:span 2;grid-row:auto;aspect-ratio:4/3}.scope-grid.three{grid-template-columns:1fr}.scope-art{max-width:340px;margin:0 auto}}
+@media (max-width:600px){.gallery.g3{grid-template-columns:1fr}.prose .pfig{float:none;width:min(320px,100%);margin:0 auto 1.6rem}}

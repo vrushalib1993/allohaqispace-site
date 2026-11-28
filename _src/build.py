@@ -268,8 +268,10 @@ ART = {"foundational-qigong-practice": ("art-dantian", "Illustration of a woman 
        "special-care-for-delicate-situations": ("art-mother", "Illustration of an expectant mother surrounded by warm light"),
        "comprehensive-consultations": ("art-hands", "Two hands holding a glowing ball of Qi"),
        "online-healing-classes": ("art-joy", "Illustration of a smiling woman holding a small ball of light"),
-       "eye-recovery": ("art-awareness", "Illustration of a man turning his attention from screens to the light in his chest")}
-PFIG = {"foundational-qigong-practice": ("rikhil-practice", "Rikhil Bithar practising Lift Qi Up in the Alloha Qi Space studio")}
+       "eye-recovery": ("art-palming", "Painting of Rikhil covering his eyes with his palms, an eye-relaxation exercise")}
+PFIG = {"foundational-qigong-practice": ("rikhil-practice", "Rikhil Bithar practising Lift Qi Up in the Alloha Qi Space studio"),
+        "physical-and-mental-restoration": ("art-standing", "Illustration of a glowing figure in a calm standing posture among the stars"),
+        "online-healing-classes": ("art-qiflow", "Watercolour of Qi flowing into a person from every direction")}
 def gallery(items, cls="gallery"):
     return f'<div class="{cls}">' + "".join(
         f'<figure class="reveal"><img src="/assets/img/{n}-800.jpg" srcset="/assets/img/{n}-800.jpg 800w, /assets/img/{n}-1600.jpg 1600w" '
@@ -381,7 +383,7 @@ for i, p in enumerate(programs):
 filters = "".join(f'<button class="chip{" on" if f=="all" else ""}" data-f="{f}">{t}</button>' for f, t in [("all", "All"), ("body", "Body"), ("mind", "Mind"), ("recovery", "Recovery"), ("online", "Online")])
 body = hero("Programs", "Support for every step of your <span class=hl>healing &amp; awakening</span>",
             "Together you will have an intelligent blueprint that raises the quality and function of your life. Rotating these practices takes care of different parts of the body through the days and months, so the body works well as a whole.",
-            crumbs=[("Home", "/"), ("Programs", None)],
+            crumbs=[("Home", "/"), ("Programs", None)], img="/assets/img/art-lake", focus="center 40%",
             extra=f'<div class="cta-row"><a class="btn btn-primary" href="/#finder">Find your practice</a><a class="btn btn-outline" href="/contact-us/#book">Book a session</a></div>')
 body += f'''<section class="bg-white"><div class="wrap"><div class="filters reveal" data-filter-group=".scard">{filters}</div>
 <div class="grid3">{"".join(program_card(p) for p in programs)}</div></div></section>
@@ -605,7 +607,7 @@ body = hero("Healing events", "Healing events, workshops &amp; <span class=hl>re
             "Practise together. Group Qi Gong sessions, healing circles and workshops in Pune and live online. Book your seat online in a minute.",
             crumbs=[("Home", "/"), ("Healing events", None)])
 body += f'<section><div id="ev-app" data-view="events">{EV_LOADING}</div></section>'
-body += f'''<section style="padding-top:0"><div class="wrap evjoin">{artfig("art-join", "Poster: Feel completely free to join me in my practice. Open your heart and mind.")}<div class="reveal"><div class="eyebrow">Practise together</div><h2>Everyone is welcome</h2><p class="lead">Group practice builds a shared Qi field, and many students find it easier to settle and focus together. No experience is needed: come as you are, move at your own pace, and Rikhil will guide you through every step.</p><a class="btn btn-outline" href="{wa("Hi Rikhil, I would like to join a group practice. When is the next one?")}" target="_blank" rel="noopener">Ask about the next session</a></div></div></section>{cta_band()}'''
+body += f'''<section style="padding-top:0"><div class="wrap evjoin">{artfig("art-join", "Poster: Feel completely free to join me in my practice. Open your heart and mind.")}<div class="reveal"><figure class="evphoto"><img src="/assets/img/event-soundbath-800.jpg" srcset="/assets/img/event-soundbath-800.jpg 800w, /assets/img/event-soundbath-1600.jpg 1600w" sizes="(max-width:800px) 100vw, 60vw" alt="A candle-lit group relaxation session with a singing bowl at Alloha Qi Space" loading="lazy" decoding="async"></figure><div class="eyebrow">Practise together</div><h2>Everyone is welcome</h2><p class="lead">Group practice builds a shared Qi field, and many students find it easier to settle and focus together. No experience is needed: come as you are, move at your own pace, and Rikhil will guide you through every step.</p><a class="btn btn-outline" href="{wa("Hi Rikhil, I would like to join a group practice. When is the next one?")}" target="_blank" rel="noopener">Ask about the next session</a></div></div></section>{cta_band()}'''
 pages.append(page("/events/", "Healing Events", "Book healing events, Qi Gong workshops and practice days at Alloha Qi Space in Kalyani Nagar, Pune and online.", body,
                   cur="/events/", scripts=ev_scripts(), extra_css=True))
 body = f'<div id="ev-app" data-view="event"><div style="padding-top:150px">{EV_LOADING}</div></div>{cta_band()}'
@@ -622,22 +624,24 @@ pages.append(page("/event-booked/", "Booking received", "Your Alloha Qi Space ev
 ohana_msg = wa("Hi Rikhil, I'd like to buy the Ohana wellness guide (₹800). How can I pay?")
 body = hero("Shop", "Ohana", "A wellness guide for individuals and families.", crumbs=[("Home", "/"), ("Shop", "/shop/"), ("Ohana", None)])
 body += f'''<section><div class="wrap product">
-<div class="bookcover reveal"><div class="cover"><span>Alloha Qi Space · eBook</span><div><b>Ohana</b><i></i><span style="text-transform:none;letter-spacing:0;font-weight:500">A wellness guide for families</span></div></div></div>
+<div class="bookcover reveal"><img class="realcover" src="/assets/img/book-ohana-1024.jpg" alt="Cover of OHANA by Rikhil Bithar" decoding="async"></div>
 <div class="reveal"><span class="tag">eBook · PDF</span><h2 style="font-size:clamp(2rem,4vw,3rem);margin:.8rem 0 .2rem">Ohana</h2>
 <div class="price"><b>₹800</b><s>₹2,400</s><i>Save 67%</i></div>
 <div class="prose"><p>Ohana is a unique wellness guide created to help individuals and families improve health, healing, and overall well-being. This visually engaging PDF combines mindfulness practices, breathing exercises, energy awareness, and positive mental habits designed to support a healthier lifestyle.</p>
 <p>Inside, you’ll discover practical techniques for relaxation, inner balance, stress relief, and personal growth—all presented in an inspiring and easy-to-follow format.</p>
 <p>Whether you’re looking to feel more energized, develop a stronger mindset, or explore holistic wellness methods, Ohana offers powerful insights that can positively impact everyday life.</p>
 <p>A meaningful resource for anyone seeking better health, peace, and personal transformation.</p></div>
-<p style="margin-top:1.8rem;display:flex;gap:.8rem;flex-wrap:wrap"><a class="btn btn-primary" href="{ohana_msg}" target="_blank" rel="noopener">Buy on WhatsApp</a><a class="btn btn-outline" href="/refund-policy/">Refund policy</a></p>
+<p style="margin-top:1.8rem;display:flex;gap:.8rem;flex-wrap:wrap"><a class="btn btn-primary" href="{ohana_msg}" target="_blank" rel="noopener">Buy on WhatsApp</a><a class="btn btn-outline" href="https://www.amazon.in/s?k=OHANA+Rikhil+Bithar" target="_blank" rel="noopener">Kindle &amp; paperback on Amazon</a><a class="btn btn-outline" href="/refund-policy/">Refund policy</a></p>
 <p style="color:var(--muted);font-size:.85rem;margin-top:1rem">Pay by UPI or bank transfer; the PDF is sent to you on WhatsApp or email. Digital products are non-refundable.</p></div>
 </div></section>{cta_band()}'''
 pages.append(page("/product/ohana/", "Ohana: A Wellness Guide (eBook)", "Ohana is a wellness guide PDF with mindfulness, breathing and energy-awareness practices for individuals and families. ₹800.", body,
                   ld=[{"@context": "https://schema.org", "@type": "Product", "name": "Ohana", "description": "A wellness guide PDF for individuals and families.", "category": "eBook",
                        "offers": {"@type": "Offer", "price": "800", "priceCurrency": "INR", "availability": "https://schema.org/InStock"}}]))
 body = hero("Shop", "Guides &amp; <span class=hl>resources</span>", "Take the practice home with you.", crumbs=[("Home", "/"), ("Shop", None)])
-body += f'''<section><div class="wrap"><div class="grid3"><a class="post reveal" href="/product/ohana/"><div class="art" style="background:var(--blue);display:grid;place-items:center"><span style="font-family:var(--head);font-size:2.6rem;font-weight:700;color:#fff;position:relative">Ohana</span></div>
-<div class="body"><small>eBook · PDF</small><h3>Ohana: a wellness guide</h3><p>Mindfulness, breathing and energy-awareness practices for individuals and families.</p><span class="textlink">₹800 <s style="color:var(--muted);font-weight:400">₹2,400</s> →</span></div></a></div></div></section>{cta_band()}'''
+body += f'''<section><div class="wrap"><div class="grid3"><a class="post reveal" href="/product/ohana/"><div class="art bookart"><img src="/assets/img/book-ohana-640.jpg" alt="Cover of OHANA by Rikhil Bithar" loading="lazy"></div>
+<div class="body"><small>eBook · PDF</small><h3>Ohana: a wellness guide</h3><p>Mindfulness, breathing and energy-awareness practices for individuals and families.</p><span class="textlink">₹800 <s style="color:var(--muted);font-weight:400">₹2,400</s> →</span></div></a>
+<a class="post reveal" href="https://www.amazon.in/s?k=The+Aperture+of+Willingness+Rikhil+Bithar" target="_blank" rel="noopener"><div class="art bookart"><img src="/assets/img/book-aperture-640.jpg" alt="Cover of The Aperture of Willingness by Rikhil Bithar" loading="lazy"></div>
+<div class="body"><small>Book · Kindle</small><h3>The Aperture of Willingness</h3><p>Rikhil's book on intention: how openness and willingness let change happen. Let your intention win.</p><span class="textlink">On Amazon →</span></div></a></div></div></section>{cta_band()}'''
 pages.append(page("/shop/", "Shop", "Wellness guides and resources from Alloha Qi Space, including the Ohana guide for individuals and families practising Qigong at home.", body))
 
 # ---------- policies ----------
